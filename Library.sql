@@ -64,7 +64,11 @@ alter table Borrowings
 add constraint k1_UserID foreign key (UserID) references Users(UserID);
 alter table Borrowings
 add constraint k2_BookID foreign key (BookID) references Books(BookID);
-
+/*Kiểm tra ReturnDate và DueDate > BorrowingDate*/
+alter table borrowings
+add constraint k3_checkRDate check (ReturnDate > BorrowDate);
+alter table borrowings
+add constraint k4_checkDDate check (DueDate > BorrowDate);
 /*Insert table books*/
 insert into Books(BookID, Title, Author, Genre, Publisher, PublicationYear, Status, Description) values 
             (01, N'Dế Mèn phiêu lưu ký', N'Tô Hoài', N'Truyện thiếu nhi', N'Báo Tân Dân', 1941, 'HAVING', N'Dế Mèn phiêu lưu ký là tác phẩm văn xuôi đặc sắc và nổi tiếng nhất của nhà văn Tô Hoài viết về loài vật, dành cho lứa tuổi thiếu nhi.');
