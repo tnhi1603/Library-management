@@ -24,6 +24,10 @@ add constraint check_pubyear check(PublicationYear < 2023);
 alter table Books
 add constraint check_status check( status in ('HAVING', 'BORROWED', 'LOST'));
 
+/*Điều kiện để ID không bị trùng*/
+alter table Books
+add constraint unique_bookID UNIQUE (BookID);
+
 /*Bảng Users*/
 CREATE TABLE Users (
 UserID INT NOT NULL AUTO_INCREMENT,
@@ -39,6 +43,9 @@ PRIMARY KEY (UserID)
 /*Kiếm tra vai trò*/
 alter table Users
 add constraint check_Role check( Role in ('QL', 'TT'));
+
+alter table Users
+add constraint unique_userID UNIQUE (UserID);
 
 /*Bảng mượn*/
 CREATE TABLE Borrowings (
