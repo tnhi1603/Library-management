@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="footer.css">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            background: transparent;
+            min-height: 100vh;
+        }
+        .container {
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 0 10px dimgray;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .inline {
+            width: 70%;
+            display: inline-block;
+            padding: 10px;
+            max-width: 500px;
+        }
+        .sign-up {
+            width: 85%;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 0 30px dimgray;
+            position: relative;
+        }
+        .sign-up .heading {
+            text-align: center;
+            color: whitesmoke;
+            background-color: darkgreen;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            padding: 25px;
+            margin: -30px -30px 20px -30px;
+        }
+        .sign-up .form-group {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .sign-up label {
+            font-size: 18px;
+            margin-bottom: 3px;
+            float: left;
+        }
+        .sign-up .form-group input:not([type="submit"]) {
+            width: 95%;
+            background-color: lightgrey ;
+            padding: 5px 10px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 16px;
+            border-radius: 3px;
+            border: 2px solid transparent;
+            outline: 0;
+            transition: 0 0.5s ease-out;
+        }
+        .sign-up input:not([type="submit"]):focus {
+            border-color: dimgray;
+        }
+        .sign-up input[type="submit"] {
+            background-color: cadetblue ;
+            color: white;
+            border-radius: 10px;
+            padding: 10px 30px;
+            font-size: 18px;
+            line-height: 20px;
+            height: 50px;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.5s ease-out;
+        }
+        .sign-up input[type="submit"]:hover {
+            background-color: darkgreen;
+        }
+        a {
+            font-size: 18px;
+            color: darkgreen;
+            float: right;
+            padding-right: 30px;
+            padding-bottom: 10px;
+        }
+        label.error {
+            font-weight: 700;
+            font-size: 16px;
+            display: block;
+			color: red;
+		}
+    </style>
+    <script>
+        $("#formValidation").validate({
+            rules: {
+				"user": {
+					minlength: 4
+				},
+				"mail": {
+					email: true
+				},
+				"password": {
+					minlength: 5
+				},
+				"re-password": {
+					equalTo: "#password"
+				}
+			},
+            messages: {
+				"user": {
+					required: "Vui lòng nhập tên tài khoản",
+					minlength: "Tên không hợp lệ (Tối thiểu 4 ký tự)"
+				},
+				"mail": {
+					required: "Vui lòng nhập Email",
+					email: "Email sai định dạng (name@domain.com)"
+				},
+				"password": {
+					required: "Vui lòng nhập mật khẩu",
+					minlength: "Mật khẩu cần ít nhất 5 ký tự"
+				},
+				"re-password": {
+					required: "Nhập lại mật khẩu trên",
+					equalTo: "Mật khẩu không trùng khớp"
+				}
+            },
+            submitHandler: function(form) {
+                form.submit();}
+        });
+    </script>
+    <!-- Thêm Firebase SDK -->
+<!-- Import the Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-analytics.js"></script>
+<script src="/firebase.js"></script>
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="inline">
+        <img src="logo.png" alt="LOGO" height="50px" width="auto">
+        <div class="sign-up" action="dangky_page.php">
+            <h1 class="heading">ĐĂNG KÝ</h1>
+            <form name="formValidation" id="formValidation">
+                <div class="form-group">
+                    <label for="user">Tên tài khoản</label>
+                    <input id="user" type="text" name="user" placeholder="Name*" required/>
+                </div>
+                <div class="form-group">
+                    <label for="mail">Email</label>
+                    <input id="signupEmailInput" type="email" name="mail" placeholder="Email*" required/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input id="signupPasswordInput" type="password" name="password" placeholder="Password*" required/>
+                </div>
+                <div class="form-group">
+                    <label for="re-password">Xác nhận lại mật khẩu</label>
+                    <input id="re-password" type="password" name="re-password" placeholder="Re-password*" required/>
+                </div>
+                <div class="text-center">
+                    <input id="submit" type="submit" value="Đăng ký tài khoản" name="submit"/>
+                </div>
+            </form>
+        </div>
+        <a href="dang_nhap.html">Đăng nhập</a>
+        </div>
+    </div>
+    <!--Footer-->
+    <div class="footer">
+        <div>Địa chỉ: Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh.</div>
+        <div class="social-link">
+            <div>Facebook: fb.com/thuvien</div>
+            <div>Email: thuvien@gmail.com</div>
+            <div>Hotline: 123456789</div>
+        </div>
+    </div>
+</body>
+</html>
