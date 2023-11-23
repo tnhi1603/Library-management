@@ -97,59 +97,17 @@
 			color: red;
 		}
     </style>
-    <script>
-        $("#formValidation").validate({
-            rules: {
-				"user": {
-					minlength: 4
-				},
-				"mail": {
-					email: true
-				},
-				"password": {
-					minlength: 5
-				},
-				"re-password": {
-					equalTo: "#password"
-				}
-			},
-            messages: {
-				"user": {
-					required: "Vui lòng nhập tên tài khoản",
-					minlength: "Tên không hợp lệ (Tối thiểu 4 ký tự)"
-				},
-				"mail": {
-					required: "Vui lòng nhập Email",
-					email: "Email sai định dạng (name@domain.com)"
-				},
-				"password": {
-					required: "Vui lòng nhập mật khẩu",
-					minlength: "Mật khẩu cần ít nhất 5 ký tự"
-				},
-				"re-password": {
-					required: "Nhập lại mật khẩu trên",
-					equalTo: "Mật khẩu không trùng khớp"
-				}
-            },
-            submitHandler: function(form) {
-                form.submit();}
-        });
-    </script>
+    <script src="validate_signup.js"></script>
     <!-- Thêm Firebase SDK -->
 <!-- Import the Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-analytics.js"></script>
-<script src="/firebase.js"></script>
 
 </head>
 <body>
-
+    <script type="module" src="firebase_signup.js"></script>
     <div class="container">
         <div class="inline">
         <img src="logo.png" alt="LOGO" height="50px" width="auto">
-        <div class="sign-up" action="dangky_page.php">
+        <div class="sign-up">
             <h1 class="heading">ĐĂNG KÝ</h1>
             <form name="formValidation" id="formValidation">
                 <div class="form-group">
