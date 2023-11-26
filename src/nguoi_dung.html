@@ -63,7 +63,25 @@
             <div class="user">
                 <img src="/img/avatar.png" alt="Avatar" height="100px" width="100px">
                 <p>Tên người dùng: ABCD</p>
-                <p>Email: abcd@gmail.com</p>
+                <a>Email: </a>
+                <div id="email"></div>
+
+                <script>
+                   // Sử dụng AJAX để đọc nội dung của tệp HTML từ máy chủ
+                   var xhr = new XMLHttpRequest();
+                   xhr.onreadystatechange = function () {
+                      if (xhr.readyState == 4 && xhr.status == 200) {
+                         // Khi tệp đã được đọc thành công, trích xuất biến từ đoạn mã JavaScript
+                         var parser = new DOMParser();
+                         var doc = parser.parseFromString(xhr.responseText, "text/html");
+                         var email = doc.querySelector("script").innerText.match(/var email = "(.*?)";/)[1];
+                         document.getElementById("email").innerText = email;
+                      }
+                   };
+                   xhr.open("GET", "/src/dang_nhap.html", true);
+                   xhr.send();
+                </script>
+             
             </div>
             <div class="button">
                 <a href="/src/nguoi_dung_sdm.html">Sách đang mượn</a>
