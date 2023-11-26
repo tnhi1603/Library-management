@@ -1,183 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đổi mật khẩu</title>
-    <style>   
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 16px;
-            background: transparent;
-            min-height: 100vh;
-        }
-        .container {
-            text-align: center;
-            border-radius: 5px;
-            box-shadow: 0 0 10px dimgray;
-            padding: 20px;
-            max-width: 600px;
-            margin: auto;
-        }
-        .inline {
-            width: 70%;
-            display: inline-block;
-            padding: 10px;
-            max-width: 500px;
-        }
-        .change-password {
-            width: 85%;
-            padding: 30px;
-            margin: 20px 0;
-            border-radius: 10px;
-            box-shadow: 0 0 30px dimgray;
-            position: relative;
-        }
-        .change-password .heading {
-            text-align: center;
-            color: whitesmoke;
-            background-color: darkgreen;
-            border-top-right-radius: 10px;
-            border-top-left-radius: 10px;
-            padding: 25px;
-            margin: -30px -30px 20px -30px;
-        }
-        .change-password .form-group {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        .change-password label {
-            font-size: 18px;
-            margin-bottom: 3px;
-            float: left;
-        }
-        .change-password .form-group input:not([type="submit"]) {
-            width: 95%;
-            background-color: lightgrey;
-            padding: 5px 10px;
-            height: 30px;
-            line-height: 30px;
-            font-size: 16px;
-            border-radius: 3px;
-            border: 2px solid transparent;
-            outline: 0;
-            transition: 0 0.5s ease-out;
-        }
-        .change-password input:not([type="submit"]):focus {
-            border-color: dimgray;
-        }
-        .change-password input[type="submit"] {
-            background-color: cadetblue;
-            color: white;
-            border-radius: 10px;
-            padding: 10px 30px;
-            font-size: 18px;
-            line-height: 20px;
-            height: 50px;
-            width: 100%;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.5s ease-out;
-        }
-        .change-password input[type="submit"]:hover {
-            background-color: darkgreen;
-        }
-        a {
-            font-size: 18px;
-            color: darkgreen;
-            float: right;
-            padding-right: 30px;
-            padding-bottom: 10px;
-        }
-        label.error {
-            font-weight: 700;
-            font-size: 16px;
-            display: block;
-            color: red;
-        }
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        background: transparent;
+        min-height: 100vh;
+      }
+      .container {
+        text-align: center;
+        border-radius: 5px;
+        box-shadow: 0 0 10px dimgray;
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+      }
+      .inline {
+        width: 70%;
+        display: inline-block;
+        padding: 10px;
+        max-width: 500px;
+      }
+      .change-password {
+        width: 85%;
+        padding: 30px;
+        margin: 20px 0;
+        border-radius: 10px;
+        box-shadow: 0 0 30px dimgray;
+        position: relative;
+      }
+      .change-password .heading {
+        text-align: center;
+        color: whitesmoke;
+        background-color: darkgreen;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        padding: 25px;
+        margin: -30px -30px 20px -30px;
+      }
+      .change-password .form-group {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+      .change-password label {
+        font-size: 18px;
+        margin-bottom: 3px;
+        float: left;
+      }
+      .change-password .form-group input:not([type="submit"]) {
+        width: 95%;
+        background-color: lightgrey;
+        padding: 5px 10px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 16px;
+        border-radius: 3px;
+        border: 2px solid transparent;
+        outline: 0;
+        transition: 0 0.5s ease-out;
+      }
+      .change-password input:not([type="submit"]):focus {
+        border-color: dimgray;
+      }
+      .change-password input[type="submit"] {
+        background-color: cadetblue;
+        color: white;
+        border-radius: 10px;
+        padding: 10px 30px;
+        font-size: 18px;
+        line-height: 20px;
+        height: 50px;
+        width: 100%;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.5s ease-out;
+      }
+      .change-password input[type="submit"]:hover {
+        background-color: darkgreen;
+      }
+      a {
+        font-size: 18px;
+        color: darkgreen;
+        float: right;
+        padding-right: 30px;
+        padding-bottom: 10px;
+      }
+      label.error {
+        font-weight: 700;
+        font-size: 16px;
+        display: block;
+        color: red;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="inline">
-            <div class="change-password">
-                <div class="heading">Đổi mật khẩu</div>
-                <form id="changePasswordForm">
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="currentPassword">Mật khẩu hiện tại:</label>
-                        <input type="password" id="currentPassword" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="newPassword">Mật khẩu mới:</label>
-                        <input type="password" id="newPassword" required>
-                    </div>
-
-                    <input type="submit" value="Đổi mật khẩu">
-                </form>
+      <div class="inline">
+        <div class="change-password">
+          <div class="heading">Đổi mật khẩu</div>
+          <form id="changePasswordForm">
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" required />
             </div>
-            <!-- <a href="#" id="sendVerificationEmail">Gửi email xác nhận</a> -->
+
+            <div class="form-group">
+              <label for="currentPassword">Mật khẩu hiện tại:</label>
+              <input type="password" id="currentPassword" required />
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">Mật khẩu mới:</label>
+              <input type="password" id="newPassword" required />
+            </div>
+
+            <input type="submit" value="Đổi mật khẩu" />
+          </form>
         </div>
+        <!-- <a href="#" id="sendVerificationEmail">Gửi email xác nhận</a> -->
+      </div>
     </div>
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
-        import { getAuth, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
-        import { getDatabase, ref, child, set } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
-            authDomain: "webapplication-19930.firebaseapp.com",
-            databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
-            projectId: "webapplication-19930",
-            storageBucket: "webapplication-19930.appspot.com",
-            messagingSenderId: "240590364295",
-            appId: "1:240590364295:web:072e52f18a04f146c12222",
-            measurementId: "G-BJXFDHBEBK"
-          };
-        
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const auth = getAuth(app);
-        const database = getDatabase(app);
-        
-        document.getElementById('changePasswordForm').addEventListener('submit', changePassword);
-        
-        // Đổi mật khẩu
-        function changePassword(event) {
-          event.preventDefault();
-          const email = document.getElementById('email').value;
-          const currentPassword = document.getElementById('currentPassword').value;
-          const newPassword = document.getElementById('newPassword').value;
-        
-          const user = auth.currentUser;
-          const credentials = EmailAuthProvider.credential(email, currentPassword);
-        
-          // Reauthenticate user
-          reauthenticateWithCredential(user, credentials)
-            .then(() => {
-              // Change password
-              return updatePassword(user, newPassword);
-            })
-            .then(() => {
-              // Update password in the Realtime Database
-              const userKey = email.replace('.', ',');
-              const userRef = ref(database, `users/${userKey}/password`);
-              set(userRef, newPassword);
-        
-              alert('Đổi mật khẩu thành công!');
-              window.location.href = 'dang_nhap.html';
-            })
-            .catch(error => {
-              alert(`Đổi mật khẩu thất bại: ${error.message}`);
-            });
-        }
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+      import {
+        getAuth,
+        reauthenticateWithCredential,
+        EmailAuthProvider,
+        updatePassword,
+      } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+      import {
+        getDatabase,
+        ref,
+        child,
+        set,
+        update,
+      } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+        authDomain: "webapplication-19930.firebaseapp.com",
+        databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
+        projectId: "webapplication-19930",
+        storageBucket: "webapplication-19930.appspot.com",
+        messagingSenderId: "240590364295",
+        appId: "1:240590364295:web:072e52f18a04f146c12222",
+        measurementId: "G-BJXFDHBEBK",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+      const database = getDatabase(app);
+
+      document
+        .getElementById("changePasswordForm")
+        .addEventListener("submit", changePassword);
+
+      // Đổi mật khẩu
+      function changePassword(event) {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        const currentPassword =
+          document.getElementById("currentPassword").value;
+        const newPassword = document.getElementById("newPassword").value;
+
+        const user = auth.currentUser;
+        const credentials = EmailAuthProvider.credential(
+          email,
+          currentPassword
+        );
+
+        // Reauthenticate user
+        reauthenticateWithCredential(user, credentials)
+          .then(() => {
+            // Change password
+            return updatePassword(user, newPassword);
+          })
+          .then(() => {
+            // Update password in the Realtime Database
+            const uid = user.uid;
+            const userRef = ref(database, "users/" + uid);
+            return update(userRef, { password: newPassword });
+          })
+          .then(() => {
+            console.log("Cập nhật mật khẩu thành công trong Realtime Database.");
+            alert("Đổi mật khẩu thành công!");
+            window.location.href = "dang_nhap.html";
+          })
+          .catch((error) => {
+            alert(`Đổi mật khẩu thất bại: ${error.message}`);
+          });
+      }
     </script>
-</body>
+  </body>
 </html>
