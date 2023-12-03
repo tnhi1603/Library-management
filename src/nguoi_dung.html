@@ -6,9 +6,9 @@
     <title>Người dùng</title>
     <!--Cài đặt để giao diện menu phù hợp với từng thiết bị-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/thanh_menu.css">
-    <link rel="stylesheet" href="/css/nguoi_dung.css">
-    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="../css/thanh_menu.css">
+    <link rel="stylesheet" href="../css/nguoi_dung.css">
+    <link rel="stylesheet" href="../css/footer.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
 </head>
@@ -17,7 +17,7 @@
     <div class="wrapper">
         <!--Header-->
         <div class="header">
-            <img src="/img/logo.png" alt="LOGO" height="50px" width="auto">
+            <img src="../img/logo.png" alt="LOGO" height="50px" width="auto">
             <div class="toggle">
                 <i class="fas fa-bars"></i>
             </div>
@@ -30,29 +30,29 @@
             </script>
             <nav>
                 <ul class="main-menu">
-                    <li><a href="/src/trang_chu.html">Trang chủ</a></li>
+                    <li><a href="../src/trang_chu.html">Trang chủ</a></li>
                     <li class="submenu">
-                        <a href="/src/gioi_thieu_gtc.html">Giới thiệu</a>
+                        <a href="../src/gioi_thieu_gtc.html">Giới thiệu</a>
                         <ul>
-                            <li><a href="/src/gioi_thieu_gtc.html">Giới thiệu chung</a></li>
-                            <li><a href="/src/gioi_thieu_ddtg.html">Địa điểm & Thời gian hoạt động</a></li>
-                            <li><a href="/src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a></li>
-                            <li><a href="/src/gioi_thieu_ttpb.html">Thông tin các phòng ban</a></li>
-                            <li><a href="/src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
+                            <li><a href="../src/gioi_thieu_gtc.html">Giới thiệu chung</a></li>
+                            <li><a href="../src/gioi_thieu_ddtg.html">Địa điểm & Thời gian hoạt động</a></li>
+                            <li><a href="../src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a></li>
+                            <li><a href="../src/gioi_thieu_ttpb.html">Thông tin các phòng ban</a></li>
+                            <li><a href="../src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
                         </ul>
                     </li>
-                    <li><a href="/src/muon_sach.html">Mượn sách</a></li>
+                    <li><a href="../src/muon_sach.html">Mượn sách</a></li>
                     <li class="submenu">
-                        <a href="/src/lien_he.html">Liên hệ</a>
+                        <a href="../src/lien_he.html">Liên hệ</a>
                         <ul>
-                            <li><a href="/src/lien_he_ttlh.html">Thông tin liên hệ thư viện</a></li>
-                            <li><a href="/src/lien_he_tg.html">Trợ giúp</a></li>
+                            <li><a href="../src/lien_he_ttlh.html">Thông tin liên hệ thư viện</a></li>
+                            <li><a href="../src/lien_he_tg.html">Trợ giúp</a></li>
                         </ul>
                     </li>
                     <!--Icon fontawsome-->
-                    <li><a href="/src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
-                    <li><a href="/src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a id="now" href="/src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                    <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
+                    <li><a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
+                    <li><a id="now" href="../src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>
@@ -61,7 +61,7 @@
         <h1>Tài khoản người dùng</h1>
         <div class="container">
             <div class="user">
-                <img src="/img/avatar.png" alt="Avatar" height="100px" width="100px">
+                <img src="../img/avatar.png" alt="Avatar" height="100px" width="100px">
                 <p>Tên người dùng: ABCD</p>
                 <a>Email: </a>
                 <div id="email"></div>
@@ -78,17 +78,17 @@
                          document.getElementById("email").innerText = email;
                       }
                    };
-                   xhr.open("GET", "/src/dang_nhap.html", true);
+                   xhr.open("GET", "../src/dang_nhap.html", true);
                    xhr.send();
                 </script>
              
             </div>
             <div class="button">
-                <a href="/src/nguoi_dung_sdm.html">Sách đang mượn</a>
-                <a href="/src/nguoi_dung_dm.html">Sách đã mượn</a>
+                <a href="../src/nguoi_dung_sdm.html">Sách đang mượn</a>
+                <a href="../src/nguoi_dung_dm.html">Sách đã mượn</a>
             </div>
             <br>
-            <a href="/src/doi_mat_khau.html">Đổi mật khẩu</a>
+            <a href="../src/doi_mat_khau.html">Đổi mật khẩu</a>
         </div>
         <!--Footer-->
         <div class="footer">
