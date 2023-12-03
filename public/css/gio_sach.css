@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10px 5%;
+}
+
+.wrapper {
+    max-width: 960px;
+    margin: auto;
+}
+
+h1 {
+    margin: 30px 20px 20px 0;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.container {
+    padding: 30px;
+    background-color: white;
+    box-shadow: 0 0 10px gray;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.product div {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px;
+}
+
+.product a {
+    float: right;
+    color: red;
+    cursor: pointer;
+}
+
+.product a:hover{
+    text-decoration: underline;
+}
+
+.product input[type="checkbox"] {
+    /* Tăng size checkbox lên 1.5 lần */
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+    transform: scale(1.5);
+}
+
+.container input[type="submit"] {
+    background-color: darkgreen ;
+    color: white;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 10px 30px;
+    font-size: 18px;
+    line-height: 20px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+
+.container input[type="submit"]:hover {
+    background-color: cadetblue;
+}

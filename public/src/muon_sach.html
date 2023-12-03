@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vn">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Danh mục sách</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/thanh_menu.css">
+    <link rel="stylesheet" href="../css/muon_sach.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!--Header-->
+        <div class="header">
+            <img src="../img/logo.png" alt="LOGO" height="50px" width="auto">
+            <div class="toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $(".toggle").click(function(){
+                        $("nav").slideToggle();
+                    })
+                });
+            </script>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="../src/trang_chu.html">Trang chủ</a></li>
+                    <li class="submenu">
+                        <a href="../src/gioi_thieu_gtc.html">Giới thiệu</a>
+                        <ul>
+                            <li><a href="../src/gioi_thieu_gtc.html">Giới thiệu chung</a></li>
+                            <li><a href="../src/gioi_thieu_ddtg.html">Địa điểm & Thời gian hoạt động</a></li>
+                            <li><a href="../src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a></li>
+                            <li><a href="../src/gioi_thieu_ttpb.html">Thông tin các phòng ban</a></li>
+                            <li><a href="../src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
+                        </ul>
+                    </li>
+                    <li><a id="now" href="../src/muon_sach.html">Mượn sách</a></li>
+                    <li class="submenu">
+                        <a href="../src/lien_he.html">Liên hệ</a>
+                    </li>
+                    <!--Icon fontawsome-->
+                    <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
+                    <li><a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
+                    <li><a href="../src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!--Body-->
+        <h1>Trang chủ/ Mượn sách</h1>
+
+        <div class="search-container">
+            <input type="text" id="Nhande" placeholder="Nhập nhan đề">
+            <input type="text" id="Tacgia" placeholder="Nhập tác giả">
+            <input type="text" id="Tukhoa" placeholder="Nhập từ khóa">
+            <input type="text" id="Namxuatban" placeholder="Nhập năm xuất bản">
+            <button onclick="search()">Tìm Kiếm</button>
+        </div>
+        <div id="searchResults"></div>
+        <img src="../img/slide3.png" alt="list">
+        <!--Footer-->
+        <div class="footer">
+            <div>Địa chỉ: Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh.</div>
+            <div class="social-link">
+                <div>Facebook: fb.com/thuvien</div>
+                <div>Email: thuvien@gmail.com</div>
+                <div>Hotline: 123456789</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

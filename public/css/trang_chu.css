@@ -1,0 +1,245 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 10px 5%;
+}
+
+.wrapper {
+  max-width: 960px;
+  margin: auto;
+}
+
+/* Định dạng book slider */
+.slider {
+  padding-top: 20px;
+  max-width: 1000px;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Đè header lên trên slider */
+.header {
+  position: relative;
+  z-index: 2;
+}
+
+.slide-group {display: none;}
+
+/* Định dạng ảnh luôn theo tỉ lệ 16:9 */
+.slider img {
+  vertical-align: middle;
+  aspect-ratio: 16 / 9;
+}
+
+/* Định dạng nút Next & Previous */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Đặt nút "next button" về bên phải */
+.next {
+  right: 0;
+  border-radius: 5px 0 0 5px;
+}
+
+/* Cài đặt hiệu ứng khi trỏ chuột vào Next và Previous */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Định dạng số trang trong slider */
+.numbertext {
+  color: lightgray;
+  font-size: 12px;
+  padding: 30px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Định dạng dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 3px 2px;
+  background-color: lightgray;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Thiết lập hiệu ứng mờ đi cho slider */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* Điều chỉnh kích thước slider cho thiết bị kích thước nhỏ */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+/* Thanh tìm kiếm */
+.topnav {
+  overflow: auto;
+  background-color: cadetblue;
+}
+
+.topnav .search-container {
+  float:inline-end;
+}
+
+.topnav input[type=text] {
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 17px;
+  border: 1px solid dimgray;
+  border-radius: 5px;
+}
+
+.topnav .search-container button {
+  padding: 10px;
+  margin: 10px;
+  color: white;
+  background-color: firebrick;
+  border: 1px solid dimgray;
+  border-radius: 5px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: gray;
+}
+
+/* Điều chỉnh kích thước thanh tìm kiếm cho thiết bị kích thước nhỏ */
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+    background-color: white;
+  }
+  .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav .search-container button {
+    margin-top: 5px;
+  }
+}
+
+/* Giờ mở cửa - Quy định & Hướng dẫn */
+.opening {
+  float: left;
+  margin: 10px 0;
+  width: 40%;
+  height: 150px;
+  background-color: cadetblue ;
+  border: 2px solid goldenrod;
+}
+
+.rules {
+  float: left;
+  margin: 10px 0;
+  width: 60%;
+  height: 150px;
+  border: 2px solid darkgreen;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.opening h1 {
+  margin-top: 0px;
+  margin-right: 45%;
+  padding: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  color: black;
+  background-color: goldenrod;
+}
+
+.rules h1 {
+  margin-top: 0px;
+  margin-right: 40%;
+  padding: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  color: white;
+  background-color: darkgreen;
+}
+
+.opening p{
+  padding: 1px 20px 0 40px;
+  color: white;
+  font-size: 16px;
+}
+
+.rules ul li {
+  list-style: none;
+}
+
+.rules ul li a {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+}
+
+.rules ul li a:hover {
+  color: darkgreen;
+}
+
+/* Thiết kế nút back to top */
+#btt {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  background-color: darkgreen;
+  border: 1px solid whitesmoke;
+  cursor: pointer;
+  right: 30px;
+  bottom: 10px;
+  padding: 6px;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
+#btt:hover {
+  background-color: dimgray;
+}
+
+/* Điều chỉnh kích thước column cho thiết bị kích thước nhỏ */
+@media screen and (max-width: 760px) {
+  .opening {width: 100%;}
+  .rules {width: 100%;}
+}

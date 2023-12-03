@@ -1,0 +1,29 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ddd; /* Thêm khung cho bảng */
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color:rgb(75, 139, 75);
+    color:#ddd;
+    text-align: center;
+}
+
+tr.grouped-row td {
+    border: none; /* Loại bỏ khung cho ô trong dòng gộp */
+    background-color:rgb(75, 139, 75);
+    color:#ddd;
+    text-align: center;
+    font-weight: bold;
+}
+.table-container {
+    margin: 20px; /* Thêm khoảng lề cho container chứa bảng */
+}
