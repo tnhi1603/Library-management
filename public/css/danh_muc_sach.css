@@ -1,0 +1,60 @@
+.list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+.box {
+    cursor: pointer;
+    text-align: center;
+    padding: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    flex-basis: calc(30% - 20px); /* Đặt chiều rộng tối đa cho mỗi ô */
+    margin: 10px;
+    box-sizing: border-box; /* Tính cả border và padding vào chiều rộng */
+    text-decoration: none;
+    color: black;
+}
+
+.box:hover {
+    background-color: #e0e0e0;
+}
+
+.box img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.load-bar {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.page-selector {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-number {
+    padding: 10px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.page-number.active {
+    background-color: #ddd;
+}
+
+.out-of-stock {
+    color: red;
+}

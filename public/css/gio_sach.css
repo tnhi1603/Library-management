@@ -28,10 +28,15 @@ h1 {
     margin: 10px;
 }
 
-.product a {
+#delete {
     float: right;
     color: red;
     cursor: pointer;
+}
+
+#delete:hover {
+    text-decoration: underline; /* Gạch chân khi hover */
+    cursor: pointer; /* Biến con trỏ thành hình bàn tay khi hover */
 }
 
 .product a:hover{
@@ -47,7 +52,7 @@ h1 {
     transform: scale(1.5);
 }
 
-.container input[type="submit"] {
+.container button {
     background-color: darkgreen ;
     color: white;
     border-radius: 10px;
@@ -61,6 +66,6 @@ h1 {
     transition: all 0.5s ease-out;
 }
 
-.container input[type="submit"]:hover {
+.container button:hover {
     background-color: cadetblue;
 }
