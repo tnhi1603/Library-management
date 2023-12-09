@@ -1,0 +1,34 @@
+.book-container {
+    display: flex;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 20px;
+    max-width: 1000px; /* Điều chỉnh kích thước tối đa của ô sách */
+}
+
+.book-image {
+    flex: 1;
+    max-width: 200px; /* Điều chỉnh kích thước tối đa của ảnh */
+    margin-right: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.book-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.book-info {
+    flex: 2;
+    margin-left: 100px;
+    margin-top: 0px;
+}
+
+.out-of-stock {
+    color: red;
+}
