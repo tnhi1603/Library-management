@@ -209,7 +209,7 @@ function handleBorrow(bookId, numberOfDays) {
                         } else {
 
                             // Thêm thông tin mượn sách vào bảng borrowings
-                            update(borrowingsRef, {
+                            set(borrowingsRef, {
                                 [bookId]: {
                                 borrowDate: currentDate.toISOString().split('T')[0],
                                 returnDate: returnDate.toISOString().split('T')[0]
