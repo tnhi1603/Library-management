@@ -207,23 +207,26 @@ function handleBorrow(bookId, numberOfDays) {
                             // Nếu bookId đã tồn tại trong bảng borrowings
                             alert('Bạn đã mượn sách này!');
                         } else {
-
-                            // Thêm thông tin mượn sách vào bảng borrowings
-                            update(borrowingsRef, {
-                                [bookId]: {
-                                borrowDate: currentDate.toISOString().split('T')[0],
-                                returnDate: returnDate.toISOString().split('T')[0]
-                                }
-                            });
                             const bookInfoRef = ref(database, `books/${bookId}`);
                             get(bookInfoRef).then((bookSnapshot) => {
-                                const bookData = bookSnapshot.val();
-                                update(bookInfoRef, { Quantity: bookData.Quantity - 1 });
-                                console.log('Đã mượn sách thành công!');
-                                window.location.href = 'gio_sach.html';
-                            });
-                            // Xóa giỏ hàng sau khi đã mượn sách
-                            remove(cartRef);
+                                    const bookData = bookSnapshot.val();
+                                    if(bookData.Quantity > 0) {
+                                        // Thêm thông tin mượn sách vào bảng borrowings
+                                        update(borrowingsRef, {
+                                            [bookId]: {
+                                            borrowDate: currentDate.toISOString().split('T')[0],
+                                            returnDate: returnDate.toISOString().split('T')[0]
+                                            }
+                                        });
+                                        // Xóa giỏ hàng sau khi đã mượn sách
+                                        remove(cartRef);
+                                        update(bookInfoRef, { Quantity: bookData.Quantity - 1 });
+                                        alert('Đã mượn sách thành công!');
+                                        window.location.href = 'gio_sach.html';
+                                    } else {
+                                        alert("Đã hết sách");
+                                    }
+                                });
                         }
                     });
                 } else {
