@@ -6,32 +6,32 @@
     <meta name="description" content="G17 Library"/>
     <title>Cổng thông tin thư viện - Trang chủ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/trang_chu.css">
-    <link rel="stylesheet" href="../css/thanh_menu.css">
-    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href=" /css/trang_chu.css">
+    <link rel="stylesheet" href=" /css/thanh_menu.css">
+    <link rel="stylesheet" href=" /css/footer.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
-<script>
-    // Đây là biến đại diện cho trạng thái đăng nhập (admin, user, false: chưa đăng nhập)
-    var isLoggedIn = false;
-    
-    // Xử lý sự kiện click cho nút người dùng
-    document.getElementById("userLink").addEventListener("click", function(event) {
-        // Ngăn chặn hành động mặc định của liên kết
-        event.preventDefault();
+    <script> 
+        // Đây là biến đại diện cho trạng thái đăng nhập (admin, user, false: chưa đăng nhập)
+        var isLoggedIn = false;
         
-        // Kiểm tra nếu đã đăng nhập
-        if (isLoggedIn = 'admin') {
-            // Nếu đã đăng nhập, chuyển hướng đến trang nguoidung.html
-            window.location.href = "../src/quan_tri.html";
-        } else if(isLoggedIn = 'user') {
-            window.location.href = "../src/nguoi_dung.html";
-        }else{
-            // Nếu chưa đăng nhập, chuyển hướng đến trang dangnhap.html
-            window.location.href = "../src/dang_nhap.html"; 
-        }
-    });
-</script>
+        // Xử lý sự kiện click cho nút người dùng
+        document.getElementById("userLink").addEventListener("click", function(event) {
+            // Ngăn chặn hành động mặc định của liên kết
+            event.preventDefault();
+            
+            // Kiểm tra nếu đã đăng nhập
+            if (isLoggedIn = 'admin') {
+                // Nếu đã đăng nhập, chuyển hướng đến trang nguoidung.html
+                window.location.href = " /src/quan_tri.html";
+            } else if(isLoggedIn = 'user') {
+                window.location.href = " /src/nguoi_dung.html";
+            }else{
+                // Nếu chưa đăng nhập, chuyển hướng đến trang dangnhap.html
+                window.location.href = " /src/dang_nhap.html"; 
+            }
+        });
+    </script>
 
 </head>
 
@@ -39,7 +39,7 @@
     <div class="wrapper">
         <!--Header-->
         <div class="header">
-            <img src="../img/logo.png" alt="LOGO" height="50px" width="auto">
+            <img src=" /img/logo.png" alt="LOGO" height="50px" width="auto">
             <div class="toggle">
                 <i class="fas fa-bars"></i>
             </div>
@@ -47,30 +47,30 @@
                 $(document).ready(function(){
                     $(".toggle").click(function(){
                         $("nav").slideToggle();
-                    })
+                    });
                 });
             </script>
             <nav>
                 <ul class="main-menu">
-                    <li><a id="now" href="../src/trang_chu.html">Trang chủ</a></li>
+                    <li><a id="now" href=" /src/trang_chu.html">Trang chủ</a></li>
                     <li class="submenu">
-                        <a href="../src/gioi_thieu_gtc.html">Giới thiệu</a>
+                        <a href=" /src/gioi_thieu_gtc.html">Giới thiệu</a>
                         <ul>
-                            <li><a href="../src/gioi_thieu_gtc.html">Giới thiệu chung</a></li>
-                            <li><a href="../src/gioi_thieu_ddtg.html">Địa điểm & Thời gian hoạt động</a></li>
-                            <li><a href="../src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a></li>
-                            <li><a href="../src/gioi_thieu_ttpb.html">Thông tin các phòng ban</a></li>
-                            <li><a href="../src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
+                            <li><a href=" /src/gioi_thieu_gtc.html">Giới thiệu chung</a></li>
+                            <li><a href=" /src/gioi_thieu_ddtg.html">Địa điểm & Thời gian hoạt động</a></li>
+                            <li><a href=" /src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a></li>
+                            <li><a href=" /src/gioi_thieu_ttpb.html">Thông tin các phòng ban</a></li>
+                            <li><a href=" /src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
                         </ul>
                     </li>
-                    <li><a href="../src/muon_sach.html">Mượn sách</a></li>
+                    <li><a href=" /src/muon_sach.html">Mượn sách</a></li>
                     <li class="submenu">
-                        <a href="../src/lien_he.html">Liên hệ</a>
+                        <a href=" /src/lien_he.html">Liên hệ</a>
                     </li>
-                    <!--Icon fontawsome-->
-                    <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
-                    <li><a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a href="../src/nguoi_dung.html" id="userLink"><i class="fas fa-user"></i></a></li>
+                    <!--Icon fontawesome-->
+                    <li><a href=" /src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
+                    <li><a href=" /src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
+                    <li><a href=" /src/nguoi_dung.html" id="userLink"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>
@@ -81,40 +81,70 @@
             <div class="slider">
                 <div class="slide-group fade">
                     <div class="numbertext">1 / 3</div>
-                    <img src="../img/slide1.png" style="width:100%">
+                    <img src=" /img/slide1.png" style="width:100%">
                 </div>
 
                 <div class="slide-group fade">
                     <div class="numbertext">2 / 3</div>
-                    <img src="../img/slide2.jpeg" style="width:100%">
-                </div> 
+                    <img src=" /img/slide2.jpeg" style="width:100%">
+                </div>
                 <div class="slide-group fade">
                     <div class="numbertext">3 / 3</div>
-                    <img src="../img/slide3.png" style="width:100%">
-                </div>      
+                    <img src=" /img/slide3.png" style="width:100%">
+                </div>
                 <a class="prev" onclick="plusSlides(-1)">❮</a>
                 <a class="next" onclick="plusSlides(1)">❯</a>
             </div>
             <div style="text-align:center">
-                <span class="dot" onclick="currentSlide(1)"></span> 
-                <span class="dot" onclick="currentSlide(2)"></span> 
-                <span class="dot" onclick="currentSlide(3)"></span> 
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
             </div>
+
+            <!--Thực hiện tự động chuyển slide-->
             <script>
+                //Khởi tạo và hiển thị slide đầu
                 let slideIndex = 1;
                 showSlides(slideIndex);
-                function plusSlides(n) {showSlides(slideIndex += n);}
-                function currentSlide(n) {showSlides(slideIndex = n);}
+                //Hàm di chuyển đến slide kế tiếp 
+                function plusSlides(n) {
+                    showSlides(slideIndex += n);
+                }
+                //Hàm hiển thị slide được click vào
+                function currentSlide(n) {
+                    showSlides(slideIndex = n);
+                }
+
                 function showSlides(n) {
                     let i;
                     let slides = document.getElementsByClassName("slide-group");
                     let dots = document.getElementsByClassName("dot");
-                    if (n > slides.length) {slideIndex = 1}    
-                    if (n < 1) {slideIndex = slides.length}
-                    for (i = 0; i < slides.length; i++) {slides[i].style.display = "none";}
-                    for (i = 0; i < dots.length; i++) {dots[i].className = dots[i].className.replace(" active", "");}
-                    slides[slideIndex-1].style.display = "block";  
-                    dots[slideIndex-1].className += " active";}
+
+                    if (n > slides.length) {
+                        slideIndex = 1;
+                    }
+
+                    if (n < 1) {
+                        slideIndex = slides.length;
+                    }
+                    //Ẩn các slide trước khi hiển thị slide hiện tại
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    //Hiển thị slide hiện tại
+                    slides[slideIndex - 1].style.display = "block";
+
+                    //Thêm class 'active' di chuyển đến slide tương ứng
+                    dots[slideIndex - 1].className += " active";
+                }
+
+                // Tự động chuyển slide sau mỗi 5 giây
+                setInterval(function () {
+                    plusSlides(1);
+                }, 5000);
             </script>
 
             <!--Thanh tìm kiếm-->
@@ -137,17 +167,16 @@
                 <div class="rules">
                     <h1>Quy định - Hướng dẫn:</h1>
                     <ul>
-                        <li>&gt;&nbsp;<a href="../src/huong_dan_nqtv.html">Nội quy thư viện / phòng đọc</a></li>
-                        <li>&gt;&nbsp;<a href="../src/huong_dan_mstt.html">Thủ tục mượn sách trực tiếp</a></li>
-                        <li>&gt;&nbsp;<a href="../src/huong_dan_msol.html">Thủ tục mượn sách trực tuyến</a></li>
+                        <li>&gt;&nbsp;<a href=" /src/huong_dan_nqtv.html">Nội quy thư viện / phòng đọc</a></li>
+                        <li>&gt;&nbsp;<a href=" /src/huong_dan_mstt.html">Thủ tục mượn sách trực tiếp</a></li>
+                        <li>&gt;&nbsp;<a href=" /src/huong_dan_msol.html">Thủ tục mượn sách trực tuyến</a></li>
                     </ul>
                 </div>
             </div>
 
             <!--Tin tức - Thông báo-->
-
         </div>
-        
+
         <!--Footer-->
         <div class="footer">
             <div>Địa chỉ: Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh.</div>
@@ -161,8 +190,10 @@
         <!--BackToTop-->
         <script>
             // Nút hiện lên khi người dùng scroll xuống 20px
-            window.onscroll = function() {scrollFunction()};
-            
+            window.onscroll = function() {
+                scrollFunction();
+            };
+
             function scrollFunction() {
                 if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                     document.getElementById("btt").style.display = "block";
@@ -170,7 +201,7 @@
                     document.getElementById("btt").style.display = "none";
                 }
             }
-            
+
             // Khi nhấn nút, web sẽ scroll trở lại đầu trang
             function topFunction() {
                 document.body.scrollTop = 0;
@@ -180,4 +211,5 @@
         <button onclick="topFunction()" id="btt" title="Back to top">&uarr;</button>
     </div>
 </body>
+
 </html>
