@@ -21,6 +21,9 @@ body {
     max-width: 960px;
     margin: auto;
   }
+#slide {
+    max-width: 960px;
+}
 
 h1 {
     margin: 30px 20px 30px 0;
