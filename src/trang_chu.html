@@ -11,6 +11,28 @@
     <link rel="stylesheet" href="../css/footer.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
+<script>
+    // Đây là biến đại diện cho trạng thái đăng nhập (admin, user, false: chưa đăng nhập)
+    var isLoggedIn = false;
+    
+    // Xử lý sự kiện click cho nút người dùng
+    document.getElementById("userLink").addEventListener("click", function(event) {
+        // Ngăn chặn hành động mặc định của liên kết
+        event.preventDefault();
+        
+        // Kiểm tra nếu đã đăng nhập
+        if (isLoggedIn = 'admin') {
+            // Nếu đã đăng nhập, chuyển hướng đến trang nguoidung.html
+            window.location.href = "../src/quan_tri.html";
+        } else if(isLoggedIn = 'user') {
+            window.location.href = "../src/nguoi_dung.html";
+        }else{
+            // Nếu chưa đăng nhập, chuyển hướng đến trang dangnhap.html
+            window.location.href = "../src/dang_nhap.html"; 
+        }
+    });
+</script>
+
 </head>
 
 <body>
@@ -48,7 +70,7 @@
                     <!--Icon fontawsome-->
                     <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
                     <li><a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a href="../src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                    <li><a href="../src/nguoi_dung.html" id="userLink"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>

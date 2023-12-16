@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Book to Database</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f2f2f2;
+      }
+
+      h2 {
+        color: #333;
+      }
+
+      form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      textarea {
+        height: 100px; /* Để làm cho ô input Description to hơn */
+      }
+
+      button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Add Book to Database</h2>
+    <form id="bookForm">
+      <label for="bookID">BookID:</label>
+      <input type="text" id="bookID" required /><br />
+
+      <label for="title">Title:</label>
+      <input type="text" id="title" required /><br />
+
+      <label for="author">Author:</label>
+      <input type="text" id="author" required /><br />
+
+      <label for="publisher">Publisher:</label>
+      <input type="text" id="publisher" required /><br />
+
+      <label for="publicationYear">Publication Year:</label>
+      <input type="number" id="publicationYear" required /><br />
+
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" required /><br />
+
+      <label for="imageSource">Image Source:</label>
+      <input type="text" id="imageSource" /><br />
+
+      <label for="description">Description:</label>
+      <textarea id="description" required></textarea><br />
+
+      <button type="button" id="addBookBtn">Add Book</button>
+    </form>
+
+    <script type="module">
+      // Import necessary Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        get,
+      } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+      // Your Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+        authDomain: "webapplication-19930.firebaseapp.com",
+        databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
+        projectId: "webapplication-19930",
+        storageBucket: "webapplication-19930.appspot.com",
+        messagingSenderId: "240590364295",
+        appId: "1:240590364295:web:072e52f18a04f146c12222",
+        measurementId: "G-BJXFDHBEBK",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      // Get a reference to the Realtime Database
+      const database = getDatabase(app);
+
+      document.getElementById("addBookBtn").addEventListener("click", addBook);
+
+      function addBook(event) {
+        event.preventDefault();
+        var bookID = document.getElementById("bookID").value;
+        var title = document.getElementById("title").value;
+        var author = document.getElementById("author").value;
+        var publisher = document.getElementById("publisher").value;
+        var publicationYear = document.getElementById("publicationYear").value;
+        var quantity = document.getElementById("quantity").value;
+        var description = document.getElementById("description").value;
+        var image = document.getElementById("imageSource").value;
+        // Reference to your Firebase Realtime Database
+        const booksRef = ref(database, "books/" + bookID);
+
+        const snapshot = get(booksRef);
+
+        // Data to be added to the database
+        set(booksRef, {
+          Title: title,
+          Author: author,
+          Publisher: publisher,
+          PublicationYear: publicationYear,
+          Quantity: quantity,
+          Description: description,
+          Image: image
+        })
+          .then(() => {
+            alert("Book added successfully!");
+          })
+          .catch((error) => {
+            alert("Error adding book: " + error.message);
+          });
+      }
+    </script>
+  </body>
+</html>
