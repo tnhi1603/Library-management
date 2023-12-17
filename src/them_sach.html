@@ -3,90 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add Book to Database</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        padding: 20px;
-        background-color: #f2f2f2;
-      }
-
-      h2 {
-        color: #333;
-      }
-
-      form {
-        max-width: 400px;
-        margin: 0 auto;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-
-      label {
-        display: block;
-        margin-bottom: 8px;
-        color: #333;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 12px;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-
-      textarea {
-        height: 100px; /* Để làm cho ô input Description to hơn */
-      }
-
-      button {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      button:hover {
-        background-color: #45a049;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/thanh_menu.css">
+    <link rel="stylesheet" href="../css/them_sach.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
+    <title>Thêm sách vào thư viện</title>
   </head>
   <body>
-    <h2>Add Book to Database</h2>
+    <h1>Thêm sách vào thư viện</h1>
     <form id="bookForm">
-      <label for="bookID">BookID:</label>
+      <label for="bookID">Mã sách:</label>
       <input type="text" id="bookID" required /><br />
 
-      <label for="title">Title:</label>
+      <label for="title">Tiêu đề:</label>
       <input type="text" id="title" required /><br />
 
-      <label for="author">Author:</label>
+      <label for="author">Tác giả:</label>
       <input type="text" id="author" required /><br />
 
-      <label for="publisher">Publisher:</label>
+      <label for="publisher">Nhà xuất bản:</label>
       <input type="text" id="publisher" required /><br />
 
-      <label for="publicationYear">Publication Year:</label>
+      <label for="publicationYear">Năm xuất bản:</label>
       <input type="number" id="publicationYear" required /><br />
 
-      <label for="quantity">Quantity:</label>
+      <label for="quantity">Số lượng:</label>
       <input type="number" id="quantity" required /><br />
 
-      <label for="imageSource">Image Source:</label>
-      <input type="text" id="imageSource" /><br />
+      <label for="image">Ảnh:</label>
+      <input type="file" id="image" accept="image/*" />
 
-      <label for="description">Description:</label>
+      <label for="description">Mô tả:</label>
       <textarea id="description" required></textarea><br />
 
-      <button type="button" id="addBookBtn">Add Book</button>
+      <button type="button" id="addBookBtn">Thêm sách</button>
     </form>
 
     <script type="module">
@@ -130,29 +81,45 @@
         var publicationYear = document.getElementById("publicationYear").value;
         var quantity = document.getElementById("quantity").value;
         var description = document.getElementById("description").value;
-        var image = document.getElementById("imageSource").value;
+        var image = document.getElementById("image").value;
         // Reference to your Firebase Realtime Database
         const booksRef = ref(database, "books/" + bookID);
 
         const snapshot = get(booksRef);
 
-        // Data to be added to the database
-        set(booksRef, {
-          Title: title,
-          Author: author,
-          Publisher: publisher,
-          PublicationYear: publicationYear,
-          Quantity: quantity,
-          Description: description,
-          Image: image
-        })
-          .then(() => {
-            alert("Book added successfully!");
-          })
-          .catch((error) => {
-            alert("Error adding book: " + error.message);
-          });
-      }
+        const imageInput = document.getElementById("image");
+        const imageFile = imageInput.files[0];
+        // Check if an image is selected
+        if (imageFile) {
+    // Read the image file as a base64 string
+            const reader = new FileReader();
+            reader.onload = function (e) {
+            const base64String = e.target.result;
+
+            // Data to be added to the database
+            set(booksRef, {
+                Title: title,
+                Author: author,
+                Publisher: publisher,
+                PublicationYear: publicationYear,
+                Quantity: quantity,
+                Description: description,
+                Image: base64String, // Save the base64 string in the database
+            })
+                .then(() => {
+                alert("Book added successfully!");
+                })
+                .catch((error) => {
+                alert("Error adding book: " + error.message);
+                });
+            };
+
+            // Convert the image file to base64
+            reader.readAsDataURL(imageFile);
+        } else {
+            alert("Please select an image");
+        }
+    }
     </script>
   </body>
 </html>
