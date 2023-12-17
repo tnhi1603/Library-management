@@ -1,215 +1,353 @@
 <!DOCTYPE html>
 <html lang="vn">
-
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="description" content="G17 Library"/>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="G17 Library" />
     <title>Cổng thông tin thư viện - Trang chủ</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/trang_chu.css">
-    <link rel="stylesheet" href="../css/thanh_menu.css">
-    <link rel="stylesheet" href="../css/footer.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href=" /css/trang_chu.css" />
+    <link rel="stylesheet" href=" /css/thanh_menu.css" />
+    <link rel="stylesheet" href=" /css/footer.css" />
+    <link rel="stylesheet" href=" /css/them_sach_moi.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
-    <script> 
-        // Đây là biến đại diện cho trạng thái đăng nhập (admin, user, false: chưa đăng nhập)
-        var isLoggedIn = false;
-        
-        // Xử lý sự kiện click cho nút người dùng
-        document.getElementById("userLink").addEventListener("click", function(event) {
-            // Ngăn chặn hành động mặc định của liên kết
-            event.preventDefault();
-            
-            // Kiểm tra nếu đã đăng nhập
-            if (isLoggedIn = 'admin') {
-                // Nếu đã đăng nhập, chuyển hướng đến trang nguoidung.html
-                window.location.href = "../src/quan_tri.html";
-            } else if(isLoggedIn = 'user') {
-                window.location.href = "../src/nguoi_dung.html";
-            }else{
-                // Nếu chưa đăng nhập, chuyển hướng đến trang dangnhap.html
-                window.location.href = "../src/dang_nhap.html"; 
-            }
+    <script
+      src="https://kit.fontawesome.com/cfbf817f6f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // Đây là biến đại diện cho trạng thái đăng nhập (admin, user, false: chưa đăng nhập)
+      var isLoggedIn = false;
+
+      // Xử lý sự kiện click cho nút người dùng
+      document
+        .getElementById("userLink")
+        .addEventListener("click", function (event) {
+          // Ngăn chặn hành động mặc định của liên kết
+          event.preventDefault();
+
+          // Kiểm tra nếu đã đăng nhập
+          if ((isLoggedIn = "admin")) {
+            // Nếu đã đăng nhập, chuyển hướng đến trang nguoidung.html
+            window.location.href = " /src/quan_tri.html";
+          } else if ((isLoggedIn = "user")) {
+            window.location.href = " /src/nguoi_dung.html";
+          } else {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang dangnhap.html
+            window.location.href = " /src/dang_nhap.html";
+          }
         });
     </script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <div class="wrapper">
-        <!--Header-->
-        <div class="header">
-            <img src="../img/logo.png" alt="LOGO" height="50px" width="auto">
-            <div class="toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            <script>
-                $(document).ready(function(){
-                    $(".toggle").click(function(){
-                        $("nav").slideToggle();
-                    });
-                });
-            </script>
-            <nav>
-                <ul class="main-menu">
-                    <li><a id="now" href="../src/trang_chu.html">Trang chủ</a></li>
-                    <li class="submenu">
-                        <a href="../src/gioi_thieu_gtc.html">Giới thiệu</a>
-                        <ul>
-                            <li><a href="../src/gioi_thieu_gtc.html">Giới thiệu chung</a></li>
-                            <li><a href="../src/gioi_thieu_ddtg.html">Địa điểm & Thời gian hoạt động</a></li>
-                            <li><a href="../src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a></li>
-                            <li><a href="../src/gioi_thieu_ttpb.html">Thông tin các phòng ban</a></li>
-                            <li><a href="../src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="../src/muon_sach.html">Mượn sách</a></li>
-                    <li class="submenu">
-                        <a href="../src/lien_he.html">Liên hệ</a>
-                    </li>
-                    <!--Icon fontawesome-->
-                    <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
-                    <li><a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a href="../src/nguoi_dung.html" id="userLink"><i class="fas fa-user"></i></a></li>
-                </ul>
-            </nav>
+      <!--Header-->
+      <div class="header">
+        <img src=" /img/logo.png" alt="LOGO" height="50px" width="auto" />
+        <div class="toggle">
+          <i class="fas fa-bars"></i>
         </div>
-
-        <!--Body-->
-        <div class="body">
-            <!--Slider-->
-            <div class="slider">
-                <div class="slide-group fade">
-                    <div class="numbertext">1 / 3</div>
-                    <img src="../img/slide1.png" style="width:100%">
-                </div>
-
-                <div class="slide-group fade">
-                    <div class="numbertext">2 / 3</div>
-                    <img src="../img/slide2.jpeg" style="width:100%">
-                </div>
-                <div class="slide-group fade">
-                    <div class="numbertext">3 / 3</div>
-                    <img src="../img/slide3.png" style="width:100%">
-                </div>
-                <a class="prev" onclick="plusSlides(-1)">❮</a>
-                <a class="next" onclick="plusSlides(1)">❯</a>
-            </div>
-            <div style="text-align:center">
-                <span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-            </div>
-
-            <!--Thực hiện tự động chuyển slide-->
-            <script>
-                //Khởi tạo và hiển thị slide đầu
-                let slideIndex = 1;
-                showSlides(slideIndex);
-                //Hàm di chuyển đến slide kế tiếp 
-                function plusSlides(n) {
-                    showSlides(slideIndex += n);
-                }
-                //Hàm hiển thị slide được click vào
-                function currentSlide(n) {
-                    showSlides(slideIndex = n);
-                }
-
-                function showSlides(n) {
-                    let i;
-                    let slides = document.getElementsByClassName("slide-group");
-                    let dots = document.getElementsByClassName("dot");
-
-                    if (n > slides.length) {
-                        slideIndex = 1;
-                    }
-
-                    if (n < 1) {
-                        slideIndex = slides.length;
-                    }
-                    //Ẩn các slide trước khi hiển thị slide hiện tại
-                    for (i = 0; i < slides.length; i++) {
-                        slides[i].style.display = "none";
-                    }
-                    for (i = 0; i < dots.length; i++) {
-                        dots[i].className = dots[i].className.replace(" active", "");
-                    }
-                    //Hiển thị slide hiện tại
-                    slides[slideIndex - 1].style.display = "block";
-
-                    //Thêm class 'active' di chuyển đến slide tương ứng
-                    dots[slideIndex - 1].className += " active";
-                }
-
-                // Tự động chuyển slide sau mỗi 5 giây
-                setInterval(function () {
-                    plusSlides(1);
-                }, 5000);
-            </script>
-
-            <!--Thanh tìm kiếm-->
-            <div class="topnav">
-                <div class="search-container">
-                    <form action="/result.php">
-                        <input type="text" placeholder="Search..." name="search">
-                        <button type="submit">Tìm kiếm</button>
-                    </form>
-                </div>
-            </div>
-
-            <!--Giờ mở cửa - Quy định & Hướng dẫn-->
-            <div class="row">
-                <div class="opening">
-                    <h1>Giờ mở cửa:</h1>
-                    <p>Thứ 2 &rarr; Thứ 7: &nbsp; 8h00 &rarr; 18h00</p>
-                    <p>Chủ nhật, ngày lễ: &nbsp; Nghỉ</p>
-                </div>
-                <div class="rules">
-                    <h1>Quy định - Hướng dẫn:</h1>
-                    <ul>
-                        <li>&gt;&nbsp;<a href="../src/huong_dan_nqtv.html">Nội quy thư viện / phòng đọc</a></li>
-                        <li>&gt;&nbsp;<a href="../src/huong_dan_mstt.html">Thủ tục mượn sách trực tiếp</a></li>
-                        <li>&gt;&nbsp;<a href="../src/huong_dan_msol.html">Thủ tục mượn sách trực tuyến</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <!--Tin tức - Thông báo-->
-        </div>
-
-        <!--Footer-->
-        <div class="footer">
-            <div>Địa chỉ: Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh.</div>
-            <div class="social-link">
-                <div>Facebook: fb.com/thuvien</div>
-                <div>Email: thuvien@gmail.com</div>
-                <div>Hotline: 123456789</div>
-            </div>
-        </div>
-
-        <!--BackToTop-->
         <script>
-            // Nút hiện lên khi người dùng scroll xuống 20px
-            window.onscroll = function() {
-                scrollFunction();
-            };
-
-            function scrollFunction() {
-                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                    document.getElementById("btt").style.display = "block";
-                } else {
-                    document.getElementById("btt").style.display = "none";
-                }
-            }
-
-            // Khi nhấn nút, web sẽ scroll trở lại đầu trang
-            function topFunction() {
-                document.body.scrollTop = 0;
-                document.documentElement.scrollTop = 0;
-            }
+          $(document).ready(function () {
+            $(".toggle").click(function () {
+              $("nav").slideToggle();
+            });
+          });
         </script>
-        <button onclick="topFunction()" id="btt" title="Back to top">&uarr;</button>
-    </div>
-</body>
+        <nav>
+          <ul class="main-menu">
+            <li><a id="now" href=" /src/trang_chu.html">Trang chủ</a></li>
+            <li class="submenu">
+              <a href=" /src/gioi_thieu_gtc.html">Giới thiệu</a>
+              <ul>
+                <li>
+                  <a href=" /src/gioi_thieu_gtc.html">Giới thiệu chung</a>
+                </li>
+                <li>
+                  <a href=" /src/gioi_thieu_ddtg.html"
+                    >Địa điểm & Thời gian hoạt động</a
+                  >
+                </li>
+                <li>
+                  <a href=" /src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a>
+                </li>
+                <li>
+                  <a href=" /src/gioi_thieu_ttpb.html"
+                    >Thông tin các phòng ban</a
+                  >
+                </li>
+                <li><a href=" /src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
+              </ul>
+            </li>
+            <li><a href=" /src/muon_sach.html">Mượn sách</a></li>
+            <li class="submenu">
+              <a href=" /src/lien_he.html">Liên hệ</a>
+            </li>
+            <!--Icon fontawesome-->
+            <li>
+              <a href=" /src/gio_sach.html"
+                ><i class="fas fa-cart-shopping"></i
+              ></a>
+            </li>
+            <li>
+              <a href=" /src/thong_bao.html"><i class="fas fa-bell"></i></a>
+            </li>
+            <li>
+              <a href=" /src/nguoi_dung.html" id="userLink"
+                ><i class="fas fa-user"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
+      <!--Body-->
+      <div class="body">
+        <!--Slider-->
+        <div class="slider">
+          <div class="slide-group fade">
+            <div class="numbertext">1 / 3</div>
+            <img src=" /img/slide1.png" style="width: 100%" />
+          </div>
+
+          <div class="slide-group fade">
+            <div class="numbertext">2 / 3</div>
+            <img src=" /img/slide2.jpeg" style="width: 100%" />
+          </div>
+          <div class="slide-group fade">
+            <div class="numbertext">3 / 3</div>
+            <img src=" /img/slide3.png" style="width: 100%" />
+          </div>
+          <a class="prev" onclick="plusSlides(-1)">❮</a>
+          <a class="next" onclick="plusSlides(1)">❯</a>
+        </div>
+        <div style="text-align: center">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+
+        <!--Thực hiện tự động chuyển slide-->
+        <script>
+          //Khởi tạo và hiển thị slide đầu
+          let slideIndex = 1;
+          showSlides(slideIndex);
+          //Hàm di chuyển đến slide kế tiếp
+          function plusSlides(n) {
+            showSlides((slideIndex += n));
+          }
+          //Hàm hiển thị slide được click vào
+          function currentSlide(n) {
+            showSlides((slideIndex = n));
+          }
+
+          function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide-group");
+            let dots = document.getElementsByClassName("dot");
+
+            if (n > slides.length) {
+              slideIndex = 1;
+            }
+
+            if (n < 1) {
+              slideIndex = slides.length;
+            }
+            //Ẩn các slide trước khi hiển thị slide hiện tại
+            for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+              dots[i].className = dots[i].className.replace(" active", "");
+            }
+            //Hiển thị slide hiện tại
+            slides[slideIndex - 1].style.display = "block";
+
+            //Thêm class 'active' di chuyển đến slide tương ứng
+            dots[slideIndex - 1].className += " active";
+          }
+
+          // Tự động chuyển slide sau mỗi 5 giây
+          setInterval(function () {
+            plusSlides(1);
+          }, 5000);
+        </script>
+
+        <!--Thanh tìm kiếm-->
+        <div class="topnav">
+          <div class="search-container">
+            <form action="/result.php">
+              <input type="text" placeholder="Search..." name="search" />
+              <button type="submit">Tìm kiếm</button>
+            </form>
+          </div>
+        </div>
+
+        <!--Hiển thị các sách mới được thêm vào-->
+        <div class="new-books">
+          <h2>Các cuốn sách mới</h2>
+          <div class="book-container" id="newBooksContainer"></div>
+        </div>
+
+        <script type="module">
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+          import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+          import {
+            getAuth,
+            createUserWithEmailAndPassword,
+          } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+          import {
+            getDatabase,
+            ref,
+            set,
+            get,
+          } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+          // Your web app's Firebase configuration
+          const firebaseConfig = {
+            apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+            authDomain: "webapplication-19930.firebaseapp.com",
+            databaseURL:
+              "https://webapplication-19930-default-rtdb.firebaseio.com",
+            projectId: "webapplication-19930",
+            storageBucket: "webapplication-19930.appspot.com",
+            messagingSenderId: "240590364295",
+            appId: "1:240590364295:web:072e52f18a04f146c12222",
+            measurementId: "G-BJXFDHBEBK",
+          };
+
+          // Initialize Firebase
+          const app = initializeApp(firebaseConfig);
+          const analytics = getAnalytics(app);
+          const auth = getAuth(app);
+          const database = getDatabase(app);
+
+          // Reference to the "books" table
+          const booksRef = ref(database, "books");
+
+          // Function to display new books
+          function displayNewBooks(snapshot) {
+            const newBooksContainer =
+              document.getElementById("newBooksContainer");
+            newBooksContainer.innerHTML = ""; // Clear previous content
+
+            // Convert the snapshot to an array
+            const booksArray = Object.values(snapshot.val());
+
+            // Sort books by timestamp (assuming there's a timestamp field)
+            booksArray.sort((a, b) => b.timestamp - a.timestamp);
+
+            // Display only the first 4 books
+            const count = Math.min(4, booksArray.length);
+
+            for (let i = 0; i < count; i++) {
+              const bookData = booksArray[i];
+
+              // Create HTML elements for each book
+              const bookElement = document.createElement("div");
+              bookElement.classList.add("book");
+
+              const imageElement = document.createElement("img");
+              imageElement.src = bookData.Image; 
+
+              const infoElement = document.createElement("div");
+              infoElement.classList.add("book-info");
+
+              const titleElement = document.createElement("p");
+              titleElement.textContent = `Tiêu đề: ${bookData.Title}`; 
+
+              const authorElement = document.createElement("p");
+              authorElement.textContent = `Tác giả: ${bookData.Author}`; 
+
+              infoElement.appendChild(titleElement);
+              infoElement.appendChild(authorElement);
+
+              bookElement.appendChild(imageElement);
+              bookElement.appendChild(infoElement);
+
+              newBooksContainer.appendChild(bookElement);
+            }
+          }
+
+          // Fetch data from the database and listen for changes
+          get(booksRef)
+            .then((snapshot) => {
+              displayNewBooks(snapshot);
+            })
+            .catch((error) => console.error("Error fetching data:", error));
+        </script>
+
+        <!--Giờ mở cửa - Quy định & Hướng dẫn-->
+        <div class="row">
+          <div class="opening">
+            <h1>Giờ mở cửa:</h1>
+            <p>Thứ 2 &rarr; Thứ 7: &nbsp; 8h00 &rarr; 18h00</p>
+            <p>Chủ nhật, ngày lễ: &nbsp; Nghỉ</p>
+          </div>
+          <div class="rules">
+            <h1>Quy định - Hướng dẫn:</h1>
+            <ul>
+              <li>
+                &gt;&nbsp;<a href=" /src/huong_dan_nqtv.html"
+                  >Nội quy thư viện / phòng đọc</a
+                >
+              </li>
+              <li>
+                &gt;&nbsp;<a href=" /src/huong_dan_mstt.html"
+                  >Thủ tục mượn sách trực tiếp</a
+                >
+              </li>
+              <li>
+                &gt;&nbsp;<a href=" /src/huong_dan_msol.html"
+                  >Thủ tục mượn sách trực tuyến</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!--Tin tức - Thông báo-->
+      </div>
+
+      <!--Footer-->
+      <div class="footer">
+        <div>
+          Địa chỉ: Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ
+          Chí Minh.
+        </div>
+        <div class="social-link">
+          <div>Facebook: fb.com/thuvien</div>
+          <div>Email: thuvien@gmail.com</div>
+          <div>Hotline: 123456789</div>
+        </div>
+      </div>
+
+      <!--BackToTop-->
+      <script>
+        // Nút hiện lên khi người dùng scroll xuống 20px
+        window.onscroll = function () {
+          scrollFunction();
+        };
+
+        function scrollFunction() {
+          if (
+            document.body.scrollTop > 20 ||
+            document.documentElement.scrollTop > 20
+          ) {
+            document.getElementById("btt").style.display = "block";
+          } else {
+            document.getElementById("btt").style.display = "none";
+          }
+        }
+
+        // Khi nhấn nút, web sẽ scroll trở lại đầu trang
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+      </script>
+      <button onclick="topFunction()" id="btt" title="Back to top">
+        &uarr;
+      </button>
+    </div>
+  </body>
 </html>

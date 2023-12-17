@@ -1,0 +1,37 @@
+.new-books {
+    margin-top: 20px;
+}
+
+.book-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book {
+    width: 48%;
+    margin: 1%;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book img {
+    width: 60%;
+    height: auto;
+    max-height: 350px;
+}
+
+.book-info {
+    padding: 10px;
+    text-align: center; /* Đặt căn giữa theo chiều ngang cho thông tin tiêu đề và tác giả */
+}
+
+.book-info p {
+    margin: 0;
+    padding: 5px 0;
+}
