@@ -41,3 +41,49 @@
     background-color: #f9f9f9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.custom-nav {
+    overflow: hidden;
+    background-color: darkgreen; /* Màu xanh lá cây */
+    font-weight: bold; /* Phông chữ in đậm */
+}
+
+.marquee-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.marquee {
+    width: 100%;
+    overflow: hidden;
+}
+
+.marquee p {
+    white-space: nowrap;
+    animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Optional: Add some styling to make it visually appealing */
+.marquee-container {
+    padding: 10px;
+}
+
+.marquee p {
+    color: white;
+    font-size: 16px;
+    margin: 0;
+}
+
+.custom-nav {
+    padding: 10px;
+}
