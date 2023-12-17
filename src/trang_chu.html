@@ -37,6 +37,7 @@
           }
         });
     </script>
+
   </head>
 
   <body>
@@ -228,21 +229,20 @@
           function displayNewBooks(snapshot) {
             const newBooksContainer =
               document.getElementById("newBooksContainer");
-            newBooksContainer.innerHTML = ""; // Clear previous content
+            newBooksContainer.innerHTML = ""; 
 
-            // Convert the snapshot to an array
+            //Chuyển dữ liệu sang các mảng giá trị
             const booksArray = Object.values(snapshot.val());
 
-            // Sort books by timestamp (assuming there's a timestamp field)
+            //Sắp xếp mảng giảm dần theo timestamp
             booksArray.sort((a, b) => b.timestamp - a.timestamp);
 
-            // Display only the first 4 books
+            //Từ mảng trên, thực hiện lấy 4 giá trị
             const count = Math.min(4, booksArray.length);
 
             for (let i = 0; i < count; i++) {
               const bookData = booksArray[i];
 
-              // Create HTML elements for each book
               const bookElement = document.createElement("div");
               bookElement.classList.add("book");
 
