@@ -102,19 +102,13 @@
             actionButtons.className = 'action';
             if (bookData.Quantity > 0) {
                 statusText.innerText = "Còn sách";
-                var addToCartButton = document.createElement('button');
-                addToCartButton.innerText = 'Thêm vào giỏ sách';
-                addToCartButton.addEventListener('click', function() {
-                    addBookToCart(bookID);
-                });
-                actionButtons.appendChild(addToCartButton);
 
-                var borrowButton = document.createElement('button');
-                borrowButton.innerText = 'Mượn sách';
-                borrowButton.addEventListener('click', function() {
-                    borrowBook(bookID);
+                var editButton = document.createElement('button');
+                editButton.innerText = 'Sửa sách';
+                editButton.addEventListener('click', function() {
+                    editBook(bookID);
                 });
-                actionButtons.appendChild(borrowButton);
+                actionButtons.appendChild(editButton);
 
                 info.appendChild(actionButtons);
             } else {
@@ -123,15 +117,10 @@
                 var actionButtons = document.createElement('div');
                 actionButtons.className = 'action';
 
-                var addToCartButton = document.createElement('button');
-                addToCartButton.type = 'disabled'
-                addToCartButton.innerText = 'Thêm vào giỏ sách';
-                actionButtons.appendChild(addToCartButton);
-
-                var borrowButton = document.createElement('button');
-                borrowButton.type = 'disabled'
-                borrowButton.innerText = 'Mượn sách';
-                actionButtons.appendChild(borrowButton);
+                var editButton = document.createElement('button');
+                editButton.type = 'disabled'
+                editButton.innerText = 'Sửa sách';
+                actionButtons.appendChild(editButton);
 
             }
             status.appendChild(statusText);
@@ -145,40 +134,8 @@
             document.getElementById('book-container').appendChild(newBox);
         }
 
-        function addBookToCart(bookID) {
-            onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // Người dùng đã đăng nhập, lấy user id
-                const userId = user.uid;
-
-                // Thêm thông tin giỏ hàng vào database
-                const cartRef = ref(database, `carts/${userId}`);
-
-                // Book ID và số lượng (điều này có thể là thông tin từ box sách bạn đang xem)
-                const bookId = bookID
-                const quantity = 1; // Số lượng bạn muốn thêm vào giỏ hàng
-
-                // Đặt thông tin vào đường dẫn trong Firebase Realtime Database
-                update(cartRef, {
-                    [bookId]: {
-                        quantity: quantity
-                    }
-                }).then(() => {
-                    console.log("Thông tin sách đã được thêm vào giỏ hàng.");
-                }).catch((error) => {
-                    console.error("Lỗi khi thêm thông tin sách vào giỏ hàng:", error);
-                });
-
-            } else {
-                // Người dùng chưa đăng nhập
-                console.log("User is not logged in");
-            }
-        });
-        }
-
-        function borrowBook(bookID) {
-            addBookToCart(bookID);
-            window.location.href = 'gio_sach.html';
+        function editBook(bookID) {
+            window.location.href = 'sua_sach.html'+'?id='+ bookID;
         }
 </script>
 
