@@ -260,6 +260,7 @@
       // Xử lý sự kiện click cho nút người dùng
       document.getElementById("userLink").addEventListener("click", function (event) {
             event.preventDefault();
+            onAuthStateChanged();
           // Kiểm tra nếu đã đăng nhập
           if ((isLoggedIn = "false")) {
             // Nếu đã đăng nhập, chuyển hướng đến trang nguoidung.html
