@@ -1,13 +1,23 @@
 .search-container {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px;
+    position: relative;
+    width: 300px;
+    margin-left: auto;
 }
 
 input[type="text"] {
+    border-radius: 5px;
     padding: 8px;
+    max-width: 600px;
+    width: calc(100% - 100px);
 }
-
+#searchButton {
+    border: none;
+    border-radius: 5px;
+    background-color: #048622;
+    color: #fff;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
 button {
     padding: 8px 16px;
     cursor: pointer;

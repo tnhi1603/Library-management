@@ -53,8 +53,70 @@
     
         <!--Body-->
         <h1>Thông báo</h1>
-        <p>Hiện chưa có thông báo mới.</p>
-        
+        <div id="notificationsContainer">
+            
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+            import {
+              getDatabase,
+              ref,
+              set,
+              get,
+              onValue
+            } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+              authDomain: "webapplication-19930.firebaseapp.com",
+              databaseURL:
+                "https://webapplication-19930-default-rtdb.firebaseio.com",
+              projectId: "webapplication-19930",
+              storageBucket: "webapplication-19930.appspot.com",
+              messagingSenderId: "240590364295",
+              appId: "1:240590364295:web:072e52f18a04f146c12222",
+              measurementId: "G-BJXFDHBEBK",
+            };
+  
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const auth = getAuth(app);
+            const database = getDatabase(app);
+            
+            function fetchData() {
+                const notiData = ref(database, "noti");
+
+                onValue(notiData, (snapshot) => {
+                    const data = snapshot.val();
+
+                    // Lấy tất cả các khóa của object 'noti'
+                    const notificationKeys = Object.keys(data);
+
+                    // Hiển thị thông báo
+                    const notificationsContainer = document.getElementById("notificationsContainer");
+                    notificationsContainer.innerHTML = ''; // Xóa nội dung cũ trước khi hiển thị mới
+
+                    // Lặp qua từng khóa thông báo và hiển thị nội dung
+                    notificationKeys.forEach((key) => {
+                        const notification = data[key];
+                        const notificationElement = document.createElement("div");
+                        notificationElement.innerHTML = `
+                            <p>Date: ${key}</p>
+                            <p>Title: ${notification.Title}</p>
+                            <p>Description: ${notification.Content}</p>
+                            <hr>
+                        `;
+                        notificationsContainer.appendChild(notificationElement);
+                    });
+                });
+            }
+        // Gọi hàm fetchData khi trang được tải
+        document.addEventListener('DOMContentLoaded', fetchData);
+        </script>
+
         <!--Footer-->
         <div class="footer">
             <div>Địa chỉ: Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh.</div>

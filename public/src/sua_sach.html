@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/thanh_menu.css">
+    <link rel="stylesheet" href="../css/them_sach.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
+    <title>Sửa sách</title>
+  </head>
+  <body>
+    <div class="wrapper">
+        <!--Header-->
+        <div class="header">
+            <img src="../img/logo.png" alt="LOGO" height="50px" width="auto">
+            <div class="toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $(".toggle").click(function(){
+                        $("nav").slideToggle();
+                    })
+                });
+            </script>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="../src/trang_chu.html">Trang chủ</a></li>
+                    <li class="submenu">
+                        <a href="../src/gioi_thieu_gtc.html">Giới thiệu</a>
+                        <ul>
+                            <li><a href="../src/gioi_thieu_gtc.html">Giới thiệu chung</a></li>
+                            <li><a href="../src/gioi_thieu_ddtg.html">Địa điểm & Thời gian hoạt động</a></li>
+                            <li><a href="../src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a></li>
+                            <li><a href="../src/gioi_thieu_ttpb.html">Thông tin các phòng ban</a></li>
+                            <li><a href="../src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../src/muon_sach.html">Mượn sách</a></li>
+                    <li class="submenu">
+                        <a href="../src/lien_he.html">Liên hệ</a>
+                    </li>
+                    <!--Icon fontawsome-->
+                    <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
+                    <li><a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
+                    <li><a href="../src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+
+    <h1>Sửa sách - thư viện</h1>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var bookID = urlParams.get('id');
+        var inputBookID = document.getElementById('bookID');
+        inputBookID.value = bookID;
+    });
+</script>
+    <form id="bookForm">
+      <label for="bookID">Mã sách:</label>
+      <input type="text" id="bookID" value="<%=bookID%>" required /><br />
+
+      <label for="title">Tiêu đề:</label>
+      <input type="text" id="title" required /><br />
+
+      <label for="author">Tác giả:</label>
+      <input type="text" id="author" required /><br />
+
+      <label for="publisher">Nhà xuất bản:</label>
+      <input type="text" id="publisher" required /><br />
+
+      <label for="publicationYear">Năm xuất bản:</label>
+      <input type="number" id="publicationYear" required /><br />
+
+      <label for="quantity">Số lượng:</label>
+      <input type="number" id="quantity" required /><br />
+
+      <label for="image">Ảnh:</label>
+      <input type="file" id="image" accept="image/*" />
+
+      <label for="description">Mô tả:</label>
+      <textarea id="description" required></textarea><br />
+
+      <button type="button" id="addBookBtn">Sửa sách</button>
+    </form>
+
+    <script type="module">
+      // Import necessary Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        get,
+        onValue
+      } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+
+      // Your Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+        authDomain: "webapplication-19930.firebaseapp.com",
+        databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
+        projectId: "webapplication-19930",
+        storageBucket: "webapplication-19930.appspot.com",
+        messagingSenderId: "240590364295",
+        appId: "1:240590364295:web:072e52f18a04f146c12222",
+        measurementId: "G-BJXFDHBEBK",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      // Get a reference to the Realtime Database
+      const database = getDatabase(app);
+
+      document.getElementById("addBookBtn").addEventListener("click", addBook);
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var bookID = urlParams.get('id');
+    const bookRef = ref(database,`books/${bookID}`);
+    onValue(bookRef, (snapshot) => {
+        if (snapshot.exists()) {
+            const bookRef = snapshot.val();
+            document.getElementById('title').value = bookRef.Title;
+            document.getElementById('author').value = bookRef.Author;
+            document.getElementById('publisher').value = bookRef.Publisher;
+            document.getElementById('publicationYear').value = bookRef.PublicationYear;
+            document.getElementById('quantity').value = bookRef.Quantity;
+            document.getElementById('description').value = bookRef.Description;
+            // In thông tin sách ra console hoặc thực hiện các tác vụ khác
+            console.log(bookRef);
+            addBookToPage(bookRef);
+        } else {
+            console.error('Không tìm thấy sách với ID: ' + bookID);
+        }
+    }, (error) => {
+        console.error('Lỗi khi truy xuất Firebase: ' + error.message);
+    });
+
+      function addBook(event) {
+        event.preventDefault();
+        var bookID = document.getElementById("bookID").value;
+        var title = document.getElementById("title").value;
+        var author = document.getElementById("author").value;
+        var publisher = document.getElementById("publisher").value;
+        var publicationYear = document.getElementById("publicationYear").value;
+        var quantity = document.getElementById("quantity").value;
+        var description = document.getElementById("description").value;
+        var image = document.getElementById("image").value;
+        // Reference to your Firebase Realtime Database
+        const booksRef = ref(database, "books/" + bookID);
+
+        const snapshot = get(booksRef);
+
+        const imageInput = document.getElementById("image");
+        const imageFile = imageInput.files[0];
+        // Check if an image is selected
+        if (imageFile) {
+    // Read the image file as a base64 string
+            const reader = new FileReader();
+            reader.onload = function (e) {
+            const base64String = e.target.result;
+
+            // Data to be added to the database
+            set(booksRef, {
+                Title: title,
+                Author: author,
+                Publisher: publisher,
+                PublicationYear: publicationYear,
+                Quantity: quantity,
+                Description: description,
+                Image: base64String, // Save the base64 string in the database
+            })
+                .then(() => {
+                alert("Book added successfully!");
+                })
+                .catch((error) => {
+                alert("Error adding book: " + error.message);
+                });
+            };
+
+            // Convert the image file to base64
+            reader.readAsDataURL(imageFile);
+        } else {
+            alert("Please select an image");
+        }
+    }
+    </script>
+    <div class="footer">
+        <div>Địa chỉ: Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh.</div>
+        <div class="social-link">
+            <div>Facebook: fb.com/thuvien</div>
+            <div>Email: thuvien@gmail.com</div>
+            <div>Hotline: 123456789</div>
+        </div>
+    </div>
+  </body>
+</html>
