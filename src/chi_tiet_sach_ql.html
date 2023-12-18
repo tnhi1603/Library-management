@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vn">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Danh mục sách</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/thanh_menu.css">
+    <link rel="stylesheet" href="/css/muon_sach.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/chi_tiet_sach.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
+</head>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+    import { getDatabase, ref, onValue, update} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+        authDomain: "webapplication-19930.firebaseapp.com",
+        databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
+        projectId: "webapplication-19930",
+        storageBucket: "webapplication-19930.appspot.com",
+        messagingSenderId: "240590364295",
+        appId: "1:240590364295:web:072e52f18a04f146c12222",
+        measurementId: "G-BJXFDHBEBK"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app)
+    const auth = getAuth(app);
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var bookID = urlParams.get('id');
+
+    const bookRef = ref(database,`books/${bookID}`);
+
+    onValue(bookRef, (snapshot) => {
+        if (snapshot.exists()) {
+            const bookData = snapshot.val();
+            // In thông tin sách ra console hoặc thực hiện các tác vụ khác
+            console.log(bookData);
+            addBookToPage(bookData);
+        } else {
+            console.error('Không tìm thấy sách với ID: ' + bookID);
+        }
+    }, (error) => {
+        console.error('Lỗi khi truy xuất Firebase: ' + error.message);
+    });
+
+    function addBookToPage(bookData) {
+            // Thêm ảnh vào ô sách
+            var newBox = document.createElement('p');
+            newBox.className = 'book-container';
+
+            var img = document.createElement('img');
+            img.className = 'book-image'
+            img.src = bookData.Image;
+            img.alt = 'Book Image';
+            newBox.appendChild(img);
+
+            var info = document.createElement('p');
+            info.className = 'book-info'
+
+            var title = document.createElement('p');
+            title.innerText = 'Nhan đề: ' + bookData.Title;
+            info.appendChild(title);
+
+
+            var author = document.createElement('p');
+            author.innerText = 'Tác giả: ' + bookData.Author;
+            info.appendChild(author);
+
+            var publisher = document.createElement('p');
+            publisher.innerText = 'Nhà xuất bản: ' + bookData.Publisher;
+            info.appendChild(publisher);
+
+            var publicationYear = document.createElement('p');
+            publicationYear.innerText = 'Năm xuất bản: ' + bookData.PublicationYear;
+            info.appendChild(publicationYear);
+
+            var description = document.createElement('p');
+            description.innerText = 'Chi tiết: ' + bookData.Description;
+            info.appendChild(description);
+
+            var quantity = document.createElement('p');
+            quantity.innerText = 'Số lượng: '+ bookData.Quantity;
+            info.appendChild(quantity);
+
+            var status = document.createElement('p');
+            status.innerText = "Tình trạng: ";
+
+            var statusText = document.createElement('span');
+            var actionButtons = document.createElement('div');
+            actionButtons.className = 'action';
+            if (bookData.Quantity > 0) {
+                statusText.innerText = "Còn sách";
+                var addToCartButton = document.createElement('button');
+                addToCartButton.innerText = 'Thêm vào giỏ sách';
+                addToCartButton.addEventListener('click', function() {
+                    addBookToCart(bookID);
+                });
+                actionButtons.appendChild(addToCartButton);
+
+                var borrowButton = document.createElement('button');
+                borrowButton.innerText = 'Mượn sách';
+                borrowButton.addEventListener('click', function() {
+                    borrowBook(bookID);
+                });
+                actionButtons.appendChild(borrowButton);
+
+                info.appendChild(actionButtons);
+            } else {
+                statusText.innerText = "Hết sách";
+                statusText.classList.add('out-of-stock');
+                var actionButtons = document.createElement('div');
+                actionButtons.className = 'action';
+
+                var addToCartButton = document.createElement('button');
+                addToCartButton.type = 'disabled'
+                addToCartButton.innerText = 'Thêm vào giỏ sách';
+                actionButtons.appendChild(addToCartButton);
+
+                var borrowButton = document.createElement('button');
+                borrowButton.type = 'disabled'
+                borrowButton.innerText = 'Mượn sách';
+                actionButtons.appendChild(borrowButton);
+
+            }
+            status.appendChild(statusText);
+            info.appendChild(status);
+            info.appendChild(actionButtons);
+
+
+            newBox.appendChild(info);
+
+            // Thêm ô sách mới vào container
+            document.getElementById('book-container').appendChild(newBox);
+        }
+
+        function addBookToCart(bookID) {
+            onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Người dùng đã đăng nhập, lấy user id
+                const userId = user.uid;
+
+                // Thêm thông tin giỏ hàng vào database
+                const cartRef = ref(database, `carts/${userId}`);
+
+                // Book ID và số lượng (điều này có thể là thông tin từ box sách bạn đang xem)
+                const bookId = bookID
+                const quantity = 1; // Số lượng bạn muốn thêm vào giỏ hàng
+
+                // Đặt thông tin vào đường dẫn trong Firebase Realtime Database
+                update(cartRef, {
+                    [bookId]: {
+                        quantity: quantity
+                    }
+                }).then(() => {
+                    console.log("Thông tin sách đã được thêm vào giỏ hàng.");
+                }).catch((error) => {
+                    console.error("Lỗi khi thêm thông tin sách vào giỏ hàng:", error);
+                });
+
+            } else {
+                // Người dùng chưa đăng nhập
+                console.log("User is not logged in");
+            }
+        });
+        }
+
+        function borrowBook(bookID) {
+            addBookToCart(bookID);
+            window.location.href = 'gio_sach.html';
+        }
+</script>
+
+<body>
+    <div class="wrapper">
+        <!--Header-->
+        <div class="header">
+            <img src="/img/logo.png" alt="LOGO" height="50px" width="auto">
+            <div class="toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $(".toggle").click(function(){
+                        $("nav").slideToggle();
+                    })
+                });
+            </script>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="/src/trang_chu.html">Trang chủ</a></li>
+                    <li class="submenu">
+                        <a href="/src/gioi_thieu_gtc.html">Giới thiệu</a>
+                        <ul>
+                            <li><a href="/src/gioi_thieu_gtc.html">Giới thiệu chung</a></li>
+                            <li><a href="/src/gioi_thieu_ddtg.html">Địa điểm & Thời gian hoạt động</a></li>
+                            <li><a href="/src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a></li>
+                            <li><a href="/src/gioi_thieu_ttpb.html">Thông tin các phòng ban</a></li>
+                            <li><a href="/src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/src/muon_sach.html">Mượn sách</a></li>
+                    <li class="submenu">
+                        <a href="/src/lien_he.html">Liên hệ</a>
+                    </li>
+                    <!--Icon fontawsome-->
+                    <li><a href="/src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
+                    <li><a href="/src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
+                    <li><a href="/src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+        <!--Body-->
+        <div id="book-container">
+            
+        </div>
+    </div>
+
+    <!--Footer-->
+    <div class="footer">
+        <div>Địa chỉ: Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh.</div>
+        <div class="social-link">
+            <div>Facebook: fb.com/thuvien</div>
+            <div>Email: thuvien@gmail.com</div>
+            <div>Hotline: 123456789</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -3,10 +3,10 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>Tài khoản quản trị</title>
+    <title>Thêm thông báo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/thanh_menu.css">
-    <link rel="stylesheet" href="../css/quan_tri.css">
+    <link rel="stylesheet" href="../css/them_sach.css">
     <link rel="stylesheet" href="../css/footer.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
@@ -46,15 +46,83 @@
                     </li>
                     <!--Icon fontawsome-->
                     <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
-                    <li><a href="../src/thong_bao"><i class="fas fa-bell"></i></a></li>
+                    <li><a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
                     <li><a href="../src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>
     
         <!--Body-->
-        <h1>Thêm thông báo</h1>
-        
+        <h1>Thêm thông báo vào thư viện</h1>
+        <form id="notiForm">
+
+            <label for="title">Tiêu đề:</label>
+            <input type="text" id="title" required /><br />
+
+            <label for="content">Nội dung:</label>
+            <textarea id="description" required></textarea><br />
+
+            <button type="button" id="addNoti">Thêm thông báo</button>
+        </form>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script type="module">
+        // Import necessary Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
+        import {
+          getDatabase,
+          ref,
+          set,
+          get,
+        } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
+  
+        // Your Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+          authDomain: "webapplication-19930.firebaseapp.com",
+          databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
+          projectId: "webapplication-19930",
+          storageBucket: "webapplication-19930.appspot.com",
+          messagingSenderId: "240590364295",
+          appId: "1:240590364295:web:072e52f18a04f146c12222",
+          measurementId: "G-BJXFDHBEBK",
+        };
+  
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+  
+        // Get a reference to the Realtime Database
+        const database = getDatabase(app);
+        // Function to add a notification to Firebase
+function addNotification() {
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+
+    const currentDate = moment().format("YYYY-MM-DD"); // Lấy ngày hiện tại dưới dạng chuỗi YYYY-MM-DD
+
+    const notiRef = ref(database, `noti/${currentDate}`); // Sử dụng ngày tạo thông báo làm key
+
+    const newNotification = {
+        Title: title,
+        Content: description
+    };
+
+    set(notiRef, newNotification)
+        .then(() => {
+            console.log("Thông báo đã được lưu vào Firebase.");
+            // Hiển thị thông báo thành công cho người dùng nếu cần
+        })
+        .catch((error) => {
+            console.error("Lỗi khi lưu thông báo vào Firebase: ", error);
+            // Hiển thị thông báo lỗi cho người dùng nếu cần
+        });
+}
+
+// Event listener for the button to add a notification
+document.getElementById("addNoti").addEventListener("click", addNotification);
+  
+        </script>
         
         <!--Footer-->
         <div class="footer">
