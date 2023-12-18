@@ -39,7 +39,7 @@
         if (user) {
             const userId = user.uid;
 
-            const borrowingsRef = ref(database, `borrowings/${userId}`);
+            const borrowingsRef = ref(database, `returns/${userId}`);
 
             get(borrowingsRef).then((snapshot) => {
                 if (snapshot.exists()) {
@@ -53,67 +53,21 @@
                         get(bookInfoRef).then((bookSnapshot) => {
                             if (bookSnapshot.exists()) {
                                 const bookInfo = bookSnapshot.val();
-                                var returnDate = new Date(borrowData[bookId].returnDate);
-                                var currentDate = new Date();
-                                var dueDate = Math.ceil((returnDate - currentDate) / (1000 * 60 * 60 * 24));
-                                if (dueDate == 0) {
-                                    const duesRef = ref(database, `dues/${userId}`);
-                                    update(duesRef, {
-                                    [bookId]: {
-                                        quantity: 1
-                                    }
-                                    });
-                                    const dueRef = ref(database, `borrowings/${userId}/${bookId}`);
-                                    remove(dueRef);
-                                    delete borrowData[bookId];
-                                }
                                 addBookToPage(bookInfo, bookId, borrowData);
-                            } else {
-                                console.log(`Không tìm thấy thông tin sách với ID ${bookId}`);
                             }
                         }).catch((error) => {
                             console.error(`Lỗi khi đọc thông tin sách với ID ${bookId}:`, error);
                         });
                     }
-                } else {
-                    // Giỏ hàng không tồn tại hoặc rỗng
-                    console.log("Giỏ hàng không tồn tại hoặc rỗng");
                 }
             });
 
         } else {
             // Người dùng chưa đăng nhập
-            console.log("User is not logged in");
+            alert("Xin hãy đăng nhập");
+            window.location.href = 'dang_nhap.html';
         }
     });
-
-    function checkDueDates(userId, borrowData) {
-        // Lấy ngày hiện tại
-        var currentDate = new Date();
-
-        // Lặp qua danh sách các mục đang mượn để kiểm tra ngày đến hạn
-        for (const userId in borrowData) {
-            if (borrowData.hasOwnProperty(userId)) {
-                var user = borrowData[userId];
-
-                for (const bookId in user) {
-                    if (user.hasOwnProperty(bookId)) {
-                        var book = user[bookId];
-                        
-                        // Lấy ngày trả và tính số ngày còn lại
-                        var returnDate = new Date(book.returnDate);
-                        var remainingDays = Math.ceil((returnDate - currentDate) / (1000 * 60 * 60 * 24));
-
-                        // Kiểm tra nếu số ngày còn lại là 0 (đến hạn)
-                        if (remainingDays === 0) {
-                            // Thực hiện các hành động thông báo, ví dụ: sử dụng alert
-                            alert('Đến hạn sách với ID ' + bookId);
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     function addBookToPage(bookData, bookId, borrowData) {
         var newBox = document.createElement('div');
@@ -136,12 +90,6 @@
         var author = document.createElement('p');
         author.innerText = 'Tác giả: ' + bookData.Author;
         info.appendChild(author);
-
-        var remainDays = document.createElement('p');
-        var returnDate = new Date(borrowData[bookId].returnDate);
-        var currentDate = new Date();
-        remainDays.innerText = 'Số ngày còn lại: ' + Math.ceil((returnDate - currentDate) / (1000 * 60 * 60 * 24));
-        info.appendChild(remainDays);
 
         // Thêm thông tin vào ô sách
         newBox.appendChild(info);
