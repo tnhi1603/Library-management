@@ -39,7 +39,7 @@
         if (user) {
             const userId = user.uid;
 
-            const borrowingsRef = ref(database, `returns/${userId}`);
+            const borrowingsRef = ref(database, `dues/${userId}`);
 
             get(borrowingsRef).then((snapshot) => {
                 if (snapshot.exists()) {
@@ -54,18 +54,22 @@
                             if (bookSnapshot.exists()) {
                                 const bookInfo = bookSnapshot.val();
                                 addBookToPage(bookInfo, bookId, borrowData);
+                            } else {
+                                console.log(`Không tìm thấy thông tin sách với ID ${bookId}`);
                             }
                         }).catch((error) => {
                             console.error(`Lỗi khi đọc thông tin sách với ID ${bookId}:`, error);
                         });
                     }
+                } else {
+                    // Giỏ hàng không tồn tại hoặc rỗng
+                    console.log("Giỏ hàng không tồn tại hoặc rỗng");
                 }
             });
 
         } else {
             // Người dùng chưa đăng nhập
-            alert("Xin hãy đăng nhập");
-            window.location.href = 'dang_nhap.html';
+            console.log("User is not logged in");
         }
     });
 

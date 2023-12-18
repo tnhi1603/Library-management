@@ -10,7 +10,8 @@
 
 .book-image {
     flex: 1;
-    max-width: 200px; /* Điều chỉnh kích thước tối đa của ảnh */
+    height: 400px;
+    object-fit: cover;
     margin-right: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;

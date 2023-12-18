@@ -14,29 +14,6 @@
       src="https://kit.fontawesome.com/cfbf817f6f.js"
       crossorigin="anonymous"
     ></script>
-    <script>
-      // Đây là biến đại diện cho trạng thái đăng nhập (admin, user, false: chưa đăng nhập)
-      var isLoggedIn = false;
-
-      // Xử lý sự kiện click cho nút người dùng
-      document
-        .getElementById("userLink")
-        .addEventListener("click", function (event) {
-          // Ngăn chặn hành động mặc định của liên kết
-          event.preventDefault();
-
-          // Kiểm tra nếu đã đăng nhập
-          if ((isLoggedIn = "admin")) {
-            // Nếu đã đăng nhập, chuyển hướng đến trang nguoidung.html
-            window.location.href = " /src/quan_tri.html";
-          } else if ((isLoggedIn = "user")) {
-            window.location.href = " /src/nguoi_dung.html";
-          } else {
-            // Nếu chưa đăng nhập, chuyển hướng đến trang dangnhap.html
-            window.location.href = " /src/dang_nhap.html";
-          }
-        });
-    </script>
 
   </head>
 
@@ -66,16 +43,14 @@
                 </li>
                 <li>
                   <a href=" /src/gioi_thieu_ddtg.html"
-                    >Địa điểm & Thời gian hoạt động</a
-                  >
+                    >Địa điểm & Thời gian hoạt động</a>
                 </li>
                 <li>
                   <a href=" /src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a>
                 </li>
                 <li>
                   <a href=" /src/gioi_thieu_ttpb.html"
-                    >Thông tin các phòng ban</a
-                  >
+                    >Thông tin các phòng ban</a>
                 </li>
                 <li><a href=" /src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
               </ul>
@@ -88,14 +63,13 @@
             <li>
               <a href=" /src/gio_sach.html"
                 ><i class="fas fa-cart-shopping"></i
-              ></a>
+></a>
             </li>
             <li>
               <a href=" /src/thong_bao.html"><i class="fas fa-bell"></i></a>
             </li>
             <li>
-              <a href=" /src/nguoi_dung.html" id="userLink"
-                ><i class="fas fa-user"></i
+              <a href=" /src/nguoi_dung.html" id="userLink"><i class="fas fa-user"></i
               ></a>
             </li>
           </ul>
@@ -237,7 +211,7 @@
             //Sắp xếp mảng giảm dần theo timestamp
             booksArray.sort((a, b) => b.timestamp - a.timestamp);
 
-            //Từ mảng trên, thực hiện lấy 4 giá trị
+            //Từ mảng trên, thực hiện lấy 15 giá trị
             const count = Math.min(15, booksArray.length);
 
             for (let i = 0; i < count; i++) {
@@ -267,13 +241,36 @@
               newBooksContainer.appendChild(bookElement);
             }
           }
-
           // Fetch data from the database and listen for changes
           get(booksRef)
             .then((snapshot) => {
               displayNewBooks(snapshot);
             })
             .catch((error) => console.error("Error fetching data:", error));
+
+        var isLoggedIn;
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                isLoggedIn
+            }else{
+                isLoggedIn = "false";
+            }
+        });
+
+      // Xử lý sự kiện click cho nút người dùng
+      document.getElementById("userLink").addEventListener("click", function (event) {
+            event.preventDefault();
+          // Kiểm tra nếu đã đăng nhập
+          if ((isLoggedIn = "false")) {
+            // Nếu đã đăng nhập, chuyển hướng đến trang nguoidung.html
+            window.location.href = " /src/quan_tri.html";
+          } else if ((isLoggedIn = "user")) {
+            window.location.href = " /src/nguoi_dung.html";
+          } else {
+            // Nếu chưa đăng nhập, chuyển hướng đến trang dangnhap.html
+            window.location.href = " /src/dang_nhap.html";
+          }
+        });
         </script>
 
         <!--Giờ mở cửa - Quy định & Hướng dẫn-->

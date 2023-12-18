@@ -1,122 +1,112 @@
 <!DOCTYPE html>
 <html lang="vn">
-
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Người dùng</title>
     <!--Cài đặt để giao diện menu phù hợp với từng thiết bị-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/thanh_menu.css">
-    <link rel="stylesheet" href="/css/nguoi_dung.css">
-    <link rel="stylesheet" href="/css/footer.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/thanh_menu.css" />
+    <link rel="stylesheet" href="/css/nguoi_dung.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
-</head>
+    <script
+      src="https://kit.fontawesome.com/cfbf817f6f.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<body>
+  <body>
     <div class="wrapper">
-        <!--Header-->
-        <div class="header">
-            <img src="/img/logo.png" alt="LOGO" height="50px" width="auto">
-            <div class="toggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            <script>
-                $(document).ready(function(){
-                    $(".toggle").click(function(){
-                        $("nav").slideToggle();
-                    })
-                });
-            </script>
-            <nav>
-                <ul class="main-menu">
-                    <li><a href="/src/trang_chu.html">Trang chủ</a></li>
-                    <li class="submenu">
-                        <a href="/src/gioi_thieu_gtc.html">Giới thiệu</a>
-                        <ul>
-                            <li><a href="/src/gioi_thieu_gtc.html">Giới thiệu chung</a></li>
-                            <li><a href="/src/gioi_thieu_ddtg.html">Địa điểm & Thời gian hoạt động</a></li>
-                            <li><a href="/src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a></li>
-                            <li><a href="/src/gioi_thieu_ttpb.html">Thông tin các phòng ban</a></li>
-                            <li><a href="/src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/src/muon_sach.html">Mượn sách</a></li>
-                    <li class="submenu">
-                        <a href="/src/lien_he.html">Liên hệ</a>
-                        <ul>
-                            <li><a href="/src/lien_he_ttlh.html">Thông tin liên hệ thư viện</a></li>
-                            <li><a href="/src/lien_he_tg.html">Trợ giúp</a></li>
-                        </ul>
-                    </li>
-                    <!--Icon fontawsome-->
-                    <li><a href="/src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
-                    <li><a href="/src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a id="now" href="/src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
-                </ul>
-            </nav>
+      <!--Header-->
+      <div class="header">
+        <img src="/img/logo.png" alt="LOGO" height="50px" width="auto" />
+        <div class="toggle">
+          <i class="fas fa-bars"></i>
         </div>
+        <script>
+          $(document).ready(function () {
+            $(".toggle").click(function () {
+              $("nav").slideToggle();
+            });
+          });
+        </script>
+        <nav>
+          <ul class="main-menu">
+            <li><a href="/src/trang_chu.html">Trang chủ</a></li>
+            <li class="submenu">
+              <a href="/src/gioi_thieu_gtc.html">Giới thiệu</a>
+              <ul>
+                <li><a href="/src/gioi_thieu_gtc.html">Giới thiệu chung</a></li>
+                <li>
+                  <a href="/src/gioi_thieu_ddtg.html"
+                    >Địa điểm & Thời gian hoạt động</a
+                  >
+                </li>
+                <li>
+                  <a href="/src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a>
+                </li>
+                <li>
+                  <a href="/src/gioi_thieu_ttpb.html"
+                    >Thông tin các phòng ban</a
+                  >
+                </li>
+                <li><a href="/src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
+              </ul>
+            </li>
+            <li><a href="/src/muon_sach.html">Mượn sách</a></li>
+            <li class="submenu">
+              <a href="/src/lien_he.html">Liên hệ</a>
+              <ul>
+                <li>
+                  <a href="/src/lien_he_ttlh.html"
+                    >Thông tin liên hệ thư viện</a
+                  >
+                </li>
+                <li><a href="/src/lien_he_tg.html">Trợ giúp</a></li>
+              </ul>
+            </li>
+            <!--Icon fontawsome-->
+            <li>
+              <a href="/src/gio_sach.html"
+                ><i class="fas fa-cart-shopping"></i
+              ></a>
+            </li>
+            <li>
+              <a href="/src/thong_bao.html"><i class="fas fa-bell"></i></a>
+            </li>
+            <li>
+              <a id="now" href="/src/nguoi_dung.html"
+                ><i class="fas fa-user"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
         <!--Body-->
         <h1>Tài khoản người dùng</h1>
         <div class="container">
             <div class="user">
                 <img src="/img/avatar.png" alt="Avatar" height="100px" width="100px">
-                <a>Tên người dùng:</a>
+                <p>Tên người dùng: ABCD</p>
                 <a>Email: </a>
                 <div id="email"></div>
 
-                <script type="module">
-                    // Import necessary Firebase modules
-                    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-                    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
-                    import {
-                      getDatabase,
-                      ref,
-                      set,
-                      get,
-                      onValue
-                    } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
-              
-                    // Your Firebase configuration
-                    const firebaseConfig = {
-                      apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
-                      authDomain: "webapplication-19930.firebaseapp.com",
-                      databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
-                      projectId: "webapplication-19930",
-                      storageBucket: "webapplication-19930.appspot.com",
-                      messagingSenderId: "240590364295",
-                      appId: "1:240590364295:web:072e52f18a04f146c12222",
-                      measurementId: "G-BJXFDHBEBK",
-                    };
-              
-                    // Initialize Firebase
-                    const app = initializeApp(firebaseConfig);
-                    const analytics = getAnalytics(app);
-              
-                    // Get a reference to the Realtime Database
-                    const database = getDatabase(app);
-              
-                    document.getElementById("addBookBtn").addEventListener("click", addBook);
-              
-                  var urlParams = new URLSearchParams(window.location.search);
-                  var userID = urlParams.get('id');
-                  const userRef = ref(database,`users/${userID}`);
-                  onValue(userRef, (snapshot) => {
-                      if (snapshot.exists()) {
-                          const userRef = snapshot.val();
-                          document.getElementById('username').value = userRef.username;
-                          document.getElementById('email').value = userRef.email;
-                          // In thông tin sách ra console hoặc thực hiện các tác vụ khác
-                          console.log(bookRef);
-                          addBookToPage(bookRef);
-                      } else {
-                          console.error('Không tìm thấy sách với ID: ' + bookID);
+                <script>
+                   // Sử dụng AJAX để đọc nội dung của tệp HTML từ máy chủ
+                   var xhr = new XMLHttpRequest();
+                   xhr.onreadystatechange = function () {
+                      if (xhr.readyState == 4 && xhr.status == 200) {
+                         // Khi tệp đã được đọc thành công, trích xuất biến từ đoạn mã JavaScript
+                         var parser = new DOMParser();
+                         var doc = parser.parseFromString(xhr.responseText, "text/html");
+                         var email = doc.querySelector("script").innerText.match(/var email = "(.*?)";/)[1];
+                         document.getElementById("email").innerText = email;
                       }
-                  }, (error) => {
-                      console.error('Lỗi khi truy xuất Firebase: ' + error.message);
-                  });
-                  </script>
+                   };
+                   xhr.open("GET", "/src/dang_nhap.html", true);
+                   xhr.send();
+                </script>
              
             </div>
             <div class="button">
@@ -137,5 +127,5 @@
             </div>
         </div>
     </div>
-</body>
+  </body>
 </html>
