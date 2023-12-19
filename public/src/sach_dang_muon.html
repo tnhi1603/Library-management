@@ -90,6 +90,11 @@
           remove,
           set
         } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            createUserWithEmailAndPassword,
+          } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -107,6 +112,7 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const booksRef = ref(database, "books");
+        const auth = getAuth(app);
 
         const urlParams = new URLSearchParams(window.location.search);
         const userID = urlParams.get("userID");
@@ -144,7 +150,7 @@
               }
             } else {
               // Giỏ hàng không tồn tại hoặc rỗng
-              console.log("Giỏ hàng không tồn tại hoặc rỗng");
+              console.log("Sách đang mượn rỗng");
             }
           });
 
@@ -177,8 +183,7 @@
                   });
               }
             } else {
-              // Giỏ hàng không tồn tại hoặc rỗng
-              console.log("Giỏ hàng không tồn tại hoặc rỗng");
+              console.log("Sách đến hạn rỗng.");
             }
           });
         }
