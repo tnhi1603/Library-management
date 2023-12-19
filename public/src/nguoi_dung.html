@@ -93,65 +93,75 @@
             height="100px"
             width="100px"
           />
-          <p>Tên người dùng: ABCD</p>
-          <a>Email: </a>
-          <div id="email"></div>
-
-          <script>
-            // Sử dụng AJAX để đọc nội dung của tệp HTML từ máy chủ
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-              if (xhr.readyState == 4 && xhr.status == 200) {
-                // Khi tệp đã được đọc thành công, trích xuất biến từ đoạn mã JavaScript
-                var parser = new DOMParser();
-                var doc = parser.parseFromString(xhr.responseText, "text/html");
-                var email = doc
-                  .querySelector("script")
-                  .innerText.match(/var email = "(.*?)";/)[1];
-                document.getElementById("email").innerText = email;
-              }
+          <br>
+          <p>Tên người dùng: </p> <p id="username"></p>
+          <p>Email: </p> <p id="email"></p> 
+          <script type="module">
+            // Import necessary Firebase modules
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+            import {
+              getAuth,
+              onAuthStateChanged,
+              createUserWithEmailAndPassword,
+              signOut
+            } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+            import {
+              getDatabase,
+              ref,
+              set,
+              get,
+              onValue,
+            } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+              authDomain: "webapplication-19930.firebaseapp.com",
+              databaseURL:
+                "https://webapplication-19930-default-rtdb.firebaseio.com",
+              projectId: "webapplication-19930",
+              storageBucket: "webapplication-19930.appspot.com",
+              messagingSenderId: "240590364295",
+              appId: "1:240590364295:web:072e52f18a04f146c12222",
+              measurementId: "G-BJXFDHBEBK",
             };
-            xhr.open("GET", "/src/dang_nhap.html", true);
-            xhr.send();
-          </script>
-        </div>
-        <div class="button">
-          <a href="/src/nguoi_dung_sdm.html">Sách đang mượn</a>
-          <a href="/src/nguoi_dung_dm.html">Sách đã mượn</a>
-          <a href="/src/nguoi_dung_sdh.html">Sách đến hạn</a>
-        </div>
-        <br />
-        <a href="/src/doi_mat_khau.html">Đổi mật khẩu</a>
-        <a id="logoutLink" href="#">Đăng xuất</a>
 
-        <!--Đăng xuất-->
-        <script type="module">
-          // Import necessary Firebase modules
-          import {
-            getAuth,
-            signOut,
-          } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const auth = getAuth(app);
+            // Get a reference to the Realtime Database
+            const database = getDatabase(app);
+            onAuthStateChanged(auth, (user) => {
+              if (user) {
+                const uid = user.uid;
+                const userRef = ref(database, `users/${uid}`);
+                onValue(
+                  userRef,
+                  (snapshot) => {
+                    if (snapshot.exists()) {
+                      const userRef = snapshot.val();
+                      document.getElementById("email").innerText = userRef.email;
+                      document.getElementById("username").innerText = userRef.username;
+                      // In thông tin sách ra console hoặc thực hiện các tác vụ khác
+                      console.log(userRef);
+                    } else {
+                      console.error("Không tìm thấy user: " + uid);
+                    }
+                  },
+                  (error) => {
+                    console.error(
+                      "Lỗi khi truy xuất Firebase: " + error.message
+                    );
+                  }
+                );
+              } else {
+                console.log("Invalid user");
+              }
+            });
 
-          // Your web app's Firebase configuration
-          const firebaseConfig = {
-            apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
-            authDomain: "webapplication-19930.firebaseapp.com",
-            databaseURL:
-              "https://webapplication-19930-default-rtdb.firebaseio.com",
-            projectId: "webapplication-19930",
-            storageBucket: "webapplication-19930.appspot.com",
-            messagingSenderId: "240590364295",
-            appId: "1:240590364295:web:072e52f18a04f146c12222",
-            measurementId: "G-BJXFDHBEBK",
-          };
-
-          // Initialize Firebase
-          import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-          const app = initializeApp(firebaseConfig);
-
-          // Get the Auth object from Firebase
-          const auth = getAuth(app);
-          document
+            //Thực hiện đăng xuất 
+            document
             .getElementById("logoutLink")
             .addEventListener("click", function (event) {
               event.preventDefault();
@@ -164,14 +174,23 @@
                   console.log("User signed out successfully.");
 
                   // Redirect to the login page
-                  window.location.href = "/src/dang_nhap.html";
+                  window.location.href = "/src/trang_chu.html";
                 })
                 .catch((error) => {
                   // An error happened.
                   console.error("Error during sign out:", error);
                 });
             });
-        </script>
+          </script>
+        </div>
+        <div class="button">
+          <a href="/src/nguoi_dung_sdm.html">Sách đang mượn</a>
+          <a href="/src/nguoi_dung_dm.html">Sách đã mượn</a>
+          <a href="/src/nguoi_dung_sdh.html">Sách đến hạn</a>
+        </div>
+        <br />
+        <a href="/src/doi_mat_khau.html">Đổi mật khẩu</a>
+        <a id="logoutLink" href="#">Đăng xuất</a>
       </div>
       <!--Footer-->
       <div class="footer">

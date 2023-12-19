@@ -14,7 +14,6 @@
       src="https://kit.fontawesome.com/cfbf817f6f.js"
       crossorigin="anonymous"
     ></script>
-
   </head>
 
   <body>
@@ -43,14 +42,16 @@
                 </li>
                 <li>
                   <a href=" /src/gioi_thieu_ddtg.html"
-                    >Địa điểm & Thời gian hoạt động</a>
+                    >Địa điểm & Thời gian hoạt động</a
+                  >
                 </li>
                 <li>
                   <a href=" /src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a>
                 </li>
                 <li>
                   <a href=" /src/gioi_thieu_ttpb.html"
-                    >Thông tin các phòng ban</a>
+                    >Thông tin các phòng ban</a
+                  >
                 </li>
                 <li><a href=" /src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
               </ul>
@@ -63,13 +64,14 @@
             <li>
               <a href=" /src/gio_sach.html"
                 ><i class="fas fa-cart-shopping"></i
-></a>
+              ></a>
             </li>
             <li>
               <a href=" /src/thong_bao.html"><i class="fas fa-bell"></i></a>
             </li>
             <li>
-              <a href=" /src/nguoi_dung.html" id="userLink"><i class="fas fa-user"></i
+              <a href="#" id="userLink"
+                ><i class="fas fa-user"></i
               ></a>
             </li>
           </ul>
@@ -151,13 +153,17 @@
         <!--Thanh chào mừng-->
         <div class="custom-nav">
           <div class="marquee-container">
-              <div class="marquee">
-                  <p>Chào mừng các bạn đến với Thư viện Trung tâm ĐHQG-HCM! Các bạn có thể mượn sách tại đây, mọi thắc mắc vui lòng liên hệ email: phucvu@vnuhcm.edu.vn hoặc số điện thoại: (028)3724 2181</p>
-              </div>
+            <div class="marquee">
+              <p>
+                Chào mừng các bạn đến với Thư viện Trung tâm ĐHQG-HCM! Các bạn
+                có thể mượn sách tại đây, mọi thắc mắc vui lòng liên hệ email:
+                phucvu@vnuhcm.edu.vn hoặc số điện thoại: (028)3724 2181
+              </p>
+            </div>
           </div>
-      </div>
-      
+        </div>
 
+        <!--Xử lý đăng nhập-->
         <!--Hiển thị các sách mới được thêm vào-->
         <div class="new-books">
           <h2>Các cuốn sách mới</h2>
@@ -169,6 +175,7 @@
           import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
           import {
             getAuth,
+            onAuthStateChanged,
             createUserWithEmailAndPassword,
           } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
           import {
@@ -176,6 +183,7 @@
             ref,
             set,
             get,
+            onValue,
           } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
           // Your web app's Firebase configuration
           const firebaseConfig = {
@@ -203,7 +211,7 @@
           function displayNewBooks(snapshot) {
             const newBooksContainer =
               document.getElementById("newBooksContainer");
-            newBooksContainer.innerHTML = ""; 
+            newBooksContainer.innerHTML = "";
 
             //Chuyển dữ liệu sang các mảng giá trị
             const booksArray = Object.values(snapshot.val());
@@ -221,16 +229,16 @@
               bookElement.classList.add("book");
 
               const imageElement = document.createElement("img");
-              imageElement.src = bookData.Image; 
+              imageElement.src = bookData.Image;
 
               const infoElement = document.createElement("div");
               infoElement.classList.add("book-info");
 
               const titleElement = document.createElement("p");
-              titleElement.textContent = `Tiêu đề: ${bookData.Title}`; 
+              titleElement.textContent = `Tiêu đề: ${bookData.Title}`;
 
               const authorElement = document.createElement("p");
-              authorElement.textContent = `Tác giả: ${bookData.Author}`; 
+              authorElement.textContent = `Tác giả: ${bookData.Author}`;
 
               infoElement.appendChild(titleElement);
               infoElement.appendChild(authorElement);
@@ -247,30 +255,18 @@
               displayNewBooks(snapshot);
             })
             .catch((error) => console.error("Error fetching data:", error));
-
-        var isLoggedIn;
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                isLoggedIn
-            }else{
-                isLoggedIn = "false";
-            }
-        });
-
-      // Xử lý sự kiện click cho nút người dùng
-      document.getElementById("userLink").addEventListener("click", function (event) {
-            event.preventDefault();
-          // Kiểm tra nếu đã đăng nhập
-          if ((isLoggedIn = "false")) {
-            // Nếu đã đăng nhập, chuyển hướng đến trang nguoidung.html
-            window.location.href = " /src/quan_tri.html";
-          } else if ((isLoggedIn = "user")) {
-            window.location.href = " /src/nguoi_dung.html";
-          } else {
-            // Nếu chưa đăng nhập, chuyển hướng đến trang dangnhap.html
-            window.location.href = " /src/dang_nhap.html";
-          }
-        });
+            document.getElementById("userLink").addEventListener("click", function(event){
+              event.preventDefault();
+              onAuthStateChanged(auth, (user)=> {
+                if (user) {
+                  console.log("User login successfully");
+                  window.location.href = "/src/nguoi_dung.html";
+                } else {
+                  console.log("User not login");
+                  window.location.href = "/src/dang_nhap.html";
+                }
+              });
+            });
         </script>
 
         <!--Giờ mở cửa - Quy định & Hướng dẫn-->

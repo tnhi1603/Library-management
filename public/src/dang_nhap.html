@@ -192,7 +192,7 @@ function signin(event) {
     .then((userCredential) => {
       // Lấy thông tin người dùng sau khi đăng nhập
       var user = userCredential.user;
-
+      const userID = user.uid;
       // Chuyển hướng đến trang chủ sau khi đăng nhập thành công
       // window.location.href = 'trang_chu.html';
       alert('Successfully signed in');
