@@ -5,28 +5,16 @@
     <title>Sách Đang Mượn</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/thanh_menu.css" />
+    <link rel="stylesheet" href="/css/muon_sach.css">
     <link rel="stylesheet" href="../css/quan_tri.css" />
     <link rel="stylesheet" href="../css/footer.css" />
+    <link rel="stylesheet" href="/css/danh_muc_sach.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script
       src="https://kit.fontawesome.com/cfbf817f6f.js"
       crossorigin="anonymous"
     ></script>
-    <style>
-      .book-container {
-        padding: 20px;
-        margin: 20px;
-        border: 1px solid #ddd;
-        max-width: 400px;
-        display: inline-block;
-        vertical-align: top;
-      }
-
-      .book-image {
-        max-width: 100%;
-        height: auto;
-      }
-    </style>
+   
   </head>
 
   <body>
@@ -90,7 +78,7 @@
       </div>
       <!--Body-->
       <h1>Các Cuốn Sách Đang Mượn</h1>
-      <div id="booksContainer"></div>
+      <div class="list-container" id="booksContainer">
 
       <script type="module">
         // Import the functions you need from the SDKs you need
@@ -198,21 +186,20 @@
         function addBookToPage(bookData, bookId, borrowData) {
           const booksContainer = document.getElementById("booksContainer");
 
-          const bookContainer = document.createElement("div");
-          bookContainer.className = "book-container";
+          const bookContainer = document.createElement("a");
+          bookContainer.className = "box";
 
           const bookImage = document.createElement("img");
-          bookImage.className = "book-image";
           bookImage.src = bookData.Image;
           bookImage.alt = "Book Image";
           bookContainer.appendChild(bookImage);
 
           const bookTitle = document.createElement("p");
-          bookTitle.innerText = "Title: " + bookData.Title;
+          bookTitle.innerText = bookData.Title;
           bookContainer.appendChild(bookTitle);
 
           const bookAuthor = document.createElement("p");
-          bookAuthor.innerText = "Author: " + bookData.Author;
+          bookAuthor.innerText = bookData.Author;
           bookContainer.appendChild(bookAuthor);
           booksContainer.appendChild(bookContainer);
 
