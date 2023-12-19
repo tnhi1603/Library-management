@@ -47,7 +47,7 @@
                     <!--Icon fontawsome-->
                     <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
                     <li><a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a href="../src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                    <li><a href="#" id="userLink"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>
@@ -145,6 +145,24 @@
                       console.error("Error during sign out:", error);
                     });
                 });
+                //userLink
+                document.getElementById("userLink").addEventListener("click", function(event){
+              event.preventDefault();
+              onAuthStateChanged(auth, (user)=> {
+                if (user) {
+                  const userEmail = user.email;
+                  if(userEmail === "nhom17@gmail.com"){
+                    window.location.href = '/src/quan_tri.html';
+                  }else{
+                  console.log("User login successfully");
+                  window.location.href = "/src/nguoi_dung.html";
+                  }
+                } else {
+                  console.log("User not login");
+                  window.location.href = "/src/dang_nhap.html";
+                }
+              });
+            });
               </script>
             <div class="button">
                 <a href="../src/qly_nguoi_dung.html">Quản lý người dùng</a>

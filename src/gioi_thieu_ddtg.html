@@ -47,7 +47,7 @@
                     <!--Icon fontawsome-->
                     <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
                     <li><a href="../src/thong_bao"><i class="fas fa-bell"></i></a></li>
-                    <li><a href="../src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                    <li><a href="#" id="userLink"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>
@@ -65,6 +65,58 @@
                 <li>&gt;&nbsp;<a href="https://www.google.com/maps/place/Th%C6%B0+vi%E1%BB%87n+Trung+t%C3%A2m+%C4%90HQG+-+TP.HCM/@10.8698119,106.7137938,12z/data=!4m19!1m12!4m11!1m3!2m2!1d106.7951613!2d10.876218!1m6!1m2!1s0x3175275f9425f961:0xf2f6dc77057ba1df!2zNDAgUUwxQSwgUGjGsOG7nW5nIExpbmggVHJ1bmcsIFRo4bunIMSQ4bupYywgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5o!2m2!1d106.7961946!2d10.8698916!3m5!1s0x3175275f9425f961:0xf2f6dc77057ba1df!8m2!3d10.8698229!4d106.7961957!16s%2Fg%2F1tgpkj6p?entry=ttu">Thư viện trung tâm</a></li>
             </ul>
         </div>
+        <!-- userLink -->
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+            import {
+              getAuth,
+              onAuthStateChanged,
+              createUserWithEmailAndPassword,
+            } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+            import {
+              getDatabase,
+              ref,
+              set,
+              get,
+              onValue,
+            } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+              authDomain: "webapplication-19930.firebaseapp.com",
+              databaseURL:
+                "https://webapplication-19930-default-rtdb.firebaseio.com",
+              projectId: "webapplication-19930",
+              storageBucket: "webapplication-19930.appspot.com",
+              messagingSenderId: "240590364295",
+              appId: "1:240590364295:web:072e52f18a04f146c12222",
+              measurementId: "G-BJXFDHBEBK",
+            };
+  
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const auth = getAuth(app);
+            const database = getDatabase(app);
+            document.getElementById("userLink").addEventListener("click", function(event){
+              event.preventDefault();
+              onAuthStateChanged(auth, (user)=> {
+                if (user) {
+                  const userEmail = user.email;
+                  if(userEmail === "nhom17@gmail.com"){
+                    window.location.href = '/src/quan_tri.html';
+                  }else{
+                  console.log("User login successfully");
+                  window.location.href = "/src/nguoi_dung.html";
+                  }
+                } else {
+                  console.log("User not login");
+                  window.location.href = "/src/dang_nhap.html";
+                }
+              });
+            });
+        </script>
         <!--Footer-->
         <div class="footer">
             <div>Địa chỉ: Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ Chí Minh.</div>
