@@ -47,7 +47,7 @@
                     <!--Icon fontawsome-->
                     <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
                     <li><a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a href="../src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                    <li><a href="#" id="userLink"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>
@@ -57,15 +57,121 @@
         <div class="container">
             <div class="user">
                 <img src="../img/avatar.png" alt="Avatar" height="100px" width="100px">
-                <p>Name:</p>
-                <p>Email:</p>
+                <p>Name:</p><p id = "username"></p>
+                <p>Email:</p><p id = "email"></p>
             </div>
+            <script type="module">
+                // Import necessary Firebase modules
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+                import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+                import {
+                  getAuth,
+                  onAuthStateChanged,
+                  createUserWithEmailAndPassword,
+                  signOut
+                } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+                import {
+                  getDatabase,
+                  ref,
+                  set,
+                  get,
+                  onValue,
+                } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+                // Your web app's Firebase configuration
+                const firebaseConfig = {
+                  apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+                  authDomain: "webapplication-19930.firebaseapp.com",
+                  databaseURL:
+                    "https://webapplication-19930-default-rtdb.firebaseio.com",
+                  projectId: "webapplication-19930",
+                  storageBucket: "webapplication-19930.appspot.com",
+                  messagingSenderId: "240590364295",
+                  appId: "1:240590364295:web:072e52f18a04f146c12222",
+                  measurementId: "G-BJXFDHBEBK",
+                };
+    
+                // Initialize Firebase
+                const app = initializeApp(firebaseConfig);
+                const analytics = getAnalytics(app);
+                const auth = getAuth(app);
+                // Get a reference to the Realtime Database
+                const database = getDatabase(app);
+                onAuthStateChanged(auth, (user) => {
+                  if (user) {
+                    const uid = user.uid;
+                    const userRef = ref(database, `users/${uid}`);
+                    onValue(
+                      userRef,
+                      (snapshot) => {
+                        if (snapshot.exists()) {
+                          const userRef = snapshot.val();
+                          document.getElementById("email").innerText = userRef.email;
+                          document.getElementById("username").innerText = userRef.username;
+                          // In thông tin sách ra console hoặc thực hiện các tác vụ khác
+                          console.log(userRef);
+                        } else {
+                          console.error("Không tìm thấy user: " + uid);
+                        }
+                      },
+                      (error) => {
+                        console.error(
+                          "Lỗi khi truy xuất Firebase: " + error.message
+                        );
+                      }
+                    );
+                  } else {
+                    console.log("Invalid user");
+                  }
+                });
+    
+                //Thực hiện đăng xuất 
+                document
+                .getElementById("logoutLink")
+                .addEventListener("click", function (event) {
+                  event.preventDefault();
+    
+                  // Use Firebase Authentication to sign out
+                  signOut(auth)
+                    .then(() => {
+                      // Sign-out successful.
+                      alert("Sign-out successfully.");
+                      console.log("User signed out successfully.");
+    
+                      // Redirect to the login page
+                      window.location.href = "/src/trang_chu.html";
+                    })
+                    .catch((error) => {
+                      // An error happened.
+                      console.error("Error during sign out:", error);
+                    });
+                });
+                //userLink
+                document.getElementById("userLink").addEventListener("click", function(event){
+              event.preventDefault();
+              onAuthStateChanged(auth, (user)=> {
+                if (user) {
+                  const userEmail = user.email;
+                  if(userEmail === "nhom17@gmail.com"){
+                    window.location.href = '/src/quan_tri.html';
+                  }else{
+                  console.log("User login successfully");
+                  window.location.href = "/src/nguoi_dung.html";
+                  }
+                } else {
+                  console.log("User not login");
+                  window.location.href = "/src/dang_nhap.html";
+                }
+              });
+            });
+              </script>
             <div class="button">
                 <a href="../src/qly_nguoi_dung.html">Quản lý người dùng</a>
                 <a href="../src/qly_sach.html">Quản lý sách</a>
                 <a href="../src/them_thong_bao.html">Thêm thông báo</a>
                 <a href="../src/them_sach.html">Thêm sách</a>
             </div>
+            <a href="/src/doi_mat_khau.html">Đổi mật khẩu</a>
+            <a id="logoutLink" href="#">Đăng xuất</a>
         
         <!--Footer-->
         <div class="footer">

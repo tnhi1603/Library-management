@@ -18,7 +18,11 @@
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
     import { getDatabase, ref, orderByChild, equalTo, query, get, startAt, endAt} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-
+    import {
+            getAuth,
+            onAuthStateChanged,
+            createUserWithEmailAndPassword,
+          } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
@@ -34,7 +38,8 @@
 
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app)
-    const booksInDB = ref(database, "books")
+    const booksInDB = ref(database, "books");
+    const auth = getAuth(app);
 
 
     get(booksInDB).then((snapshot) => {
@@ -122,6 +127,25 @@
             console.error('Lỗi khi thực hiện truy vấn:', error);
         });
     });
+
+    //userLink
+    document.getElementById("userLink").addEventListener("click", function(event){
+              event.preventDefault();
+              onAuthStateChanged(auth, (user)=> {
+                if (user) {
+                  const userEmail = user.email;
+                  if(userEmail === "nhom17@gmail.com"){
+                    window.location.href = '/src/quan_tri.html';
+                  }else{
+                  console.log("User login successfully");
+                  window.location.href = "/src/nguoi_dung.html";
+                  }
+                } else {
+                  console.log("User not login");
+                  window.location.href = "/src/dang_nhap.html";
+                }
+              });
+            });
 </script>
 
 
@@ -160,7 +184,7 @@
                     <!--Icon fontawsome-->
                     <li><a href="/src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
                     <li><a href="/src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a href="/src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                    <li><a href="#" id="userLink"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>

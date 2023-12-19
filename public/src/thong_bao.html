@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="../css/footer.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
+    <style>
+        .noti-box {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -46,76 +53,103 @@
                     <!--Icon fontawsome-->
                     <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
                     <li><a id="now" href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a href="../src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                    <li><a href="#" id="userLink"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>
     
         <!--Body-->
         <h1>Thông báo</h1>
-        <div id="notificationsContainer">
-            
-        </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <script type="module">
+            // Import the functions you need from the SDKs you need
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+            import { getDatabase, ref, orderByChild, equalTo, query, get, startAt, endAt, onValue} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
             import {
-              getDatabase,
-              ref,
-              set,
-              get,
-              onValue
-            } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+            getAuth,
+            onAuthStateChanged,
+            createUserWithEmailAndPassword,
+          } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
             // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
             const firebaseConfig = {
-              apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
-              authDomain: "webapplication-19930.firebaseapp.com",
-              databaseURL:
-                "https://webapplication-19930-default-rtdb.firebaseio.com",
-              projectId: "webapplication-19930",
-              storageBucket: "webapplication-19930.appspot.com",
-              messagingSenderId: "240590364295",
-              appId: "1:240590364295:web:072e52f18a04f146c12222",
-              measurementId: "G-BJXFDHBEBK",
+                apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+                authDomain: "webapplication-19930.firebaseapp.com",
+                databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
+                projectId: "webapplication-19930",
+                storageBucket: "webapplication-19930.appspot.com",
+                messagingSenderId: "240590364295",
+                appId: "1:240590364295:web:072e52f18a04f146c12222",
+                measurementId: "G-BJXFDHBEBK"
             };
-  
-            // Initialize Firebase
+        
             const app = initializeApp(firebaseConfig);
-            const analytics = getAnalytics(app);
-            const auth = getAuth(app);
             const database = getDatabase(app);
-            
-            function fetchData() {
-                const notiData = ref(database, "noti");
-
-                onValue(notiData, (snapshot) => {
-                    const data = snapshot.val();
-
-                    // Lấy tất cả các khóa của object 'noti'
-                    const notificationKeys = Object.keys(data);
-
-                    // Hiển thị thông báo
-                    const notificationsContainer = document.getElementById("notificationsContainer");
-                    notificationsContainer.innerHTML = ''; // Xóa nội dung cũ trước khi hiển thị mới
-
-                    // Lặp qua từng khóa thông báo và hiển thị nội dung
-                    notificationKeys.forEach((key) => {
-                        const notification = data[key];
-                        const notificationElement = document.createElement("div");
-                        notificationElement.innerHTML = `
-                            <p>Date: ${key}</p>
-                            <p>Title: ${notification.Title}</p>
-                            <p>Description: ${notification.Content}</p>
-                            <hr>
-                        `;
-                        notificationsContainer.appendChild(notificationElement);
-                    });
+            const notiInDB = ref(database, 'noti');
+            const auth = getAuth(app);
+        
+        
+            get(notiInDB).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        snapshot.forEach((notiSnapshot) => {
+                            const notiData = notiSnapshot.val();
+                            const notiKey = notiSnapshot.key;
+                            console.log(notiData);
+                            addNotiToPage(notiData, notiKey);
+                        });
+                    } else {
+                        searchResults.innerHTML = 'Không tìm thấy kết quả.';
+                    }
+                }).catch((error) => {
+                    console.error('Lỗi khi thực hiện truy vấn:', error);
                 });
+        
+            
+            // Hàm thêm ô sách vào trang
+            function addNotiToPage(notiValue, notiKeys) {
+                // Tạo một ô sách mới
+                var newBox = document.createElement('a');
+                // newBox.href = 'chi_tiet_nguoi_dung.html' + '?id=' + booksKeys;
+                newBox.className = 'noti-box';
+        
+                const newUserBox = document.createElement('div');
+                newUserBox.className = 'box';
+                // Thêm tiêu đề sách vào ô sách
+
+                var date = document.createElement('p');
+                date.innerText = 'Ngày thông báo: '+ notiKeys;
+                newBox.appendChild(date);
+
+                var title = document.createElement('p');
+                title.innerText = 'Tiêu đề thông báo: ' + notiValue.Title;
+                newBox.appendChild(title);
+        
+                var content = document.createElement('p');
+                content.innerText = 'Nội dung thông báo: ' + notiValue.Content;
+                newBox.appendChild(content);
+        
+                // Thêm ô sách mới vào container
+                document.getElementById('notiContainer').appendChild(newBox);
             }
-        // Gọi hàm fetchData khi trang được tải
-        document.addEventListener('DOMContentLoaded', fetchData);
+            //userLink
+            document.getElementById("userLink").addEventListener("click", function(event){
+              event.preventDefault();
+              onAuthStateChanged(auth, (user)=> {
+                if (user) {
+                  const userEmail = user.email;
+                  if(userEmail === "nhom17@gmail.com"){
+                    window.location.href = '/src/quan_tri.html';
+                  }else{
+                  console.log("User login successfully");
+                  window.location.href = "/src/nguoi_dung.html";
+                  }
+                } else {
+                  console.log("User not login");
+                  window.location.href = "/src/dang_nhap.html";
+                }
+              });
+            });
         </script>
+        <div id="notiContainer"></div>
 
         <!--Footer-->
         <div class="footer">

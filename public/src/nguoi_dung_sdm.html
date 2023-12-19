@@ -56,7 +56,7 @@
                                 var returnDate = new Date(borrowData[bookId].returnDate);
                                 var currentDate = new Date();
                                 var dueDate = Math.ceil((returnDate - currentDate) / (1000 * 60 * 60 * 24));
-                                if (dueDate == 0) {
+                                if (dueDate <= 0) {
                                     const duesRef = ref(database, `dues/${userId}`);
                                     update(duesRef, {
                                     [bookId]: {
@@ -155,6 +155,25 @@
         }
     }
 
+    //userLink
+    document.getElementById("userLink").addEventListener("click", function(event){
+              event.preventDefault();
+              onAuthStateChanged(auth, (user)=> {
+                if (user) {
+                  const userEmail = user.email;
+                  if(userEmail === "nhom17@gmail.com"){
+                    window.location.href = '/src/quan_tri.html';
+                  }else{
+                  console.log("User login successfully");
+                  window.location.href = "/src/nguoi_dung.html";
+                  }
+                } else {
+                  console.log("User not login");
+                  window.location.href = "/src/dang_nhap.html";
+                }
+              });
+            });
+
 </script>
 
 <body>
@@ -192,7 +211,7 @@
                     <!--Icon fontawsome-->
                     <li><a id="now" href="/src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
                     <li><a href="/src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a href="/src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                    <li><a href="#" id="userLink"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>

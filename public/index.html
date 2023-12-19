@@ -255,12 +255,18 @@
               displayNewBooks(snapshot);
             })
             .catch((error) => console.error("Error fetching data:", error));
+            
             document.getElementById("userLink").addEventListener("click", function(event){
               event.preventDefault();
               onAuthStateChanged(auth, (user)=> {
                 if (user) {
+                  const userEmail = user.email;
+                  if(userEmail === "nhom17@gmail.com"){
+                    window.location.href = '/src/quan_tri.html';
+                  }else{
                   console.log("User login successfully");
                   window.location.href = "/src/nguoi_dung.html";
+                  }
                 } else {
                   console.log("User not login");
                   window.location.href = "/src/dang_nhap.html";

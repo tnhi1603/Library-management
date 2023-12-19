@@ -47,10 +47,62 @@
                     <!--Icon fontawsome-->
                     <li><a href="../src/gio_sach.html"><i class="fas fa-cart-shopping"></i></a></li>
                     <li><a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a></li>
-                    <li><a href="../src/nguoi_dung.html"><i class="fas fa-user"></i></a></li>
+                    <li><a href="#" id="userLink"><i class="fas fa-user"></i></a></li>
                 </ul>
             </nav>
         </div>
+        <!-- userLink -->
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+            import {
+              getAuth,
+              onAuthStateChanged,
+              createUserWithEmailAndPassword,
+            } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+            import {
+              getDatabase,
+              ref,
+              set,
+              get,
+              onValue,
+            } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+              authDomain: "webapplication-19930.firebaseapp.com",
+              databaseURL:
+                "https://webapplication-19930-default-rtdb.firebaseio.com",
+              projectId: "webapplication-19930",
+              storageBucket: "webapplication-19930.appspot.com",
+              messagingSenderId: "240590364295",
+              appId: "1:240590364295:web:072e52f18a04f146c12222",
+              measurementId: "G-BJXFDHBEBK",
+            };
+  
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            const auth = getAuth(app);
+            const database = getDatabase(app);
+            document.getElementById("userLink").addEventListener("click", function(event){
+              event.preventDefault();
+              onAuthStateChanged(auth, (user)=> {
+                if (user) {
+                  const userEmail = user.email;
+                  if(userEmail === "nhom17@gmail.com"){
+                    window.location.href = '/src/quan_tri.html';
+                  }else{
+                  console.log("User login successfully");
+                  window.location.href = "/src/nguoi_dung.html";
+                  }
+                } else {
+                  console.log("User not login");
+                  window.location.href = "/src/dang_nhap.html";
+                }
+              });
+            });
+        </script>
     
         <!--Body-->
         <h1>Giới thiệu / Thông tin các phòng ban</h1>
