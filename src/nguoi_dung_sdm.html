@@ -56,7 +56,7 @@
                                 var returnDate = new Date(borrowData[bookId].returnDate);
                                 var currentDate = new Date();
                                 var dueDate = Math.ceil((returnDate - currentDate) / (1000 * 60 * 60 * 24));
-                                if (dueDate == 0) {
+                                if (dueDate <= 0) {
                                     const duesRef = ref(database, `dues/${userId}`);
                                     update(duesRef, {
                                     [bookId]: {
