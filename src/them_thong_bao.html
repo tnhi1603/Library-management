@@ -110,12 +110,12 @@ function addNotification() {
 
     set(notiRef, newNotification)
         .then(() => {
-            console.log("Thông báo đã được lưu vào Firebase.");
-            // Hiển thị thông báo thành công cho người dùng nếu cần
+            arlert('Thông báo đã được lưu.');
+
         })
         .catch((error) => {
-            console.error("Lỗi khi lưu thông báo vào Firebase: ", error);
-            // Hiển thị thông báo lỗi cho người dùng nếu cần
+            arlert.error('Lỗi khi lưu thông báo vào Firebase: ', error);
+
         });
 }
 

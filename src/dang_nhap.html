@@ -192,11 +192,17 @@ function signin(event) {
     .then((userCredential) => {
       // Lấy thông tin người dùng sau khi đăng nhập
       var user = userCredential.user;
-
-      // Chuyển hướng đến trang chủ sau khi đăng nhập thành công
-      // window.location.href = 'trang_chu.html';
+      const userID = user.uid;
+      const userEmail = user.email;
+      if(userEmail === "nhom17@gmail.com"){
+        alert('Successfully signed in');
+        window.location.href = '/src/quan_tri.html';
+      }
+      else{
+        // Chuyển hướng đến trang chủ sau khi đăng nhập thành công
       alert('Successfully signed in');
-      window.location.href = 'trang_chu.html'+'?id=' + userID;
+      window.location.href = 'trang_chu.html';
+      }
     })
     .catch((error) => {
       console.error(error.message);
