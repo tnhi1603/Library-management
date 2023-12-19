@@ -14,8 +14,24 @@
         .user-box {
             padding: 10px;
             margin-bottom: 10px;
+            position: relative;
         }
 
+        .return-books-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 5px 10px;
+            background-color: #3498db;
+            color: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block; /* Ẩn ban đầu, hiển thị khi hover hoặc có sách đang mượn */
+        }
+
+        .return-books-btn:hover {
+            background-color: #2980b9;
+        }
     </style>
 </head>
 
@@ -105,13 +121,9 @@
                 });
         
             
-            function addUserToPage(usersValue, usersKeys) {
-
-                var newBox = document.createElement('a');
+                function addUserToPage(usersValue, usersKeys) {
+                var newBox = document.createElement('div');
                 newBox.className = 'user-box';
-
-                const newUserBox = document.createElement('div');
-                newUserBox.className = 'user-box';
 
                 var userID = document.createElement('p');
                 userID.innerText = 'User ID: ' + usersKeys;
@@ -120,7 +132,7 @@
                 var username = document.createElement('p');
                 username.innerText = 'Tên người dùng: ' + usersValue.username;
                 newBox.appendChild(username);
-        
+
                 var email = document.createElement('p');
                 email.innerText = 'Email người dùng: ' + usersValue.email;
                 newBox.appendChild(email);
@@ -129,8 +141,20 @@
                     var adminLabel = document.createElement('p');
                     adminLabel.innerText = 'Admin';
                     newBox.appendChild(adminLabel);
+                } else {
+                    // Thêm button "Trả sách" và xử lý sự kiện nhấn
+                    var returnBooksBtn = document.createElement('a');
+                    returnBooksBtn.className = 'return-books-btn';
+                    returnBooksBtn.innerText = 'Trả sách';
+                    returnBooksBtn.href = '#'; // Đặt href tương ứng với trang sách đang mượn của người dùng
+                    returnBooksBtn.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        // Xử lý chuyển hướng đến trang sách đang mượn của người dùng
+                        window.location.href = '/src/sach_dang_muon.html?userID=' + usersKeys;
+                    });
+                    newBox.appendChild(returnBooksBtn);
                 }
-        
+
                 document.getElementById('userContainer').appendChild(newBox);
             }
 

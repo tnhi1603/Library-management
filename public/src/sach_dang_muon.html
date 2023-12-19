@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vn">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Sách Đang Mượn</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/thanh_menu.css" />
+    <link rel="stylesheet" href="../css/quan_tri.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/cfbf817f6f.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .book-container {
+        padding: 20px;
+        margin: 20px;
+        border: 1px solid #ddd;
+        max-width: 400px;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .book-image {
+        max-width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!--Header-->
+      <div class="header">
+        <img src="../img/logo.png" alt="LOGO" height="50px" width="auto" />
+        <div class="toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <script>
+          $(document).ready(function () {
+            $(".toggle").click(function () {
+              $("nav").slideToggle();
+            });
+          });
+        </script>
+        <nav>
+          <ul class="main-menu">
+            <li><a href="../src/trang_chu.html">Trang chủ</a></li>
+            <li class="submenu">
+              <a href="../src/gioi_thieu_gtc.html">Giới thiệu</a>
+              <ul>
+                <li>
+                  <a href="../src/gioi_thieu_gtc.html">Giới thiệu chung</a>
+                </li>
+                <li>
+                  <a href="../src/gioi_thieu_ddtg.html"
+                    >Địa điểm & Thời gian hoạt động</a
+                  >
+                </li>
+                <li>
+                  <a href="../src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a>
+                </li>
+                <li>
+                  <a href="../src/gioi_thieu_ttpb.html"
+                    >Thông tin các phòng ban</a
+                  >
+                </li>
+                <li><a href="../src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
+              </ul>
+            </li>
+            <li><a href="../src/muon_sach.html">Mượn sách</a></li>
+            <li class="submenu">
+              <a href="../src/lien_he.html">Liên hệ</a>
+            </li>
+            <!--Icon fontawsome-->
+            <li>
+              <a href="../src/gio_sach.html"
+                ><i class="fas fa-cart-shopping"></i
+              ></a>
+            </li>
+            <li>
+              <a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a>
+            </li>
+            <li>
+              <a href="#" id="userLink"><i class="fas fa-user"></i></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!--Body-->
+      <h1>Các Cuốn Sách Đang Mượn</h1>
+      <div id="booksContainer"></div>
+
+      <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+        import {
+          getDatabase,
+          ref,
+          get,
+          remove,
+          set
+        } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+          authDomain: "webapplication-19930.firebaseapp.com",
+          databaseURL:
+            "https://webapplication-19930-default-rtdb.firebaseio.com",
+          projectId: "webapplication-19930",
+          storageBucket: "webapplication-19930.appspot.com",
+          messagingSenderId: "240590364295",
+          appId: "1:240590364295:web:072e52f18a04f146c12222",
+          measurementId: "G-BJXFDHBEBK",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const booksRef = ref(database, "books");
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const userID = urlParams.get("userID");
+        const duesRef = ref(database, `dues/${userID}`);
+        if (!userID) {
+          alert("Không tìm thấy thông tin người dùng.");
+        } else {
+          const borrowingsRef = ref(database, `borrowings/${userID}`);
+          get(borrowingsRef).then((snapshot) => {
+            if (snapshot.exists()) {
+              const borrowingData = snapshot.val();
+
+              for (const bookId in borrowingData) {
+                // Đường dẫn đến thông tin của mỗi book id
+                const bookInfoRef = ref(database, `books/${bookId}`);
+
+                // Đọc thông tin từng book id
+                get(bookInfoRef)
+                  .then((bookSnapshot) => {
+                    if (bookSnapshot.exists()) {
+                      const bookInfo = bookSnapshot.val();
+                      addBookToPage(bookInfo, bookId, borrowingData);
+                    } else {
+                      console.log(
+                        `Không tìm thấy thông tin sách với ID ${bookId}`
+                      );
+                    }
+                  })
+                  .catch((error) => {
+                    console.error(
+                      `Lỗi khi đọc thông tin sách với ID ${bookId}:`,
+                      error
+                    );
+                  });
+              }
+            } else {
+              // Giỏ hàng không tồn tại hoặc rỗng
+              console.log("Giỏ hàng không tồn tại hoặc rỗng");
+            }
+          });
+
+          const duesRef = ref(database, `dues/${userID}`);
+          get(duesRef).then((snapshot) => {
+            if (snapshot.exists()) {
+              const dueData = snapshot.val();
+
+              for (const bookId in dueData) {
+                // Đường dẫn đến thông tin của mỗi book id
+                const bookInfoRef = ref(database, `books/${bookId}`);
+
+                // Đọc thông tin từng book id
+                get(bookInfoRef)
+                  .then((bookSnapshot) => {
+                    if (bookSnapshot.exists()) {
+                      const bookInfo = bookSnapshot.val();
+                      addBookToPage(bookInfo, bookId, dueData);
+                    } else {
+                      console.log(
+                        `Không tìm thấy thông tin sách với ID ${bookId}`
+                      );
+                    }
+                  })
+                  .catch((error) => {
+                    console.error(
+                      `Lỗi khi đọc thông tin sách với ID ${bookId}:`,
+                      error
+                    );
+                  });
+              }
+            } else {
+              // Giỏ hàng không tồn tại hoặc rỗng
+              console.log("Giỏ hàng không tồn tại hoặc rỗng");
+            }
+          });
+        }
+
+        function addBookToPage(bookData, bookId, borrowData) {
+          const booksContainer = document.getElementById("booksContainer");
+
+          const bookContainer = document.createElement("div");
+          bookContainer.className = "book-container";
+
+          const bookImage = document.createElement("img");
+          bookImage.className = "book-image";
+          bookImage.src = bookData.Image;
+          bookImage.alt = "Book Image";
+          bookContainer.appendChild(bookImage);
+
+          const bookTitle = document.createElement("p");
+          bookTitle.innerText = "Title: " + bookData.Title;
+          bookContainer.appendChild(bookTitle);
+
+          const bookAuthor = document.createElement("p");
+          bookAuthor.innerText = "Author: " + bookData.Author;
+          bookContainer.appendChild(bookAuthor);
+          booksContainer.appendChild(bookContainer);
+
+          var returnButton = document.createElement("button");
+          returnButton.innerText = "Trả Sách";
+          returnButton.addEventListener("click", function () {
+            // Call the function to handle the return process
+            returnBook(bookId);
+          });
+
+          // Add the "Trả Sách" button to the book container
+          bookContainer.appendChild(returnButton);
+        }
+
+        //Hàm trả sách
+        function returnBook(bookID) {
+            
+            const duesRef = ref(database, `dues/${userID}/${bookID}`);
+            remove(duesRef);
+
+            // Remove the book from the 'borrowings' table
+            const borrowingsRef = ref(
+              database,
+              `borrowings/${userID}/${bookID}`
+            );
+            remove(borrowingsRef);
+
+            // Add the book to the 'returned' table
+            const returnedRef = ref(database, `returned/${userID}/${bookID}`);
+            set(returnedRef, { returnedDate: new Date().toISOString().split('T')[0] });
+            alert('Trả sách thành công');
+            console.log(`Book returned successfully.`);
+          }
+        //userLink
+        document
+          .getElementById("userLink")
+          .addEventListener("click", function (event) {
+            event.preventDefault();
+            onAuthStateChanged(auth, (user) => {
+              if (user) {
+                const userEmail = user.email;
+                if (userEmail === "nhom17@gmail.com") {
+                  window.location.href = "/src/quan_tri.html";
+                } else {
+                  console.log("User login successfully");
+                  window.location.href = "/src/nguoi_dung.html";
+                }
+              } else {
+                console.log("User not login");
+                window.location.href = "/src/dang_nhap.html";
+              }
+            });
+          });
+      </script>
+
+      <!--Footer-->
+      <div class="footer">
+        <div>
+          Địa chỉ: Khu phố 6, Phường Linh Trung, Thành phố Thủ Đức, Thành phố Hồ
+          Chí Minh.
+        </div>
+        <div class="social-link">
+          <div>Facebook: fb.com/thuvien</div>
+          <div>Email: thuvien@gmail.com</div>
+          <div>Hotline: 123456789</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
