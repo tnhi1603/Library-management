@@ -196,7 +196,7 @@ function signin(event) {
       // Chuyển hướng đến trang chủ sau khi đăng nhập thành công
       // window.location.href = 'trang_chu.html';
       alert('Successfully signed in');
-      window.location.href = 'trang_chu.html';
+      window.location.href = 'trang_chu.html'+'?id=' + userID;
     })
     .catch((error) => {
       console.error(error.message);

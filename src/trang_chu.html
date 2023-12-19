@@ -69,7 +69,7 @@
               <a href=" /src/thong_bao.html"><i class="fas fa-bell"></i></a>
             </li>
             <li>
-              <a href=" /src/nguoi_dung.html" id="userLink"><i class="fas fa-user"></i
+              <a href=" /src/dang_nhap.html" id="userLink"><i class="fas fa-user"></i
               ></a>
             </li>
           </ul>
@@ -176,6 +176,7 @@
             ref,
             set,
             get,
+            onValue
           } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
           // Your web app's Firebase configuration
           const firebaseConfig = {
@@ -248,29 +249,19 @@
             })
             .catch((error) => console.error("Error fetching data:", error));
 
-        var isLoggedIn;
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                isLoggedIn
+                const userId = user.uid;
+                window.location.href = 'nguoi_dung.html' + '?id=' + userId;
             }else{
-                isLoggedIn = "false";
+                window.location.href = "/src/dang_nhap.html";
             }
         });
 
       // Xử lý sự kiện click cho nút người dùng
       document.getElementById("userLink").addEventListener("click", function (event) {
             event.preventDefault();
-            onAuthStateChanged();
-          // Kiểm tra nếu đã đăng nhập
-          if ((isLoggedIn = "false")) {
-            // Nếu đã đăng nhập, chuyển hướng đến trang nguoidung.html
-            window.location.href = " /src/quan_tri.html";
-          } else if ((isLoggedIn = "user")) {
-            window.location.href = " /src/nguoi_dung.html";
-          } else {
-            // Nếu chưa đăng nhập, chuyển hướng đến trang dangnhap.html
-            window.location.href = " /src/dang_nhap.html";
-          }
+            onAuthStateChanged(auth, (user));
         });
         </script>
 
