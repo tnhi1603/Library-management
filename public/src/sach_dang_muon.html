@@ -78,7 +78,7 @@
       </div>
       <!--Body-->
       <h1>Các Cuốn Sách Đang Mượn</h1>
-      <div class="list-container" id="booksContainer">
+      <div class="list-container" id="booksContainer"></div>
 
       <script type="module">
         // Import the functions you need from the SDKs you need
@@ -236,6 +236,7 @@
             const returnedRef = ref(database, `returned/${userID}/${bookID}`);
             set(returnedRef, { returnedDate: new Date().toISOString().split('T')[0] });
             alert('Trả sách thành công');
+            window.location.reload();
             console.log(`Book returned successfully.`);
           }
         //userLink
@@ -272,6 +273,6 @@
           <div>Hotline: 123456789</div>
         </div>
       </div>
-    </div>
+  
   </body>
 </html>

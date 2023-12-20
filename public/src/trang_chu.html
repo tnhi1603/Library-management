@@ -70,9 +70,7 @@
               <a href=" /src/thong_bao.html"><i class="fas fa-bell"></i></a>
             </li>
             <li>
-              <a href="#" id="userLink"
-                ><i class="fas fa-user"></i
-              ></a>
+              <a href="#" id="userLink"><i class="fas fa-user"></i></a>
             </li>
           </ul>
         </nav>
@@ -207,19 +205,34 @@
           // Reference to the "books" table
           const booksRef = ref(database, "books");
 
+          get(booksRef)
+            .then((snapshot) => {
+              if (snapshot.exists()) {
+                const booksData = snapshot.val();
+                displayNewBooks(booksData);
+              } else {
+                console.error("No data available");
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+            });
+
           // Function to display new books
-          function displayNewBooks(snapshot) {
+          function displayNewBooks(booksData) {
             const newBooksContainer =
               document.getElementById("newBooksContainer");
             newBooksContainer.innerHTML = "";
 
-            //Chuyển dữ liệu sang các mảng giá trị
-            const booksArray = Object.values(snapshot.val());
+            // Convert data to an array of objects
+            const booksArray = Object.entries(booksData).map(
+              ([key, value]) => ({ key, ...value })
+            );
 
-            //Sắp xếp mảng giảm dần theo timestamp
+            // Sort array by timestamp in descending order
             booksArray.sort((a, b) => b.timestamp - a.timestamp);
 
-            //Từ mảng trên, thực hiện lấy 15 giá trị
+            // Limit the number of displayed books to 15
             const count = Math.min(15, booksArray.length);
 
             for (let i = 0; i < count; i++) {
@@ -227,6 +240,10 @@
 
               const bookElement = document.createElement("div");
               bookElement.classList.add("book");
+              bookElement.addEventListener("click", function () {
+                window.location.href =
+                  "chi_tiet_sach.html" + "?id=" + bookData.key;
+              });
 
               const imageElement = document.createElement("img");
               imageElement.src = bookData.Image;
@@ -249,23 +266,19 @@
               newBooksContainer.appendChild(bookElement);
             }
           }
-          // Fetch data from the database and listen for changes
-          get(booksRef)
-            .then((snapshot) => {
-              displayNewBooks(snapshot);
-            })
-            .catch((error) => console.error("Error fetching data:", error));
-            
-            document.getElementById("userLink").addEventListener("click", function(event){
+
+          document
+            .getElementById("userLink")
+            .addEventListener("click", function (event) {
               event.preventDefault();
-              onAuthStateChanged(auth, (user)=> {
+              onAuthStateChanged(auth, (user) => {
                 if (user) {
                   const userEmail = user.email;
-                  if(userEmail === "nhom17@gmail.com"){
-                    window.location.href = '/src/quan_tri.html';
-                  }else{
-                  console.log("User login successfully");
-                  window.location.href = "/src/nguoi_dung.html";
+                  if (userEmail === "nhom17@gmail.com") {
+                    window.location.href = "/src/quan_tri.html";
+                  } else {
+                    console.log("User login successfully");
+                    window.location.href = "/src/nguoi_dung.html";
                   }
                 } else {
                   console.log("User not login");
