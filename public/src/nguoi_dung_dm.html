@@ -39,7 +39,7 @@
         if (user) {
             const userId = user.uid;
 
-            const borrowingsRef = ref(database, `returns/${userId}`);
+            const borrowingsRef = ref(database, `returned/${userId}`);
 
             get(borrowingsRef).then((snapshot) => {
                 if (snapshot.exists()) {
