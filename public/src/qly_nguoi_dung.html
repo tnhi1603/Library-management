@@ -12,38 +12,40 @@
     <script src="https://kit.fontawesome.com/cfbf817f6f.js" crossorigin="anonymous"></script>
     <style>
         .user-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-        .user-box {
-            padding: 10px;
-            margin-bottom: 10px;
-            width: 70%; /* Adjust the width as needed */
-            position: relative;
-        }
+    .user-box {
+        padding: 10px;
+        margin-top: 10px; /* Để tạo khoảng cách giữa các người dùng */
+        width: 70%;
+        position: relative;
+        background-color: #f9f9f9; /* Màu nền để phân biệt giữa các người dùng */
+    }
 
-        .button-container {
-            width: 30%; /* Adjust the width as needed */
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
+    .admin-label {
+        font-weight: bold;
+        color: red; /* Màu sắc label admin */
+    }
 
-        .return-books-btn {
-            margin-top: 10px;
-            padding: 5px 10px;
-            background-color: #2ecc71;
-            color: #fff;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
+    .return-books-btn {
+        margin-top: 10px;
+        padding: 5px 10px;
+        background-color: darkgreen;
+        color: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        align-self: flex-end;
+        width: 70%;
+        text-align: center;
+    }
 
-        .return-books-btn:hover {
-            background-color: #27ae60;
-        }
+    .return-books-btn:hover {
+        background-color: green;
+    }
     </style>
 </head>
 
@@ -136,6 +138,7 @@
                 function addUserToPage(usersValue, usersKeys) {
                 var userContainer = document.createElement('div');
                 userContainer.className = 'user-container';
+                userContainer.id='userContainer';
 
                 var newBox = document.createElement('div');
                 newBox.className = 'user-box';
@@ -159,16 +162,14 @@
                 }
 
                 userContainer.appendChild(newBox);
-
-                // Thêm button "Quản lý sách mượn" và xử lý sự kiện nhấn
                 var returnBooksBtn = document.createElement('a');
                 returnBooksBtn.className = 'return-books-btn';
                 returnBooksBtn.innerText = 'Quản lý sách mượn';
                 returnBooksBtn.href = '/src/sach_dang_muon.html?userID=' + usersKeys;
                 
                 // Thêm vào container button
-                document.getElementById('userContainer').appendChild(returnBooksBtn);
                 document.getElementById('userContainer').appendChild(userContainer);
+                document.getElementById('userContainer').appendChild(returnBooksBtn);
             }
 
             //userLink
