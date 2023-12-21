@@ -75,6 +75,7 @@
             });
 
         } else {
+            alert("Bạn chưa đăng nhập");
             // Người dùng chưa đăng nhập
             console.log("User is not logged in");
         }
@@ -236,6 +237,7 @@ function handleBorrow(bookId, numberOfDays) {
                 console.error('Lỗi khi đọc dữ liệu từ giỏ hàng:', error);
             });
         } else {
+            alert('Bạn chưa đăng nhập!');
             console.log('Người dùng chưa đăng nhập!');
         }
     });
