@@ -17,7 +17,7 @@
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-    import { getDatabase, ref, onValue, update} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+    import { getDatabase,remove, ref, onValue, update} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
     // Your web app's Firebase configuration
@@ -110,6 +110,13 @@
                 });
                 actionButtons.appendChild(editButton);
 
+                var deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Xóa sách';
+                deleteButton.addEventListener('click', function() {
+                    deleteBook(bookID);
+                });
+                actionButtons.appendChild(deleteButton);
+
                 info.appendChild(actionButtons);
             } else {
                 statusText.innerText = "Hết sách";
@@ -121,6 +128,13 @@
                 editButton.type = 'disabled'
                 editButton.innerText = 'Sửa sách';
                 actionButtons.appendChild(editButton);
+
+                var deleteButton = document.createElement('button');
+                deleteButton.innerText = 'Xóa sách';
+                deleteButton.addEventListener('click', function() {
+                    deleteBook(bookID);
+                });
+                actionButtons.appendChild(deleteButton);
 
             }
             status.appendChild(statusText);
@@ -137,6 +151,21 @@
         function editBook(bookID) {
             window.location.href = 'sua_sach.html'+'?id='+ bookID;
         }
+        function deleteBook(bookID) {
+    if (confirm("Bạn có chắc chắn muốn xóa sách này không?")) {
+        const booksRef = ref(database, "books/" + bookID);
+
+        remove(booksRef)
+            .then(() => {
+                alert("Sách đã bị xóa thành công!");
+                window.location.href = '/src/qly_sach.html'; // Chuyển hướng về trang danh mục sách sau khi xóa
+            })
+            .catch((error) => {
+                alert("Lỗi khi xóa sách: " + error.message);
+            });
+    }
+}
+
 
         //userLink
         document.getElementById("userLink").addEventListener("click", function(event){
