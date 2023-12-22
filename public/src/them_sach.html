@@ -125,6 +125,11 @@
         var quantity = document.getElementById("quantity").value;
         var description = document.getElementById("description").value;
         var image = document.getElementById("image").value;
+        //kiểm tra nhập
+        if (!bookID || isNaN(bookID) || !quantity || isNaN(quantity) || !title || !author || !publisher || !publicationYear || !description) {
+          alert("Vui lòng điền đầy đủ thông tin và đảm bảo mã sách và số lượng.");
+          return;
+        }
         // Reference to your Firebase Realtime Database
         const booksRef = ref(database, "books/" + bookID);
 
@@ -132,6 +137,7 @@
 
         const imageInput = document.getElementById("image");
         const imageFile = imageInput.files[0];
+        
         // Check if an image is selected
         if (imageFile) {
     // Read the image file as a base64 string
@@ -150,17 +156,17 @@
                 Image: base64String, // Save the base64 string in the database
             })
                 .then(() => {
-                alert("Book added successfully!");
+                alert("Thêm sách thành công!");
                 })
                 .catch((error) => {
-                alert("Error adding book: " + error.message);
+                alert("Thêm sách thất bại: " + error.message);
                 });
             };
 
             // Convert the image file to base64
             reader.readAsDataURL(imageFile);
         } else {
-            alert("Please select an image");
+            alert("Hãy chọn hình ảnh!");
         }
     }
     </script>
