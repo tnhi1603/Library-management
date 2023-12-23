@@ -1,5 +1,17 @@
 {
   "hosting": {
+    "redirects": [
+    {
+      "source": "/home",
+      "destination": "/src/trang_chu.html",
+      "type": "301"
+    },
+      {
+        "source": "/thuvien",
+        "destination": "/",
+        "type": "302"
+      }
+    ], 
     "public": "public",
     "ignore": [
       "firebase.json",

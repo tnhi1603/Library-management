@@ -4,14 +4,20 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
     <title>Sign Up</title>
+    <!--Thiết kế giao diện phần cuối trang web-->
     <link rel="stylesheet" href="../css/footer.css">
     <style>
+        /*Thiết kế giao diện đăng ký*/
+
+        /* Phần thiết lập font chữ và kích thước chữ cho toàn bộ trang */
         body {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 16px;
             background: transparent;
             min-height: 100vh;
         }
+
+        /* Phần thiết kế container chứa nội dung trang */
         .container {
             text-align: center;
             border-radius: 5px;
@@ -20,12 +26,16 @@
             max-width: 600px;
             margin: auto;
         }
+
+        /* Phần inline để canh giữa nội dung và đặt một số thuộc tính */
         .inline {
             width: 70%;
             display: inline-block;
             padding: 10px;
             max-width: 500px;
         }
+
+        /*Thiết kế phần đăng ký*/
         .sign-up {
             width: 85%;
             padding: 30px;
@@ -34,6 +44,7 @@
             box-shadow: 0 0 30px dimgray;
             position: relative;
         }
+
         .sign-up .heading {
             text-align: center;
             color: whitesmoke;
@@ -43,15 +54,19 @@
             padding: 25px;
             margin: -30px -30px 20px -30px;
         }
+
+        /*Thiết kế cho nhóm, các mục input và button của form đăng ký*/
         .sign-up .form-group {
             width: 100%;
             margin-bottom: 15px;
         }
+        /*thiết kế cho phần nhãn của input*/
         .sign-up label {
             font-size: 18px;
             margin-bottom: 3px;
             float: left;
         }
+        /* Thiết kế cho các input trong form */
         .sign-up .form-group input:not([type="submit"]) {
             width: 95%;
             background-color: lightgrey ;
@@ -64,9 +79,12 @@
             outline: 0;
             transition: 0 0.5s ease-out;
         }
+        /*Thay đổi màu viền khi input được nhấn vào */
         .sign-up input:not([type="submit"]):focus {
             border-color: dimgray;
         }
+
+        /*Thay đổi giao diện cho nút đăng ký*/
         .sign-up input[type="submit"] {
             background-color: cadetblue ;
             color: white;
@@ -80,9 +98,12 @@
             cursor: pointer;
             transition: all 0.5s ease-out;
         }
+
+        /*Làm đậm màu hơn khi trỏ vào nút đăng ký*/
         .sign-up input[type="submit"]:hover {
             background-color: darkgreen;
         }
+        /*Thiết kế cho phầ liên kết - cụ thể là liên kết với trang đăng nhập*/
         a {
             font-size: 18px;
             color: darkgreen;
@@ -90,6 +111,8 @@
             padding-right: 30px;
             padding-bottom: 10px;
         }
+
+        /*Giao diện cho phần thông báo lỗi*/
         label.error {
             font-weight: 700;
             font-size: 16px;
@@ -97,6 +120,8 @@
 			color: red;
 		}
     </style>
+
+    <!--Kiểm tra và xác nhận dữ liệu trước khi thực hiện tạo tài khoản-->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var form = document.getElementById('formValidation');
@@ -173,114 +198,131 @@
 </head>
 <body>
     <script type="module">
-        // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
+        // Import thư viện cần thiết
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+        //Setup thông tin cho Firebase để kết nối
+        const firebaseConfig = {
+        apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+        authDomain: "webapplication-19930.firebaseapp.com",
+        databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
+        projectId: "webapplication-19930",
+        storageBucket: "webapplication-19930.appspot.com",
+        messagingSenderId: "240590364295",
+        appId: "1:240590364295:web:072e52f18a04f146c12222",
+        measurementId: "G-BJXFDHBEBK"
+        };
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
-  authDomain: "webapplication-19930.firebaseapp.com",
-  databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
-  projectId: "webapplication-19930",
-  storageBucket: "webapplication-19930.appspot.com",
-  messagingSenderId: "240590364295",
-  appId: "1:240590364295:web:072e52f18a04f146c12222",
-  measurementId: "G-BJXFDHBEBK"
-};
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const database = getDatabase(app); 
+        //Khởi tạo lấy dữ liệu từ Realtime Database
+        const database = getDatabase(app); 
 
-document.getElementById('submit').addEventListener('click', signup);
+        //Lắng nghe sự kiện "click" nút đăng ký
+        document.getElementById('submit').addEventListener('click', signup);
 
-// Function to handle user signup
-function signup() {
-  var email = document.getElementById('signupEmailInput').value;
-  var password = document.getElementById('signupPasswordInput').value;
-  var username = document.getElementById('user').value;
-  var repassword = document.getElementById('re-password').value;
+        //Hàm khi cick nút đăng ký
+        function signup() {
+        // Lấy dữ liệu qua ID từ các trường cần thiết trong form đăng nhập 
+        var email = document.getElementById('signupEmailInput').value;
+        var password = document.getElementById('signupPasswordInput').value;
+        var username = document.getElementById('user').value;
+        var repassword = document.getElementById('re-password').value;
 
-  // Kiểm tra username và repassword không được null
-  if (!username || !repassword) {
-    alert('Username and repassword cannot be null');
-    return;
-  }
+        // Kiểm tra username và repassword không được null
+        if (!username || !repassword) {
+            alert('Username and repassword cannot be null');
+            return;
+        }
 
-  // Kiểm tra repassword phải giống với password
-  if (repassword !== password) {
-    alert('Password and repassword do not match');
-    return;
-  }
-  
-  // Use the Auth module from the v9 modular syntax
-  const auth = getAuth(app);
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Lấy thông tin người dùng sau khi đăng ký
-      var user = userCredential.user;
-      const uid = user.uid;
-      // Lưu thông tin người dùng vào Realtime Database
-      saveUserDataToDatabase(uid, username, email, password);
+        // Kiểm tra repassword phải giống với password
+        if (repassword !== password) {
+            alert('Password and repassword do not match');
+            return;
+        }
+        
+        //Khởi tạo Authentication
+        const auth = getAuth(app);
+        //Thực hiện hàm tạo user sau khi hoàn tất kiểm tra thông tin
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Lấy thông tin người dùng sau khi đăng ký
+                var user = userCredential.user;
 
-      // Chuyển hướng đến trang chủ sau khi đăng ký thành công
-      // window.location.href = 'trang_chu.html';
-      alert('Successfully signed up');
-    })
-    .catch((error) => {
-      console.error(error.message);
-      alert('Failed to sign up ' + error.message);
-      document.getElementById('errorMessage').innerHTML = error.message;
-    });
-}
+                //Lấy ID người dùng
+                const uid = user.uid;
 
-// Function to save user data to the Realtime Database
-function saveUserDataToDatabase(uid, username, email, password) {
-  const userRef = ref(database, 'users/' + uid);
-  set(userRef, {
-    username: username,
-    password: password,
-    email: email
-    // Add other user data you want to save
-  });
-}
+                 // Lưu thông tin người dùng vào Realtime Database
+                 saveUserDataToDatabase(uid, username, email, password);
+
+                // Thông báo đăng ký thành công
+                alert('Đăng ký thành công.');
+            })
+            .catch((error) => {
+                //Thông báo nếu đăng ký lỗi 
+                console.error(error.message);
+
+                //Thông báo đnagư ký thất bại
+                alert('Đăng ký thất bại ' + error.message);
+                document.getElementById('errorMessage').innerHTML = error.message;
+            });
+        }
+        // Hàm lưu dữ liệu người dùng sau khi đăng ký
+        function saveUserDataToDatabase(uid, username, email, password) {
+            //Truy vấn Database
+            const userRef = ref(database, 'users/' + uid);
+
+            //Điền các thông tin user vào database
+            set(userRef, {
+                username: username,
+                password: password,
+                email: email
+            });
+        }
     </script>
     <div class="container">
         <div class="inline">
+        <!--Logo của app-->
         <img src="../img/logo.png" alt="LOGO" height="50px" width="auto">
+
+        <!--Tạo form đăng ký-->
         <div class="sign-up">
             <h1 class="heading">ĐĂNG KÝ</h1>
+
+            <!--Xác định ID của form và các thông tin phải nằm trong form-group-->
             <form name="formValidation" id="formValidation">
                 <div class="form-group">
+                    <!--Ô input tên tài khoản-->
                     <label for="user">Tên tài khoản</label>
                     <input id="user" type="text" name="user" placeholder="Name*" required/>
                 </div>
                 <div class="form-group">
+                    <!--Ô input email-->
                     <label for="mail">Email</label>
                     <input id="signupEmailInput" type="email" name="mail" placeholder="Email*" required/>
                 </div>
                 <div class="form-group">
+                    <!--Ô input mật khẩu-->
                     <label for="password">Mật khẩu</label>
                     <input id="signupPasswordInput" type="password" name="password" placeholder="Password*" required/>
                 </div>
                 <div class="form-group">
+                    <!--Ô input nhập lại mật khẩu-->
                     <label for="re-password">Xác nhận lại mật khẩu</label>
                     <input id="re-password" type="password" name="re-password" placeholder="Re-password*" required/>
                 </div>
                 <div class="text-center">
+                    <!--Button submit đăng ký tài khoản-->
                     <input id="submit" type="submit" value="Đăng ký tài khoản" name="submit"/>
                 </div>
             </form>
         </div>
+        <!--Chuyển hướng đăng nhập-->
         <a href="dang_nhap.html">Đăng nhập</a>
         </div>
     </div>

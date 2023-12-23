@@ -4,14 +4,18 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
     <title>Sign In</title>
+    <!--Các thông tin cuối trang-->
     <link rel="stylesheet" href="../css/footer.css">
     <style>
+        /* Thiết lập font và kích thước chữ cho toàn bộ trang */
         body {
             font-family: Arial, Helvetica, sans-serif;
             font-size: 16px;
             background: transparent;
             min-height: 100vh;
         }
+
+        /* Thiết kế cho phần container chứa nội dung trang */
         .container {
             text-align: center;
             border-radius: 5px;
@@ -20,12 +24,16 @@
             max-width: 600px;
             margin: auto;
         }
+
+        /* Thiết kế cho phần inline, canh giữa và giới hạn độ rộng tối đa */
         .inline {
             width: 70%;
             display: inline-block;
             padding: 10px;
             max-width: 500px;
         }
+
+        /* Thiết kế cho phần đăng nhập */
         .sign-up {
             width: 85%;
             padding: 30px;
@@ -34,6 +42,8 @@
             box-shadow: 0 0 30px dimgray;
             position: relative;
         }
+
+        /*Giao diện cho tiêu đề đăng nhập*/
         .sign-up .heading {
             text-align: center;
             color: whitesmoke;
@@ -43,15 +53,21 @@
             padding: 25px;
             margin: -30px -30px 20px -30px;
         }
+
+        /*Giao diện chung cho form đăng nhập*/
         .sign-up .form-group {
             width: 100%;
             margin-bottom: 15px;
         }
+
+        /*Nhãn cho các mục input*/
         .sign-up label {
             font-size: 18px;
             margin-bottom: 3px;
             float: left;
         }
+
+        /* Thiết kế cho các input trong form, bao gồm màu nền, bo tròn và các thuộc tính khác */
         .sign-up .form-group input:not([type="submit"]) {
             width: 95%;
             background-color: lightgrey ;
@@ -64,9 +80,13 @@
             outline: 0;
             transition: 0 0.5s ease-out;
         }
+
+        /* Thiết kế khi input được focus sẽ có viền đen*/
         .sign-up input:not([type="submit"]):focus {
             border-color: dimgray;
         }
+
+        /*Thiết kế nút đăng nhập*/
         .sign-up input[type="submit"] {
             background-color: cadetblue ;
             color: white;
@@ -80,9 +100,13 @@
             cursor: pointer;
             transition: all 0.5s ease-out;
         }
+        
+        /*hover trên nút đăng nhập sẽ hiển thị ra màu xanh lá cây*/
         .sign-up input[type="submit"]:hover {
             background-color: darkgreen;
         }
+
+        /*Thiết kế phần liên kết, chuyển hướng*/
         a {
             font-size: 18px;
             color: darkgreen;
@@ -90,18 +114,21 @@
             padding-right: 30px;
             padding-bottom: 10px;
         }
+        /*Giao diện thông báo lỗi*/
         label.error {
             font-weight: 700;
             font-size: 16px;
             display: block;
-			color: red;
+			      color: red;
 		}
     </style>
+    <!--Kiểm tra, xác thực các trường input-->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var formValidation = document.getElementById('formValidation');
             
             formValidation.addEventListener('submit', function(event) {
+              //Lấy dữ liệu các input từ ID tương ứng
               var mail = document.getElementById('mail');
               var password = document.getElementById('password');
               
@@ -111,13 +138,16 @@
               // Xử lý quy tắc kiểm tra
               var errors = {};
           
+              //Nếu mail trống, yêu cầu nhập lại
               if (!mailValue) {
                 errors['mail'] = 'Vui lòng nhập Email';
               } else if (!isValidEmail(mailValue)) {
+                //Mail không trống nhưng lỗi định dạng
                 errors['mail'] = 'Email sai định dạng (name@domain.com)';
               }
           
               if (passwordValue.length < 5) {
+                //Kiểm tra mật khẩu phải lớn hơn hoặc bằng 5 ký tự
                 errors['password'] = 'Mật khẩu cần ít nhất 5 ký tự';
               }
           
@@ -128,7 +158,6 @@
               if (Object.keys(errors).length === 0) {
                 formValidation.submit();
               }
-          
               event.preventDefault(); // Ngăn chặn gửi form mặc định để xử lý bằng JavaScript
             });
           
@@ -155,82 +184,95 @@
 </head>
 <body>
     <script type="module">
-        // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+        // Import thư viện cần thiết
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
-  authDomain: "webapplication-19930.firebaseapp.com",
-  databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
-  projectId: "webapplication-19930",
-  storageBucket: "webapplication-19930.appspot.com",
-  messagingSenderId: "240590364295",
-  appId: "1:240590364295:web:072e52f18a04f146c12222",
-  measurementId: "G-BJXFDHBEBK"
-};
+        //Thiết lập, cài đặt các thông tin để sử dụng công cụ firebase
+        const firebaseConfig = {
+          apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
+          authDomain: "webapplication-19930.firebaseapp.com",
+          databaseURL: "https://webapplication-19930-default-rtdb.firebaseio.com",
+          projectId: "webapplication-19930",
+          storageBucket: "webapplication-19930.appspot.com",
+          messagingSenderId: "240590364295",
+          appId: "1:240590364295:web:072e52f18a04f146c12222",
+          measurementId: "G-BJXFDHBEBK"
+        };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
+        // Khởi tạo firebase và các công cụ cần thiết
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
 
-document.getElementById('SIsubmit').addEventListener('click', signin);
+        //Lắng nghe sự kiện click ở nút Đăng nhập
+        document.getElementById('SIsubmit').addEventListener('click', signin);
 
-// Function to handle user login
-function signin(event) {
-  
-  event.preventDefault();
-  var email = document.getElementById('signInmail').value;
-  var password = document.getElementById('signInpassword').value;
+        //Xử lý hàm đăng nhập cho sự kiện đăng nhập
+        function signin(event) {
+          //Ngăn chặn hành động mặc định
+          event.preventDefault();
 
-  // Use the Auth module from the v9 modular syntax
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Lấy thông tin người dùng sau khi đăng nhập
-      var user = userCredential.user;
-      const userID = user.uid;
-      const userEmail = user.email;
-      if(userEmail === "nhom17@gmail.com"){
-        alert('Successfully signed in');
-        window.location.href = '/src/quan_tri.html';
-      }
-      else{
-        // Chuyển hướng đến trang chủ sau khi đăng nhập thành công
-      alert('Successfully signed in');
-      window.location.href = 'trang_chu.html';
-      }
-    })
-    .catch((error) => {
-      console.error(error.message);
-      alert('Failed to sign in ' + error.message);
-      document.getElementById('errorMessage').innerHTML = error.message;
-    });
-}
+          //Lấy dữ liệu các input từ ID tương ứng
+          var email = document.getElementById('signInmail').value;
+          var password = document.getElementById('signInpassword').value;
+
+          //Thực hiện hàm đăng nhập vào tài khoản với email và mật khẩu
+          //Sử dụng hàm lấy tài khoản từ firebase authentication
+          signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              // Lấy thông tin người dùng sau khi đăng nhập
+              var user = userCredential.user;
+              const userID = user.uid; //ID người dùng
+              const userEmail = user.email; //Email người dùng
+
+              //Kiểm tra email admin
+              if(userEmail === "nhom17@gmail.com"){
+                //Chuyển hướng đến trang quản trị
+                alert('Successfully signed in');
+                window.location.href = '/src/quan_tri.html';
+              }
+              else{
+                // Chuyển hướng đến trang chủ sau khi đăng nhập thành công
+                alert('Successfully signed in');
+                window.location.href = 'trang_chu.html';
+              }
+            })
+            .catch((error) => {
+              console.error(error.message);
+              //Hiển thị thông báo nếu đăng nhập thất bại
+              alert('Đăng nhập thất bại ' + error.message);
+              document.getElementById('errorMessage').innerHTML = error.message;
+            });
+        }
 
     </script>
     <div class="container">
         <div class="inline">
+        <!--Logo đầu trang-->
         <img src="../img/logo.png" alt="LOGO" height="50px" width="auto">
         <div class="sign-up">
+            <!--Tiêu đề cho form Đăng nhập-->
             <h1 class="heading">ĐĂNG NHẬP</h1>
             <form name="formValidation" id="formValidation">
                 <div class="form-group">
+                    <!--Ô input email-->
                     <label for="mail">Email</label>
                     <input id="signInmail" type="email" name="mail" placeholder="Email*" required/>
                 </div>
                 <div class="form-group">
+                    <!--Ô input mật khẩu-->
                     <label for="password">Mật khẩu</label>
                     <input id="signInpassword" type="password" name="password" placeholder="Password*" required/>
                 </div>
                 <div class="text-center">
+                    <!--Nút đăng nhập-->
                     <input id="SIsubmit" type="submit" value="Đăng nhập" name="submit"/>
                 </div>
             </form>
         </div>
+        <!--Chuyển hướng về trang đăng ký-->
         <a href="/src/dang_ky.html">Đăng ký</a>
         </div>
     </div>
