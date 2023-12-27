@@ -3,18 +3,22 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Sách Đang Mượn</title>
+    <!--Liên kết CSS-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/thanh_menu.css" />
     <link rel="stylesheet" href="/css/muon_sach.css">
     <link rel="stylesheet" href="../css/quan_tri.css" />
     <link rel="stylesheet" href="../css/footer.css" />
     <link rel="stylesheet" href="/css/danh_muc_sach.css">
+
+    <!--Thêm thư viện jQuery và Font Awesome-->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script
       src="https://kit.fontawesome.com/cfbf817f6f.js"
       crossorigin="anonymous"
     ></script>
     <style>
+      /*Thiết kế nút return*/
       .return-button {
         background-color: darkgreen; /* Màu xanh lá cây */
         color: white;
@@ -37,6 +41,7 @@
     <div class="wrapper">
       <!--Header-->
       <div class="header">
+        <!-- Logo và navigation toggle-->
         <img src="../img/logo.png" alt="LOGO" height="50px" width="auto" />
         <div class="toggle">
           <i class="fas fa-bars"></i>
@@ -48,6 +53,7 @@
             });
           });
         </script>
+        <!-- Navigation menu -->
         <nav>
           <ul class="main-menu">
             <li><a href="../src/trang_chu.html">Trang chủ</a></li>
@@ -77,7 +83,6 @@
             <li class="submenu">
               <a href="../src/lien_he.html">Liên hệ</a>
             </li>
-            <!--Icon fontawsome-->
             <li>
               <a href="../src/gio_sach.html"
                 ><i class="fas fa-cart-shopping"></i
@@ -87,6 +92,7 @@
               <a href="../src/thong_bao.html"><i class="fas fa-bell"></i></a>
             </li>
             <li>
+              <!--Phần user-->
               <a href="#" id="userLink"><i class="fas fa-user"></i></a>
             </li>
           </ul>
@@ -94,7 +100,7 @@
       </div>
       <!--Body-->
       <h1>Các Cuốn Sách Đang Mượn</h1>
-      <!-- Search input and button -->
+      <!-- Khu vực tìm kiểm -->
       <div class="search-container">
         <input type="text" id="searchInput" placeholder="Tìm kiếm sách...">
         <button id="findBooks"><i class="fas fa-search"></i></button>
@@ -103,7 +109,7 @@
       </div>
 
       <script type="module">
-        // Import the functions you need from the SDKs you need
+        // Import thư viện
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
         import {
           getDatabase,
@@ -118,7 +124,7 @@
             createUserWithEmailAndPassword,
           } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
-        // Your web app's Firebase configuration
+        // Firebase cấu hình
         const firebaseConfig = {
           apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
           authDomain: "webapplication-19930.firebaseapp.com",
@@ -130,20 +136,23 @@
           appId: "1:240590364295:web:072e52f18a04f146c12222",
           measurementId: "G-BJXFDHBEBK",
         };
-
+        //Khởi tạo Firebase
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
-        const booksRef = ref(database, "books");
+        const booksRef = ref(database, "books"); // Lấy dữ liệu từ bảng books
         const auth = getAuth(app);
 
+        // Lấy thông tin người dùng từ URL
         const urlParams = new URLSearchParams(window.location.search);
         const userID = urlParams.get("userID");
+
+        // Thực hiện các thao tác với Firebase dựa trên thông tin người dùng
         const borrowingsRef = ref(database, `borrowings/${userID}`);
         const duesRef = ref(database, `dues/${userID}`);
         if (!userID) {
           alert("Không tìm thấy thông tin người dùng.");
         } else {
-          
+          // fetch data sách đang mượn
           get(borrowingsRef).then((snapshot) => {
             if (snapshot.exists()) {
               const borrowingData = snapshot.val();
@@ -165,6 +174,7 @@
                     }
                   })
                   .catch((error) => {
+                    //Thông báo lỗi vào console
                     console.error(
                       `Lỗi khi đọc thông tin sách với ID ${bookId}:`,
                       error
@@ -177,6 +187,7 @@
             }
           });
 
+          //fetch data sách đến hạn mỗi lần vào trang
           get(duesRef).then((snapshot) => {
             if (snapshot.exists()) {
               const dueData = snapshot.val();
@@ -210,42 +221,52 @@
           });
         }
 
+        //Hàm hiển thị ra các cuốn sách tương ứng khi được nhấn vào
         function addBookToPage(bookData, bookId, borrowData) {
-          const booksContainer = document.getElementById("booksContainer");
-
+          const booksContainer = document.getElementById("booksContainer");          
           const bookContainer = document.createElement("a");
           bookContainer.className = "box";
-
+          //tạo đối tượng img chứa avatar của sách
           const bookImage = document.createElement("img");
           bookImage.src = bookData.Image;
           bookImage.alt = "Book Image";
+          //Thêm hình ảnh vào container
           bookContainer.appendChild(bookImage);
 
+          //Tạo đối tượng title và thêm vào container
           const bookTitle = document.createElement("p");
           bookTitle.innerText = bookData.Title;
           bookContainer.appendChild(bookTitle);
 
+          //Tạo đói tượng tác giả và thêm vào Container
           const bookAuthor = document.createElement("p");
           bookAuthor.innerText = bookData.Author;
           bookContainer.appendChild(bookAuthor);
           booksContainer.appendChild(bookContainer);
 
+          //Tạo checkbox tương ứng cho mỗi cuốn sách 
           const returnCheckbox = document.createElement("input");
           returnCheckbox.type = "checkbox";
           returnCheckbox.id = `returnCheckbox_${bookId}`;
           returnCheckbox.className = "returnCheckbox";
+          //Thêm đối tượng vào container
           bookContainer.appendChild(returnCheckbox);
 
+          //Tổng hợp toàn bộ đối tượng 
           booksContainer.appendChild(bookContainer);
         }
 
+        //Lắng nghe sự kiện click trả sách 
         document.getElementById("returnSelectedBooks").addEventListener("click", function () {
           returnSelectedBooks();
         });
 
+        //Hàm thực hiện khi nhấn trả sách
         function returnSelectedBooks() {
+          //Kiểm tra giá trị checkbox 
           const checkboxes = document.querySelectorAll(".returnCheckbox:checked");
           checkboxes.forEach((checkbox) => {
+            //Nếu checkbox = 1 trả về ID
             const bookId = checkbox.id.split("_")[1];
             returnBook(bookId);
           });
@@ -253,19 +274,18 @@
 
         //Hàm trả sách
         function returnBook(bookID) {
-            
+            //Truy xuất dữ liệu sách đến hạn và sách mượn
             const duesRef = ref(database, `dues/${userID}/${bookID}`);
-            remove(duesRef);
-
-            // Remove the book from the 'borrowings' table
+            remove(duesRef); //Xóa sách trả
             const borrowingsRef = ref(
               database,
               `borrowings/${userID}/${bookID}`
             );
             remove(borrowingsRef);
 
-            // Add the book to the 'returned' table
+            // Thêm vào bảng sách đã mượn
             const returnedRef = ref(database, `returned/${userID}/${bookID}`);
+            //Set ngày tháng năm trả
             set(returnedRef, { returnedDate: new Date().toISOString().split('T')[0] });
             alert('Trả sách thành công');
             window.location.reload();
@@ -278,12 +298,9 @@
         });  
         function searchBooks() {
           const searchTerm = document.getElementById("searchInput").value.toLowerCase();
-
-          // Clear existing books
           document.getElementById("booksContainer").innerHTML = "";
 
-          // Search for books with matching titles
-          // Search for books with matching titles in borrowings
+          //Tìm sách có kí tự trùng trong bảng mượn
           get(borrowingsRef).then((snapshot) => {
             if (snapshot.exists()) {
               const borrowingsData = snapshot.val();
@@ -291,7 +308,7 @@
               for (const bookId in borrowingsData) {
                 const bookInfoRef = ref(database, `books/${bookId}`);
                 
-                // Check if the book exists in the books collection
+                // Nếu tìm thấy thì thêm vào để hiển thị
                 get(bookInfoRef).then((bookSnapshot) => {
                   if (bookSnapshot.exists()) {
                     const bookInfo = bookSnapshot.val();
@@ -312,6 +329,7 @@
             }
           });
 
+          //Thực hiện tương tự với bảng sách đến hạn
           get(duesRef).then((snapshot) => {
             if (snapshot.exists()) {
               const duesData = snapshot.val();
@@ -319,12 +337,11 @@
               for (const bookId in duesData) {
                 const bookInfoRef = ref(database, `books/${bookId}`);
                 
-                // Check if the book exists in the books collection
                 get(bookInfoRef).then((bookSnapshot) => {
                   if (bookSnapshot.exists()) {
                     const bookInfo = bookSnapshot.val();
 
-                    // Check if the book title exists and matches the search term
+                    //Kiểm tra sự tồn tại của kí tự
                     if (bookInfo.Title && bookInfo.Title.toLowerCase().includes(searchTerm)) {
                       addBookToPage(bookInfo, bookId, duesData);
                     }
@@ -343,24 +360,30 @@
         
         //userLink
         document
-          .getElementById("userLink")
-          .addEventListener("click", function (event) {
-            event.preventDefault();
-            onAuthStateChanged(auth, (user) => {
-              if (user) {
-                const userEmail = user.email;
-                if (userEmail === "nhom17@gmail.com") {
-                  window.location.href = "/src/quan_tri.html";
+            .getElementById("userLink")
+            //Sự kiện click vào người dùng
+            .addEventListener("click", function (event) {
+              //Ngăn chặn hành động mặc định
+              event.preventDefault();
+              //Trang thái người dùng
+              onAuthStateChanged(auth, (user) => {
+                //Nếu đã đăng nhập
+                if (user) {
+                  const userEmail = user.email;
+                  //Kiểm tra email admin
+                  if (userEmail === "nhom17@gmail.com") {
+                    window.location.href = "/src/quan_tri.html";
+                  } else {
+                    console.log("User login successfully");
+                    window.location.href = "/src/nguoi_dung.html";
+                  }
                 } else {
-                  console.log("User login successfully");
-                  window.location.href = "/src/nguoi_dung.html";
+                  //Nếu chưa đăng nhập, điều hướng tới trang đăng nhập
+                  console.log("User not login");
+                  window.location.href = "/src/dang_nhap.html";
                 }
-              } else {
-                console.log("User not login");
-                window.location.href = "/src/dang_nhap.html";
-              }
+              });
             });
-          });
       </script>
 
       <!--Footer-->

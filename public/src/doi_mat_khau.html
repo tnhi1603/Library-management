@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đổi mật khẩu</title>
     <style>
+      /* Thiết lập các thuộc tính cho phần thể hiện của trang web */
       body {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 16px;
         background: transparent;
         min-height: 100vh;
       }
+
+      /* Thiết lập các thuộc tính cho phần container chính trên trang */
       .container {
         text-align: center;
         border-radius: 5px;
@@ -19,12 +22,16 @@
         max-width: 600px;
         margin: auto;
       }
+
+      /* Định dạng một phần tử block nhưng nằm trong một dòng */
       .inline {
         width: 70%;
         display: inline-block;
         padding: 10px;
         max-width: 500px;
       }
+
+      /* Thiết lập các thuộc tính cho phần đổi mật khẩu */
       .change-password {
         width: 85%;
         padding: 30px;
@@ -33,6 +40,8 @@
         box-shadow: 0 0 30px dimgray;
         position: relative;
       }
+
+      /* Định dạng phần heading trong phần đổi mật khẩu */
       .change-password .heading {
         text-align: center;
         color: whitesmoke;
@@ -42,15 +51,21 @@
         padding: 25px;
         margin: -30px -30px 20px -30px;
       }
+
+      /* Thiết lập các thuộc tính cho các nhóm form trong phần đổi mật khẩu */
       .change-password .form-group {
         width: 100%;
         margin-bottom: 15px;
       }
+
+      /* Thiết lập font-size, margin và float cho nhãn trong phần đổi mật khẩu */
       .change-password label {
         font-size: 18px;
         margin-bottom: 3px;
         float: left;
       }
+
+      /* Thiết lập các thuộc tính cho input (trừ input submit) trong phần đổi mật khẩu */
       .change-password .form-group input:not([type="submit"]) {
         width: 95%;
         background-color: lightgrey;
@@ -63,9 +78,13 @@
         outline: 0;
         transition: 0 0.5s ease-out;
       }
+
+      /* Định dạng khi input được focus trong phần đổi mật khẩu */
       .change-password input:not([type="submit"]):focus {
         border-color: dimgray;
       }
+
+      /* Thiết lập các thuộc tính cho input submit trong phần đổi mật khẩu */
       .change-password input[type="submit"] {
         background-color: cadetblue;
         color: white;
@@ -79,9 +98,13 @@
         cursor: pointer;
         transition: all 0.5s ease-out;
       }
+
+      /* Định dạng khi hover vào input submit trong phần đổi mật khẩu */
       .change-password input[type="submit"]:hover {
         background-color: darkgreen;
       }
+
+      /* Định dạng cho các siêu liên kết */
       a {
         font-size: 18px;
         color: darkgreen;
@@ -89,6 +112,8 @@
         padding-right: 30px;
         padding-bottom: 10px;
       }
+
+      /* Định dạng cho thông báo lỗi */
       label.error {
         font-weight: 700;
         font-size: 16px;
@@ -101,30 +126,35 @@
     <div class="container">
       <div class="inline">
         <div class="change-password">
+          <!--Phần tiêu đề-->
           <div class="heading">Đổi mật khẩu</div>
           <form id="changePasswordForm">
             <div class="form-group">
+              <!--Ô input email-->
               <label for="email">Email:</label>
               <input type="email" id="email" required />
             </div>
 
             <div class="form-group">
+              <!--Nhập mật khẩu hiện tại-->
               <label for="currentPassword">Mật khẩu hiện tại:</label>
               <input type="password" id="currentPassword" required />
             </div>
 
             <div class="form-group">
+              <!--Ô input mật khẩu mới-->
               <label for="newPassword">Mật khẩu mới:</label>
               <input type="password" id="newPassword" required />
             </div>
 
+            <!--Button thực hiện đổi mật khẩu-->
             <input type="submit" value="Đổi mật khẩu" />
           </form>
         </div>
-        <!-- <a href="#" id="sendVerificationEmail">Gửi email xác nhận</a> -->
       </div>
     </div>
     <script type="module">
+      //Import thư viện Firebase
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
       import {
@@ -141,6 +171,7 @@
         update,
       } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
 
+      //Cấu hình để lấy dữ liệu Firebase
       const firebaseConfig = {
         apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
         authDomain: "webapplication-19930.firebaseapp.com",
@@ -152,48 +183,59 @@
         measurementId: "G-BJXFDHBEBK",
       };
 
-      // Initialize Firebase
+      // Khởi tạo Firebase
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
       const auth = getAuth(app);
       const database = getDatabase(app);
 
+      //Lắng nghe sự kiện nhấn vào sẽ thực hiện hàm changePassword
       document
         .getElementById("changePasswordForm")
         .addEventListener("submit", changePassword);
 
       // Đổi mật khẩu
       function changePassword(event) {
+        //Ngăn hành động mặc định
         event.preventDefault();
+        //Lấy dữ liệu email và password 
         const email = document.getElementById("email").value;
         const currentPassword =
           document.getElementById("currentPassword").value;
         const newPassword = document.getElementById("newPassword").value;
-
+        //Lấy user hiện tại đang đăng nhập để đổi mật khẩu
         const user = auth.currentUser;
         const credentials = EmailAuthProvider.credential(
           email,
           currentPassword
         );
 
-        // Reauthenticate user
+        // Xác nhận user qua tài khoản mật khẩu nhằm tránh việc đổi mật khẩu tài khoản khác
         reauthenticateWithCredential(user, credentials)
           .then(() => {
-            // Change password
+            // Thực hiện update password trong firebase 
             return updatePassword(user, newPassword);
           })
           .then(() => {
-            // Update password in the Realtime Database
+            // Thay đổi dữ liệu mật khẩu trong database
+            // Lấy userID
             const uid = user.uid;
+            //Truy cập vào bảng users có userID tương ứng
             const userRef = ref(database, "users/" + uid);
+            //Update dữ liệu lên mật khẩu mới
             return update(userRef, { password: newPassword });
           })
           .then(() => {
-            console.log("Cập nhật mật khẩu thành công trong Realtime Database.");
+            //Thông báo đổi thành công
+            console.log(
+              "Cập nhật mật khẩu thành công trong Realtime Database."
+            );
             alert("Đổi mật khẩu thành công!");
+            //Điều hướng tới trang đnagư nhập cho người dùng đăng nhập lại
             window.location.href = "dang_nhap.html";
           })
           .catch((error) => {
+            //Thông báo thất bại
             alert(`Đổi mật khẩu thất bại: ${error.message}`);
           });
       }

@@ -4,12 +4,16 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="description" content="G17 Library" />
     <title>Cổng thông tin thư viện - Trang chủ</title>
+    <!--Gọi các file CSS cần thiết-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href=" /css/trang_chu.css" />
     <link rel="stylesheet" href=" /css/thanh_menu.css" />
     <link rel="stylesheet" href=" /css/footer.css" />
     <link rel="stylesheet" href=" /css/them_sach_moi.css" />
+    <!--import thư viện jquery-->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!--Nhúng một tập tin JavaScript từ "https://kit.fontawesome.com/cfbf817f6f.js" -->
     <script
       src="https://kit.fontawesome.com/cfbf817f6f.js"
       crossorigin="anonymous"
@@ -20,11 +24,14 @@
     <div class="wrapper">
       <!--Header-->
       <div class="header">
+        <!--import hình ảnh logo-->
         <img src=" /img/logo.png" alt="LOGO" height="50px" width="auto" />
+        <!-- Nút toggle cho menu di động -->
         <div class="toggle">
           <i class="fas fa-bars"></i>
         </div>
         <script>
+          //Script jQuery để thực hiện hiệu ứng slideToggle cho menu
           $(document).ready(function () {
             $(".toggle").click(function () {
               $("nav").slideToggle();
@@ -33,43 +40,55 @@
         </script>
         <nav>
           <ul class="main-menu">
+             <!-- Menu chính -->
             <li><a id="now" href=" /src/trang_chu.html">Trang chủ</a></li>
             <li class="submenu">
+              <!--Các mục menu-->
+              <!--Giưới thiệu chung-->
               <a href=" /src/gioi_thieu_gtc.html">Giới thiệu</a>
               <ul>
                 <li>
                   <a href=" /src/gioi_thieu_gtc.html">Giới thiệu chung</a>
                 </li>
                 <li>
+                  <!--Địa điểm và thời gian-->
                   <a href=" /src/gioi_thieu_ddtg.html"
                     >Địa điểm & Thời gian hoạt động</a
                   >
                 </li>
                 <li>
+                  <!--Tài liệu, ấn phẩm-->
                   <a href=" /src/gioi_thieu_tlap.html">Tài liệu - Ấn phẩm</a>
                 </li>
                 <li>
+                  <!--Phòng ban-->
                   <a href=" /src/gioi_thieu_ttpb.html"
                     >Thông tin các phòng ban</a
                   >
                 </li>
+                <!--Sơ đồ-->
                 <li><a href=" /src/gioi_thieu_sd.html">Sơ đồ thư viện</a></li>
               </ul>
             </li>
+            <!--Mượn sách-->
             <li><a href=" /src/muon_sach.html">Mượn sách</a></li>
             <li class="submenu">
+              <!--Liên hệ-->
               <a href=" /src/lien_he.html">Liên hệ</a>
             </li>
-            <!--Icon fontawesome-->
+
             <li>
+              <!--Giỏ sách-->
               <a href=" /src/gio_sach.html"
                 ><i class="fas fa-cart-shopping"></i
               ></a>
             </li>
             <li>
+              <!--Thông báo-->
               <a href=" /src/thong_bao.html"><i class="fas fa-bell"></i></a>
             </li>
             <li>
+              <!--User-->
               <a href="#" id="userLink"><i class="fas fa-user"></i></a>
             </li>
           </ul>
@@ -80,22 +99,28 @@
       <div class="body">
         <!--Slider-->
         <div class="slider">
+          <!--Slide thứ nhất-->
           <div class="slide-group fade">
             <div class="numbertext">1 / 3</div>
             <img src=" /img/slide1.png" style="width: 100%" />
           </div>
 
+          <!--Slide thứ hai-->
           <div class="slide-group fade">
             <div class="numbertext">2 / 3</div>
             <img src=" /img/slide2.jpeg" style="width: 100%" />
           </div>
+
+          <!--Slide thứ ba-->
           <div class="slide-group fade">
             <div class="numbertext">3 / 3</div>
             <img src=" /img/slide3.png" style="width: 100%" />
           </div>
+          <!--Chuyển slide khi click vào slide tương ứng-->
           <a class="prev" onclick="plusSlides(-1)">❮</a>
           <a class="next" onclick="plusSlides(1)">❯</a>
         </div>
+        <!--Các dấu chấm kí hiệu thứ tự các slide-->
         <div style="text-align: center">
           <span class="dot" onclick="currentSlide(1)"></span>
           <span class="dot" onclick="currentSlide(2)"></span>
@@ -116,11 +141,12 @@
             showSlides((slideIndex = n));
           }
 
+          //Hàm hiển thị slide
           function showSlides(n) {
             let i;
             let slides = document.getElementsByClassName("slide-group");
             let dots = document.getElementsByClassName("dot");
-
+            //Điều kiện hiển thị slide tương ứng
             if (n > slides.length) {
               slideIndex = 1;
             }
@@ -150,6 +176,7 @@
 
         <!--Thanh chào mừng-->
         <div class="custom-nav">
+          <!-- Nội dung chào mừng cuộn chạy (marquee) -->
           <div class="marquee-container">
             <div class="marquee">
               <p>
@@ -169,6 +196,7 @@
         </div>
 
         <script type="module">
+          //Import thư viện từ Firebase
           import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
           import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
           import {
@@ -183,7 +211,7 @@
             get,
             onValue,
           } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
-          // Your web app's Firebase configuration
+          // Cấu hình Firebase của dự án tương ứng
           const firebaseConfig = {
             apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
             authDomain: "webapplication-19930.firebaseapp.com",
@@ -196,15 +224,16 @@
             measurementId: "G-BJXFDHBEBK",
           };
 
-          // Initialize Firebase
+          // Khởi tạo Firebase
           const app = initializeApp(firebaseConfig);
           const analytics = getAnalytics(app);
           const auth = getAuth(app);
           const database = getDatabase(app);
 
-          // Reference to the "books" table
+          // Biến trỏ dữ liệu tới bảng "books"
           const booksRef = ref(database, "books");
 
+          //Thực hiện fetch data mỗi lần vào trang
           get(booksRef)
             .then((snapshot) => {
               if (snapshot.exists()) {
@@ -218,62 +247,78 @@
               console.error("Error fetching data:", error);
             });
 
-          // Function to display new books
+          // Hàm hiển thị sách mới 
           function displayNewBooks(booksData) {
             const newBooksContainer =
               document.getElementById("newBooksContainer");
             newBooksContainer.innerHTML = "";
 
-            // Convert data to an array of objects
+            // Chuyển đổi dữ liệu vào mảng
             const booksArray = Object.entries(booksData).map(
               ([key, value]) => ({ key, ...value })
             );
 
-            // Sort array by timestamp in descending order
+            // Sắp xếp mảng theo thứ tự giảm dần
             booksArray.sort((a, b) => b.timestamp - a.timestamp);
 
-            // Limit the number of displayed books to 15
+            // Giới hạn số lượng sách hiển thị là 15
             const count = Math.min(15, booksArray.length);
 
+            //Vòng lặp chạy từ 0 tới số lượng sách hiển thị (15)
             for (let i = 0; i < count; i++) {
               const bookData = booksArray[i];
-
+              //Tạo phần tử div cho mỗi cuốn sách
               const bookElement = document.createElement("div");
               bookElement.classList.add("book");
+
+              //Thêm sự kiện click cho mỗi cuốn sách để chuyển hướng đến trang chi tiết sách
               bookElement.addEventListener("click", function () {
                 window.location.href =
                   "/src/chi_tiet_sach.html" + "?id=" + bookData.key;
               });
 
+              //Tạo phần tử img để hiển thị hình ảnh sách
               const imageElement = document.createElement("img");
               imageElement.src = bookData.Image;
 
+              //Tạo phần tử div chứa thông tin sách
               const infoElement = document.createElement("div");
               infoElement.classList.add("book-info");
 
+              //Tạo phần tử p cho tiêu đề sách
               const titleElement = document.createElement("p");
               titleElement.textContent = `Tiêu đề: ${bookData.Title}`;
 
+              //Tạo phần tử p cho tác giả của sách
               const authorElement = document.createElement("p");
               authorElement.textContent = `Tác giả: ${bookData.Author}`;
 
+              //Thêm các phần tử con vào infoElement
               infoElement.appendChild(titleElement);
               infoElement.appendChild(authorElement);
 
+              //Thêm imageElement và infoElement vào bookElement
               bookElement.appendChild(imageElement);
               bookElement.appendChild(infoElement);
 
+              //Thêm bookElement vào container "newBooksContainer"
               newBooksContainer.appendChild(bookElement);
             }
           }
 
+          //Hàm liên kết với người dùng kiểm tra trạng thái người dùng
           document
             .getElementById("userLink")
+            //Sự kiện click vào người dùng
             .addEventListener("click", function (event) {
+              //Ngăn chặn hành động mặc định
               event.preventDefault();
+              //Trang thái người dùng
               onAuthStateChanged(auth, (user) => {
+                //Nếu đã đăng nhập
                 if (user) {
                   const userEmail = user.email;
+                  //Kiểm tra email admin
                   if (userEmail === "nhom17@gmail.com") {
                     window.location.href = "/src/quan_tri.html";
                   } else {
@@ -281,6 +326,7 @@
                     window.location.href = "/src/nguoi_dung.html";
                   }
                 } else {
+                  //Nếu chưa đăng nhập, điều hướng tới trang đăng nhập
                   console.log("User not login");
                   window.location.href = "/src/dang_nhap.html";
                 }
@@ -299,11 +345,13 @@
             <h1>Quy định - Hướng dẫn:</h1>
             <ul>
               <li>
+                <!--Nội quy-->
                 &gt;&nbsp;<a href=" /src/huong_dan_nqtv.html"
                   >Nội quy thư viện / phòng đọc</a
                 >
               </li>
               <li>
+                <!--Thủ tục-->
                 &gt;&nbsp;<a href=" /src/huong_dan_mstt.html"
                   >Thủ tục mượn sách trực tiếp</a
                 >
@@ -316,8 +364,6 @@
             </ul>
           </div>
         </div>
-
-        <!--Tin tức - Thông báo-->
       </div>
 
       <!--Footer-->
@@ -345,6 +391,7 @@
             document.body.scrollTop > 20 ||
             document.documentElement.scrollTop > 20
           ) {
+            //Hiển thị nút back to top nếu thỏa điều kiện
             document.getElementById("btt").style.display = "block";
           } else {
             document.getElementById("btt").style.display = "none";
@@ -357,6 +404,7 @@
           document.documentElement.scrollTop = 0;
         }
       </script>
+      <!--Nút đưa trở về đầu trang-->
       <button onclick="topFunction()" id="btt" title="Back to top">
         &uarr;
       </button>
