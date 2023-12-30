@@ -104,6 +104,7 @@
                       userRef,
                       (snapshot) => {
                         if (snapshot.exists()) {
+                          // lấy thông tin user để hiển thị lên trang
                           const userRef = snapshot.val();
                           document.getElementById("email").innerText = userRef.email;
                           document.getElementById("username").innerText = userRef.username;
@@ -145,7 +146,7 @@
                       console.error("Error during sign out:", error);
                     });
                 });
-                //userLink
+            //điều kiện cho nút "user" trên thanh công cụ
                 document.getElementById("userLink").addEventListener("click", function(event){
               event.preventDefault();
               onAuthStateChanged(auth, (user)=> {
@@ -167,7 +168,7 @@
             <div class="button">
                 <a href="../src/qly_nguoi_dung.html">Quản lý người dùng</a>
                 <a href="../src/qly_sach.html">Quản lý sách</a>
-                <a href="../src/them_thong_bao.html">Thêm thông báo</a>
+                <a href="../src/qly_thong_bao.html">Quản lý thông báo</a>
             </div>
             <a href="/src/doi_mat_khau.html">Đổi mật khẩu</a>
             <a id="logoutLink" href="#">Đăng xuất</a>

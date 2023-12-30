@@ -62,6 +62,7 @@
     
         <!--Body-->
         <h1>Tin tức - Thông báo</h1>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <script type="module">
             // Import the functions you need from the SDKs you need
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
@@ -106,18 +107,13 @@
                 });
         
             
-            // Hàm thêm ô sách vào trang
+            // Hàm thêm thông báo vào trang
             function addNotiToPage(notiValue, notiKeys) {
-                // Tạo một ô sách mới
-                var newBox = document.createElement('a');
-                // newBox.href = 'chi_tiet_nguoi_dung.html' + '?id=' + booksKeys;
-                newBox.className = 'noti-box';
-        
-                const newUserBox = document.createElement('div');
-                newUserBox.className = 'box';
-                // Thêm tiêu đề sách vào ô sách
+                // Tạo một ô thông báo
+            var newBox = document.createElement('div');
+            newBox.className = 'noti-box';
 
-                var date = document.createElement('p');
+            var date = document.createElement('p');
                 date.innerText = 'Ngày thông báo: '+ notiKeys;
                 newBox.appendChild(date);
 
@@ -128,9 +124,14 @@
                 var content = document.createElement('p');
                 content.innerText = 'Nội dung thông báo: ' + notiValue.Content;
                 newBox.appendChild(content);
-        
-                // Thêm ô sách mới vào container
-                document.getElementById('notiContainer').appendChild(newBox);
+
+                var notiContainer = document.getElementById('notiContainer');
+                // Thêm ô thông báo mới vào đầu container
+                if (notiContainer.firstChild) {
+                    notiContainer.insertBefore(newBox, notiContainer.firstChild);
+                } else {
+                    notiContainer.appendChild(newBox);
+                }
             }
             //userLink
             document.getElementById("userLink").addEventListener("click", function(event){

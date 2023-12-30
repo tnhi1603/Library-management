@@ -3,7 +3,7 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>Tài khoản quản trị</title>
+    <title>Quản lý sách</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/thanh_menu.css">
     <link rel="stylesheet" href="../css/muon_sach.css">
@@ -56,7 +56,7 @@
         <!--Body-->
         <h1>Quản lý sách</h1>
         <script type="module">
-            // Import the functions you need from the SDKs you need
+            // Import the functions from the SDKs 
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
             import { getDatabase, ref, orderByChild, equalTo, query, get, startAt, endAt} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-database.js";
             import {
@@ -64,7 +64,6 @@
             onAuthStateChanged,
             createUserWithEmailAndPassword,
           } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
-            // Your web app's Firebase configuration
             // For Firebase JS SDK v7.20.0 and later, measurementId is optional
             const firebaseConfig = {
                 apiKey: "AIzaSyCxSUgNPvToIUGldmsUXgGQXF10aSSH2Hs",
@@ -76,12 +75,12 @@
                 appId: "1:240590364295:web:072e52f18a04f146c12222",
                 measurementId: "G-BJXFDHBEBK"
             };
-        
+        // khởi tạo liên kết đến database
             const app = initializeApp(firebaseConfig);
             const database = getDatabase(app);
             const booksInDB = ref(database, "books");
             const auth = getAuth(app);
-        
+        // lấy dữ liệu sách từ firebase
             get(booksInDB).then((snapshot) => {
                     if (snapshot.exists()) {
                         snapshot.forEach((bookSnapshot) => {
@@ -166,8 +165,8 @@
                     console.error('Lỗi khi thực hiện truy vấn:', error);
                 });
             });
-            //userLink
 
+            //điều kiện cho nút "user" trên thanh công cụ
             document.getElementById("userLink").addEventListener("click", function(event){
               event.preventDefault();
               onAuthStateChanged(auth, (user)=> {
